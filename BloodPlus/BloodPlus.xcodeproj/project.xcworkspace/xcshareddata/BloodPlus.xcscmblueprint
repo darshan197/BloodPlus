@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4C25894687B83F1C71C3BB6BCFC5F3979CA4AA40",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4C25894687B83F1C71C3BB6BCFC5F3979CA4AA40" : 0,
+    "8F98453D420C868449CC13F1B91585E39F342832" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "01A5D409-26BF-45E8-9313-B9546D1E39B8",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4C25894687B83F1C71C3BB6BCFC5F3979CA4AA40" : "BloodPlus\/",
+    "8F98453D420C868449CC13F1B91585E39F342832" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "BloodPlus",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BloodPlus.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:darshan197\/BloodPlus.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4C25894687B83F1C71C3BB6BCFC5F3979CA4AA40"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/darshan197\/BloodPlus",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "8F98453D420C868449CC13F1B91585E39F342832"
+    }
+  ]
+}
