@@ -11,6 +11,8 @@ import Foundation
 
 class DetailsVC: UIViewController{
 
+    @IBOutlet weak var addrField: UITextField!
+    @IBOutlet weak var pinField: UITextField!
 
     
     override func viewDidLoad() {
@@ -19,6 +21,11 @@ class DetailsVC: UIViewController{
         
     }
 
+    @IBAction func searchPressed(sender: RoundButton) {
+        
+        
+        
+    }
 
 
 }
