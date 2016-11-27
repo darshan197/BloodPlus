@@ -19,6 +19,7 @@
 		C958A0CA1DEB35BB00174291 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C91DEB35BB00174291 /* TableVC.swift */; };
 		C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0CB1DEB35DE00174291 /* MapVC.swift */; };
 		C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */; };
+		C958A0D11DEB425900174291 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0D01DEB425900174291 /* DataService.swift */; };
 		CB61E43A1DE623FE00015F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E4391DE623FE00015F2C /* AppDelegate.swift */; };
 		CB61E43C1DE623FE00015F2C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E43B1DE623FE00015F2C /* LoginVC.swift */; };
 		CB61E43F1DE623FE00015F2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB61E43D1DE623FE00015F2C /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		C958A0C91DEB35BB00174291 /* TableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
 		C958A0CB1DEB35DE00174291 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C958A0D01DEB425900174291 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		CB61E4361DE623FE00015F2C /* BloodPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloodPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB61E4391DE623FE00015F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB61E43B1DE623FE00015F2C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -111,6 +113,14 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		C958A0CF1DEB424700174291 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C958A0D01DEB425900174291 /* DataService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		CB61E42D1DE623FE00015F2C = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		CB61E4381DE623FE00015F2C /* BloodPlus */ = {
 			isa = PBXGroup;
 			children = (
+				C958A0CF1DEB424700174291 /* Services */,
 				C958A0B61DEA58CE00174291 /* Model */,
 				C958A0B71DEA58D400174291 /* View */,
 				C958A0B81DEA58DE00174291 /* Controller */,
@@ -271,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C958A0CA1DEB35BB00174291 /* TableVC.swift in Sources */,
+				C958A0D11DEB425900174291 /* DataService.swift in Sources */,
 				C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */,
 				C958A0C41DEB34D400174291 /* SearchVC.swift in Sources */,
 				C958A0C21DEB346500174291 /* SignUpVC.swift in Sources */,
