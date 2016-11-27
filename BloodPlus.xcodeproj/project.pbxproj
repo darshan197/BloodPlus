@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */; };
 		C958A0BA1DEA87FD00174291 /* DetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0B91DEA87FD00174291 /* DetailsVC.swift */; };
 		C958A0BC1DEB2CFB00174291 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BB1DEB2CFB00174291 /* RoundButton.swift */; };
 		C958A0BE1DEB2F7900174291 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BD1DEB2F7900174291 /* User.swift */; };
@@ -17,6 +18,7 @@
 		C958A0C81DEB353100174291 /* HospitalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C71DEB353100174291 /* HospitalVC.swift */; };
 		C958A0CA1DEB35BB00174291 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C91DEB35BB00174291 /* TableVC.swift */; };
 		C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0CB1DEB35DE00174291 /* MapVC.swift */; };
+		C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */; };
 		CB61E43A1DE623FE00015F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E4391DE623FE00015F2C /* AppDelegate.swift */; };
 		CB61E43C1DE623FE00015F2C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E43B1DE623FE00015F2C /* LoginVC.swift */; };
 		CB61E43F1DE623FE00015F2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB61E43D1DE623FE00015F2C /* Main.storyboard */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BloodPlus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B270766CFE320606E60D07E7 /* Pods-BloodPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloodPlus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		C958A0B91DEA87FD00174291 /* DetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsVC.swift; sourceTree = "<group>"; };
 		C958A0BB1DEB2CFB00174291 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C958A0BD1DEB2F7900174291 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -35,6 +39,7 @@
 		C958A0C71DEB353100174291 /* HospitalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HospitalVC.swift; sourceTree = "<group>"; };
 		C958A0C91DEB35BB00174291 /* TableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
 		C958A0CB1DEB35DE00174291 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB61E4361DE623FE00015F2C /* BloodPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloodPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB61E4391DE623FE00015F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB61E43B1DE623FE00015F2C /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -42,6 +47,7 @@
 		CB61E4401DE623FE00015F2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB61E4431DE623FE00015F2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB61E4451DE623FE00015F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC6B90DD60FBA2F676EFAB7C /* Pods-BloodPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloodPlus.release.xcconfig"; path = "Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,12 +55,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		136E54390AE2F552424F8074 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B270766CFE320606E60D07E7 /* Pods-BloodPlus.debug.xcconfig */,
+				FC6B90DD60FBA2F676EFAB7C /* Pods-BloodPlus.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC51D2D761F82E291067416D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C958A0B61DEA58CE00174291 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +116,8 @@
 			children = (
 				CB61E4381DE623FE00015F2C /* BloodPlus */,
 				CB61E4371DE623FE00015F2C /* Products */,
+				136E54390AE2F552424F8074 /* Pods */,
+				BC51D2D761F82E291067416D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +139,7 @@
 				CB61E43D1DE623FE00015F2C /* Main.storyboard */,
 				CB61E4401DE623FE00015F2C /* Assets.xcassets */,
 				CB61E4421DE623FE00015F2C /* LaunchScreen.storyboard */,
+				C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */,
 				CB61E4451DE623FE00015F2C /* Info.plist */,
 			);
 			path = BloodPlus;
@@ -125,9 +152,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CB61E4481DE623FE00015F2C /* Build configuration list for PBXNativeTarget "BloodPlus" */;
 			buildPhases = (
+				AC8488DE7B1FCA3CE04992E1 /* [CP] Check Pods Manifest.lock */,
 				CB61E4321DE623FE00015F2C /* Sources */,
 				CB61E4331DE623FE00015F2C /* Frameworks */,
 				CB61E4341DE623FE00015F2C /* Resources */,
+				30A3E1AACBB3D6ACEC8788A9 /* [CP] Embed Pods Frameworks */,
+				FD633958124938D49DC16BA3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -179,12 +209,61 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB61E4441DE623FE00015F2C /* LaunchScreen.storyboard in Resources */,
+				C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */,
 				CB61E4411DE623FE00015F2C /* Assets.xcassets in Resources */,
 				CB61E43F1DE623FE00015F2C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		30A3E1AACBB3D6ACEC8788A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC8488DE7B1FCA3CE04992E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FD633958124938D49DC16BA3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CB61E4321DE623FE00015F2C /* Sources */ = {
@@ -313,6 +392,7 @@
 		};
 		CB61E4491DE623FE00015F2C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B270766CFE320606E60D07E7 /* Pods-BloodPlus.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -327,6 +407,7 @@
 		};
 		CB61E44A1DE623FE00015F2C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FC6B90DD60FBA2F676EFAB7C /* Pods-BloodPlus.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
