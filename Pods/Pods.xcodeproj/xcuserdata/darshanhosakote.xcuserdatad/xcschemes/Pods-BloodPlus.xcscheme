@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0810"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C9DA1B0CF57946994DD6DEB79BF2C661"
+               BlueprintIdentifier = "C41559E452CFB8BFFBDF215A1AE00DBE"
                BuildableName = "Pods_BloodPlus.framework"
                BlueprintName = "Pods-BloodPlus"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9DA1B0CF57946994DD6DEB79BF2C661"
+            BlueprintIdentifier = "C41559E452CFB8BFFBDF215A1AE00DBE"
             BuildableName = "Pods_BloodPlus.framework"
             BlueprintName = "Pods-BloodPlus"
             ReferencedContainer = "container:Pods.xcodeproj">
@@ -60,15 +60,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C9DA1B0CF57946994DD6DEB79BF2C661"
-            BuildableName = "Pods_BloodPlus.framework"
-            BlueprintName = "Pods-BloodPlus"
-            ReferencedContainer = "container:Pods.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

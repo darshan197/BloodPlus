@@ -27,6 +27,7 @@
 		CB61E43F1DE623FE00015F2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB61E43D1DE623FE00015F2C /* Main.storyboard */; };
 		CB61E4411DE623FE00015F2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB61E4401DE623FE00015F2C /* Assets.xcassets */; };
 		CB61E4441DE623FE00015F2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB61E4421DE623FE00015F2C /* LaunchScreen.storyboard */; };
+		CB7E7F4F1DEC9FE100CADDC7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB7E7F4E1DEC9FE100CADDC7 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		CB61E4401DE623FE00015F2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB61E4431DE623FE00015F2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB61E4451DE623FE00015F2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB7E7F4E1DEC9FE100CADDC7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FC6B90DD60FBA2F676EFAB7C /* Pods-BloodPlus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloodPlus.release.xcconfig"; path = "Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB7E7F4F1DEC9FE100CADDC7 /* CoreLocation.framework in Frameworks */,
 				455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,7 @@
 		BC51D2D761F82E291067416D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB7E7F4E1DEC9FE100CADDC7 /* CoreLocation.framework */,
 				8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */,
 			);
 			name = Frameworks;

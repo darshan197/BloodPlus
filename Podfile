@@ -10,5 +10,8 @@ target 'BloodPlus' do
   pod ‘Firebase/Auth’
   pod ‘Firebase/Database’
   pod ‘Firebase/Storage’
+  pod ‘GoogleMaps’
+  pod ‘GooglePlaces’
+  pod ‘GooglePlacePicker’
 
 end
