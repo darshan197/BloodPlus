@@ -33,6 +33,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
 
 
+<<<<<<< HEAD
     @IBAction func loginBtnPressed(sender: RoundButton) {
         
         if let userName = userNameField.text ,let password = passwordField.text{
@@ -50,6 +51,28 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     let alertController = UIAlertController(title: "No account exists!", message: "Please sign up!", preferredStyle: UIAlertControllerStyle.Alert)
                     alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                         self.presentViewController(alertController, animated: true, completion: nil)
+=======
+    @IBAction func loginButtonTapped(sender: AnyObject) {
+        if let userName = userNameField.text ,let password = passwordField.text{
+            FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
+                if error == nil {
+                    print ("user exists and successfully logged in")
+                }
+                else{
+                    FIRAuth.auth()?.createUserWithEmail(userName, password: password,completion: {(user,error) in
+                        if error != nil {
+                            print("cannot sign in")
+                        }
+                        else{
+                            print("user created and authenticated")
+                        }
+                    })
+                }
+            })
+            
+        }
+    }
+>>>>>>> origin/master
 
                 }
                 
