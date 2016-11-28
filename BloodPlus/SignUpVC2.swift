@@ -29,10 +29,10 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     @IBOutlet weak var addressField: UITextField!
     
     //
-    var bloodType:String?
+    var bloodType:String = "O+"
     //
     
-    let pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
+    var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -154,7 +154,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         let userToAdd = [
             
             "address": addressField.text! as String,
-            "bloodtype":bloodType!,
+            "bloodtype":bloodType,
             "email":newUser.emailId,
             "firstname":firstNameField.text! as String,
             "lastname":lastNameField.text! as String,
@@ -169,7 +169,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     }
     //
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+       
         let selectedBloodType = pickerArray[row]
+//        if (pickerArray[row] == ""){
+//            bloodType = "O+"
+//        }
         bloodType = selectedBloodType
     }
     
