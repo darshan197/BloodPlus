@@ -17,6 +17,7 @@ class TableVC:UIViewController{
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         print("Chiranth: Recieved details are :\(searchObject?.addressToSearch)\(searchObject?.pincode)")
+        //testing
     }
 
     
