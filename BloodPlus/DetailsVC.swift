@@ -23,9 +23,18 @@ class DetailsVC: UIViewController{
 
     @IBAction func searchPressed(sender: RoundButton) {
         
-        
+        performSegueWithIdentifier("search", sender: self)
         
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if addrField.text != "" || pinField != ""{
+            let searchDetails = SearchDetails(addr: addrField.text!, pincode: pinField.text!)
+            if let destViewController = segue.destinationViewController as? TableVC{
+                destViewController.searchObject = searchDetails
+            }
+            
+        }
+    }
 
 }

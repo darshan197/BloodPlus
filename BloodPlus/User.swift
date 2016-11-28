@@ -19,6 +19,7 @@ class User {
     private var _profilePicUrl : String!
     private var _userName:String!
     private var _userRef:FIRDatabaseReference!
+    private var _uid:String!
     
     var firstName : String{
         if(_firstName == nil){
@@ -80,7 +81,11 @@ class User {
         return _userRef
     }
     
-    init(firstName : String, lastName : String,address:String,bloodType:String, phoneNumber: String, emailId:String, profilePicUrl : String){
+    var uid:String{
+        return _uid
+    }
+    
+    init(uid:String,firstName : String, lastName : String,address:String,bloodType:String, phoneNumber: String, emailId:String, profilePicUrl : String){
         self._firstName = firstName
         self._lastName = lastName
         self._address = address
@@ -88,10 +93,13 @@ class User {
         self._phoneNumber = phoneNumber
         self._emailId = emailId
         self._profilePicUrl = profilePicUrl
+        self._uid = uid
     }
     
-    init(userName:String,userData:Dictionary<String,AnyObject>) {
-        self._userName = userName
+    init(uid:String,userData:Dictionary<String,AnyObject>) {
+       // self._userName = userName
+        
+        self._uid = uid
         
         if let fName = userData["firstname"] as? String {
             self._firstName = fName
@@ -121,6 +129,13 @@ class User {
             self._profilePicUrl = imgUrl
         }
         
-        _userRef = DataService.ds.REF_USERS.child(userName)
+        _userRef = DataService.ds.REF_USERS.child(uid)
+    }
+    
+    
+    //
+    init(email:String,uid:String) {
+        self._uid = uid
+        self._emailId = email
     }
 }

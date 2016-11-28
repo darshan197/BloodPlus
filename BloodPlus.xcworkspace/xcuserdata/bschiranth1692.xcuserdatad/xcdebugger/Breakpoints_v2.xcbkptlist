@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BloodPlus/SignUpVC1.swift"
+            timestampString = "501987433.792829"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "nextBtnPressed(sender:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BloodPlus.SignUpVC1.(nextBtnPressed (BloodPlus.RoundButton) -&gt; ()).(closure #1)"
+                  moduleName = "BloodPlus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bschiranth1692/Desktop/BloodPlus/BloodPlus/SignUpVC1.swift"
+                  timestampString = "501985549.044287"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "1472">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BloodPlus.SignUpVC1.(nextBtnPressed (BloodPlus.RoundButton) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "BloodPlus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bschiranth1692/Desktop/BloodPlus/BloodPlus/SignUpVC1.swift"
+                  timestampString = "501985549.054863"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "1116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

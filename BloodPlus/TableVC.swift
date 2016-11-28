@@ -11,10 +11,13 @@ import UIKit
 
 class TableVC:UIViewController{
     
+    var searchObject:SearchDetails?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        print("Chiranth: Recieved details are :\(searchObject?.addressToSearch)\(searchObject?.pincode)")
     }
 
+    
 }
