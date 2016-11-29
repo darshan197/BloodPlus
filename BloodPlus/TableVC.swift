@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
+class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating , UISearchBarDelegate {
     
     var searchObject:SearchDetails?
     
@@ -51,10 +51,12 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
            self.tableView.reloadData()
         })
 
-        //search
+        //search controller initialization
+        searchController.searchBar.delegate = self
+        searchController.searchBar.scopeButtonTitles = ["BloodType","Address"]
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Enter blood group , ex: O+,AB-,..."
+        searchController.searchBar.placeholder = "Search blood group or address.."
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -113,8 +115,24 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     //search
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         print("search called")
+        
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchScope(searchBar.text!, scope: scope)
+    }
+    
+    //scope
+    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchScope(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+    
+    //search func
+    func filterContentForSearchScope(searchText:String , scope: String = "BloodType"){
+        
+        switch scope {
+        case "BloodType":
             filteredUsers = []
-            let lower = searchController.searchBar.text!.lowercaseString
+            let lower = searchText.lowercaseString
             print("lower is \(lower)")
             for user in users {
                 if lower == user.bloodType.lowercaseString {
@@ -122,10 +140,27 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
                 }
             }
             print("After filter count is \(filteredUsers.count)")
+            
+            tableView.reloadData()
 
-        tableView.reloadData()
-
+        case "Address" :
+            filteredUsers = []
+            let lower = searchText.lowercaseString
+            print("lower is \(lower)")
+            for user in users {
+                if (user.address.lowercaseString.rangeOfString(lower) != nil) {
+                    filteredUsers.append(user)
+                }
+            }
+            print("After filter count is \(filteredUsers.count)")
+            
+            tableView.reloadData()
+            
+        default:
+            print("default")
+        }
     }
+    //
 
 }
 

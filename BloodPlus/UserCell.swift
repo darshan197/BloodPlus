@@ -97,16 +97,29 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
     
     //mail
     func mailUser(){
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients([email.text!])
-            mail.setSubject("Mail from Blood+")
-            mail.setMessageBody("<p>Please help by donating blood..</p>", isHTML: true)
-            self.window?.rootViewController!.presentViewController(mail, animated: true, completion: nil)
-        } else {
-            print("Cant send mail")
-        }
+        
+        let mailAlert = UIAlertController(title: "Mail?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        mailAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+            //
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients([self.email.text!])
+                mail.setSubject("Mail from Blood+")
+                mail.setMessageBody("<p>Please help by donating blood..</p>", isHTML: true)
+                self.window?.rootViewController!.presentViewController(mail, animated: true, completion: nil)
+            } else {
+                print("Cant send mail")
+            }
+
+            
+            //
+            }))
+        
+        mailAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        self.window?.rootViewController!.presentViewController(mailAlert, animated: true, completion: nil)
     }
     
     //
