@@ -9,16 +9,26 @@
 import UIKit
 import Foundation
 
-class DetailsVC: UIViewController{
+class DetailsVC: UIViewController,UITextFieldDelegate,UIPickerViewDelegate,UIPickerViewDataSource,
+UINavigationControllerDelegate{
 
     @IBOutlet weak var addrField: UITextField!
     @IBOutlet weak var pinField: UITextField!
 
+    @IBOutlet weak var bloodPicker: UIPickerView!
+    
+    var bloodType:String = "O+"
+    
+     var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        addrField.delegate = self
+        pinField.delegate = self
         
+        bloodPicker.delegate = self
+        bloodPicker.dataSource = self
     }
 
     @IBAction func searchPressed(sender: RoundButton) {
@@ -29,12 +39,38 @@ class DetailsVC: UIViewController{
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if addrField.text != "" || pinField != ""{
-            let searchDetails = SearchDetails(addr: addrField.text!, pincode: pinField.text!)
+            let searchDetails = SearchDetails(addr: addrField.text!, pincode: pinField.text!, blood: bloodType)
             if let destViewController = segue.destinationViewController as? TableVC{
                 destViewController.searchObject = searchDetails
             }
             
         }
+    }
+    
+    //
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerArray.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerArray[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        
+        let titleData = pickerArray[row]
+        let pickerTitle = NSAttributedString(string: titleData, attributes: [ NSFontAttributeName:UIFont(name:"Georgia",size:20)!,NSForegroundColorAttributeName : UIColor.whiteColor()])
+        return pickerTitle
+        
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedBloodType = pickerArray[row]
+        bloodType = selectedBloodType
     }
 
 }

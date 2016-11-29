@@ -326,7 +326,7 @@
         <!--DonateBlood VC-->
         <scene sceneID="D6I-Ts-rvQ">
             <objects>
-                <viewController id="npt-wc-96Q" userLabel="DonateBlood VC" sceneMemberID="viewController">
+                <viewController id="npt-wc-96Q" userLabel="DonateBlood VC" customClass="DonateBloodVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CeM-eW-vCE"/>
                         <viewControllerLayoutGuide type="bottom" id="2vO-CN-MZ5"/>
@@ -594,7 +594,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Current Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vwa-ZM-nLF">
-                                        <rect key="frame" x="58" y="180" width="260" height="50"/>
+                                        <rect key="frame" x="57" y="280" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="bE2-IR-5Zg"/>
                                             <constraint firstAttribute="height" constant="50" id="isW-ME-tsX"/>
@@ -604,7 +604,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Current Pincode" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aWX-QC-ltO">
-                                        <rect key="frame" x="58" y="240" width="260" height="50"/>
+                                        <rect key="frame" x="57" y="340" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="2XZ-U6-5hQ"/>
                                             <constraint firstAttribute="height" constant="50" id="SlT-2E-e47"/>
@@ -616,14 +616,14 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-va-4Gk">
-                                        <rect key="frame" x="8" y="107" width="359" height="46"/>
+                                        <rect key="frame" x="12.5" y="125" width="350" height="125"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="46" id="ehg-CY-aZV"/>
-                                            <constraint firstAttribute="width" constant="359" id="kBB-xf-YES"/>
+                                            <constraint firstAttribute="height" constant="125" id="ehg-CY-aZV"/>
+                                            <constraint firstAttribute="width" constant="350" id="kBB-xf-YES"/>
                                         </constraints>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6Z-GT-0Zo" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
-                                        <rect key="frame" x="134" y="367" width="110" height="50"/>
+                                        <rect key="frame" x="132.5" y="432" width="110" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="lBo-2O-kMT"/>
@@ -642,15 +642,15 @@
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.90293236301369861" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="cli-nh-Nwc" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" constant="1.5" id="1j1-zk-TOg"/>
-                                    <constraint firstItem="Dbw-va-4Gk" firstAttribute="top" secondItem="RlI-FV-Re0" secondAttribute="top" constant="107" id="8ny-Yi-Xay"/>
-                                    <constraint firstItem="j6Z-GT-0Zo" firstAttribute="top" secondItem="aWX-QC-ltO" secondAttribute="bottom" constant="77" id="CB4-he-QNC"/>
+                                    <constraint firstItem="Dbw-va-4Gk" firstAttribute="top" secondItem="RlI-FV-Re0" secondAttribute="top" constant="125" id="8ny-Yi-Xay"/>
                                     <constraint firstItem="vwa-ZM-nLF" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" id="GkP-Ue-8lH"/>
                                     <constraint firstItem="aWX-QC-ltO" firstAttribute="top" secondItem="vwa-ZM-nLF" secondAttribute="bottom" constant="10" id="JhB-55-Lad"/>
-                                    <constraint firstItem="vwa-ZM-nLF" firstAttribute="top" secondItem="RlI-FV-Re0" secondAttribute="top" constant="180" id="TzW-LA-RNQ"/>
                                     <constraint firstItem="cli-nh-Nwc" firstAttribute="top" secondItem="RlI-FV-Re0" secondAttribute="top" constant="50" id="WzT-lf-8S9"/>
                                     <constraint firstItem="Dbw-va-4Gk" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" id="YUQ-xZ-hVl"/>
                                     <constraint firstItem="aWX-QC-ltO" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" id="Yp8-nb-Ena"/>
-                                    <constraint firstItem="j6Z-GT-0Zo" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" constant="1.5" id="jCa-du-CFp"/>
+                                    <constraint firstItem="j6Z-GT-0Zo" firstAttribute="top" secondItem="aWX-QC-ltO" secondAttribute="bottom" constant="42" id="eYH-yJ-mmy"/>
+                                    <constraint firstItem="j6Z-GT-0Zo" firstAttribute="centerX" secondItem="RlI-FV-Re0" secondAttribute="centerX" id="jCa-du-CFp"/>
+                                    <constraint firstItem="vwa-ZM-nLF" firstAttribute="top" secondItem="Dbw-va-4Gk" secondAttribute="bottom" constant="30" id="mF8-8s-aQU"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -665,17 +665,18 @@
                     <navigationItem key="navigationItem" title="Find Blood" id="rJe-pQ-hUr"/>
                     <connections>
                         <outlet property="addrField" destination="vwa-ZM-nLF" id="lwn-Ya-T7w"/>
+                        <outlet property="bloodPicker" destination="Dbw-va-4Gk" id="eSf-9U-r2I"/>
                         <outlet property="pinField" destination="aWX-QC-ltO" id="dpq-VB-h4j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wy3-Lf-ilP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2446" y="-406"/>
+            <point key="canvasLocation" x="2445.5999999999999" y="-406.14692653673166"/>
         </scene>
         <!--TableVC-->
         <scene sceneID="aLg-qI-N2h">
             <objects>
-                <viewController id="cRH-Af-ABX" userLabel="TableVC" sceneMemberID="viewController">
+                <viewController id="cRH-Af-ABX" userLabel="TableVC" customClass="TableVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zwG-K6-Ux9"/>
                         <viewControllerLayoutGuide type="bottom" id="Pdb-6h-gRr"/>
@@ -692,7 +693,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="294"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Awc-ob-kxu" id="Vfh-WL-Yyf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="293.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="293"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="TgZ-h2-q1b">
@@ -815,7 +816,7 @@
         <!--MapVC-->
         <scene sceneID="zdZ-sS-h8j">
             <objects>
-                <viewController id="NkF-qH-QtB" userLabel="MapVC" sceneMemberID="viewController">
+                <viewController id="NkF-qH-QtB" userLabel="MapVC" customClass="MapVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MxU-ii-eJH"/>
                         <viewControllerLayoutGuide type="bottom" id="ZX9-nC-Bbf"/>
@@ -845,7 +846,7 @@
         <scene sceneID="VSP-6Z-yr4">
             <objects>
                 <navigationController id="JSz-z4-DC6" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gv1-Gi-CsS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gv1-Gi-CsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -862,6 +863,6 @@
         <image name="add-image" width="88" height="88"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kjm-ef-Kab"/>
+        <segue reference="cm2-yt-bHS"/>
     </inferredMetricsTieBreakers>
 </document>

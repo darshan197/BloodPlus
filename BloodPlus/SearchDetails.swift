@@ -10,12 +10,36 @@ import Foundation
 
 class SearchDetails{
     
-    var addressToSearch:String!
-    var pincode:String!
+    private var _addressToSearch:String!
+    private var _pincode:String!
+    private var _bloodType:String!
     
-    init(addr:String,pincode:String) {
-        self.addressToSearch = addr
-        self.pincode = pincode
+    var addressToSearch:String{
+        if _addressToSearch == nil{
+            _addressToSearch = ""
+        }
+        return _addressToSearch
+    }
+    
+    var pincode:String {
+        if _pincode == nil {
+            return ""
+        }
+        return _pincode
+    }
+    
+    var bloodType:String{
+        if _bloodType == nil {
+            return ""
+        }
+        return _bloodType
+    }
+    
+    
+    init(addr:String,pincode:String,blood:String) {
+        self._addressToSearch = addr
+        self._pincode = pincode
+        self._bloodType = blood
     }
     
 }

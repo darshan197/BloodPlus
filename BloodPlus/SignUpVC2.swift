@@ -171,9 +171,6 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
        
         let selectedBloodType = pickerArray[row]
-//        if (pickerArray[row] == ""){
-//            bloodType = "O+"
-//        }
         bloodType = selectedBloodType
     }
     
