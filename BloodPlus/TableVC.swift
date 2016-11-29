@@ -12,7 +12,6 @@ import Firebase
 
 class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating , UISearchBarDelegate {
     
-    var searchObject:SearchDetails?
     
     @IBOutlet weak var tableView: UITableView!
     static var imageCache:NSCache = NSCache()
@@ -24,7 +23,6 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // print("Chiranth: Recieved details are :\(searchObject?.addressToSearch)\(searchObject?.pincode)")
         
         //tableview delegate
         tableView.dataSource = self
