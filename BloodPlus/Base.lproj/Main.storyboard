@@ -807,6 +807,9 @@
                             <constraint firstAttribute="trailing" secondItem="exu-Ta-HJP" secondAttribute="trailing" id="xey-HG-o59"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="exu-Ta-HJP" id="0oZ-LJ-7jv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tox-PD-alo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
