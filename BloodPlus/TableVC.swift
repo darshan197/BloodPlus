@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
+class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating {
     
     var searchObject:SearchDetails?
     
@@ -19,6 +19,8 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
     
     var users = [User]()
     var filteredUsers = [User]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,20 +51,41 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
            self.tableView.reloadData()
         })
 
+        //search
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
     }
 
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.active && searchController.searchBar.text != "" {
+            return filteredUsers.count
+        }
         return users.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let user = users[indexPath.row]
+        let user:User
+        
+        if searchController.active && searchController.searchBar.text != "" {
+            if filteredUsers.count == 0 {
+                user = users[indexPath.row]
+            }else {
+                user = filteredUsers[indexPath.row]
+            }
+        
+        }else{
+           user = users[indexPath.row]
+        }
 
+        
         if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
             
         cell.layer.borderWidth = 2.5
@@ -86,4 +109,23 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    //search
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        print("search called")
+            filteredUsers = []
+            let lower = searchController.searchBar.text!.lowercaseString
+            print("lower is \(lower)")
+            for user in users {
+                if lower == user.bloodType.lowercaseString {
+                    filteredUsers.append(user)
+                }
+            }
+            print("After filter count is \(filteredUsers.count)")
+
+        tableView.reloadData()
+
+    }
+
 }
+
+

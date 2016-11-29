@@ -318,8 +318,12 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="US0-vA-LK4" kind="unwind" identifier="log" unwindAction="prepareForUnwind:" id="BqJ-6T-0GT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8X-so-Cfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="US0-vA-LK4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1244" y="-64"/>
         </scene>
@@ -868,6 +872,6 @@
         <image name="sad_cloud_dark.png" width="144" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cm2-yt-bHS"/>
+        <segue reference="Kjm-ef-Kab"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -87,6 +87,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func completeSignIn(){
         performSegueWithIdentifier("login1", sender: nil)
     }
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+        
+    }
 
 }
 
