@@ -24,9 +24,14 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         // print("Chiranth: Recieved details are :\(searchObject?.addressToSearch)\(searchObject?.pincode)")
         
+        //tableview delegate
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        self.users = []
         //append Firebase data to array
         DataService.ds.REF_USERS.observeEventType(FIRDataEventType.Value, withBlock: {(snapshot) in
-           self.users = []
+           
             
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshots{
@@ -35,12 +40,13 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
                         let key = snap.key
                         let user = User(uid: key, userData: userDict)
                         self.users.append(user)
+                        print("User key:\(key) with name \(user.firstName)")
                     }
                     
                 }
             }
             
-            self.tableView.reloadData()
+           self.tableView.reloadData()
         })
 
     }
@@ -56,11 +62,12 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let user = users[indexPath.row]
-        
-        if let cell = tableView.dequeueReusableCellWithIdentifier("UserCell") as? UserCell {
+
+        if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
+            
         cell.layer.borderWidth = 2.5
         cell.layer.cornerRadius = 10
-        cell.layer.backgroundColor = UIColor.redColor().CGColor
+        cell.layer.borderColor = UIColor.redColor().CGColor
             
             //
             if let img = TableVC.imageCache.objectForKey(user.profilePicUrl){
@@ -72,9 +79,11 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             //
+        }else{
+            return UserCell()
         }
         
-        return UserCell()
+        
     }
     
 }
