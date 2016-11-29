@@ -13,6 +13,8 @@ class TableVC:UIViewController{
     
     var searchObject:SearchDetails?
     
+    static var imageCache:NSCache = NSCache()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

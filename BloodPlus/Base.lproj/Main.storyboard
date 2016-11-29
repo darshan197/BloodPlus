@@ -165,7 +165,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-yi-C4Z">
                                         <rect key="frame" x="58" y="286" width="260" height="50"/>
@@ -175,7 +175,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzJ-QG-oGH">
                                         <rect key="frame" x="146" y="44" width="90" height="21"/>
@@ -496,7 +496,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2lD-sh-4zv">
                                         <rect key="frame" x="58" y="401" width="260" height="40"/>
@@ -613,17 +613,17 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dbw-va-4Gk">
-                                        <rect key="frame" x="12.5" y="125" width="350" height="125"/>
+                                        <rect key="frame" x="13" y="125" width="350" height="125"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="125" id="ehg-CY-aZV"/>
                                             <constraint firstAttribute="width" constant="350" id="kBB-xf-YES"/>
                                         </constraints>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j6Z-GT-0Zo" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
-                                        <rect key="frame" x="132.5" y="432" width="110" height="50"/>
+                                        <rect key="frame" x="133" y="432" width="110" height="50"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="lBo-2O-kMT"/>
@@ -795,6 +795,7 @@
                                             <outlet property="email" destination="wd4-kE-4Hs" id="hPU-w3-qke"/>
                                             <outlet property="name" destination="MVb-L9-TaY" id="90F-gA-bpb"/>
                                             <outlet property="phone" destination="zZ9-Bi-r7w" id="6vD-l3-60w"/>
+                                            <outlet property="profileImage" destination="skz-B3-DEK" id="PcA-He-n2b"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

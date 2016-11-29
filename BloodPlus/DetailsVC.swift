@@ -29,6 +29,14 @@ UINavigationControllerDelegate{
         
         bloodPicker.delegate = self
         bloodPicker.dataSource = self
+        
+        
+        //tap gesture
+        view.userInteractionEnabled = true
+        let aSelector :Selector = #selector(DetailsVC.backgroundTapped)
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        tapGesture.numberOfTapsRequired = 1
+        view.addGestureRecognizer(tapGesture)
     }
 
     @IBAction func searchPressed(sender: RoundButton) {
@@ -72,5 +80,19 @@ UINavigationControllerDelegate{
         let selectedBloodType = pickerArray[row]
         bloodType = selectedBloodType
     }
+    
+    // textfield return pressed
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.addrField.resignFirstResponder()
+        self.pinField.resignFirstResponder()
+        return true
+    }
+    
+    ///// background tap
+    func backgroundTapped()  {
+        self.addrField.resignFirstResponder()
+        self.pinField.resignFirstResponder()
+    }
+
 
 }
