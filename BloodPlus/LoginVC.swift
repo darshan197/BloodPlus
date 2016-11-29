@@ -33,7 +33,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
 
 
-//<<<<<<< HEAD
+
     @IBAction func loginBtnPressed(sender: RoundButton) {
         
         if let userName = userNameField.text ,let password = passwordField.text{
@@ -43,6 +43,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 if error == nil {
                     
                     print ("user exists and successfully logged in")
+                    self.completeSignIn()
+
                 
                 }
                     
@@ -60,14 +62,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
     }
     
-    // perform segue if login credentials are correct
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "login1" {
-            return true
-        }else{
-            return false
-        }
-    }
     
     // textfield return pressed
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -90,6 +84,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         performSegueWithIdentifier("signup", sender:self)
     }
     
+    func completeSignIn(){
+        performSegueWithIdentifier("login1", sender: nil)
+    }
 
 }
 
