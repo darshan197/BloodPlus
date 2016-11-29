@@ -15,16 +15,12 @@ class SearchVC : UIViewController{
     
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
     }
     
     
     @IBAction func signoutTapped(sender: AnyObject) {
         try! FIRAuth.auth()?.signOut()
-     //   self.dismissViewControllerAnimated(true, completion: nil)
-       // self.navigationController?.popViewControllerAnimated(true)
         performSegueWithIdentifier("log", sender: self)
         
     }

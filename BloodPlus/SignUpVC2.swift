@@ -31,7 +31,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     //
     var bloodType:String = "O+"
     //
-    
+    var signUpSuccess:Bool = false
     var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
     
     override func viewDidLoad() {
@@ -103,6 +103,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     //
     @IBAction func signUpTapped(sender: RoundButton) {
         
+        //check for empty fields
+        if firstNameField.text!.isBlank || lastNameField.text!.isBlank
+            || phoneField.text!.isBlank || addressField.text!.isBlank {
+            let alertController = UIAlertController(title: "Please make sure all fields are filled..", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
+            
+        }
+        
         if let img = imagePressed.image {
             
             if let imageData = UIImageJPEGRepresentation(img, 0.2){
@@ -123,6 +132,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                         
                         if let url = downloadUrl{
                             self.postToFirebase(url)
+                            self.signUpSuccess = true
                         }
                         
                     }
@@ -134,18 +144,16 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             }
         }
         
-        
-        ////
-        // alert controller
-        let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
-        let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
-            self.performSegueWithIdentifier("signup2", sender: self)
+        if signUpSuccess{
+            //user has entered valid fields, complete sign up
+            // alert controller for successfully signing up
+            let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
+            let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
+                self.performSegueWithIdentifier("signup2", sender: self)
+            }
+            alertController.addAction(acceptAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
         }
-        alertController.addAction(acceptAction)
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        //segue
-       // performSegueWithIdentifier("signup2", sender: self)
     }
     //
     // posting to firebase
@@ -189,6 +197,51 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         self.lastNameField.resignFirstResponder()
         self.phoneField.resignFirstResponder()
         self.addressField.resignFirstResponder()
+    }
+    
+    //text delegate checks
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        //fname
+        if textField == firstNameField {
+            
+            if textField.text!.isBlank {
+                let alertController = UIAlertController(title: "First Name should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+        }
+        //lname
+        if textField == lastNameField {
+            
+            if textField.text!.isBlank {
+                let alertController = UIAlertController(title: "Last Name should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+        }
+        //
+        //lname
+        if textField == addressField {
+            
+            if textField.text!.isBlank {
+                let alertController = UIAlertController(title: "Address should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+        }
+        //
+        //lname
+        if textField == phoneField {
+            
+            if textField.text!.characters.count != 10 || textField.text!.isBlank {
+                let alertController = UIAlertController(title: "Please enter valid phone number!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+
+        }
+        //
     }
 
 

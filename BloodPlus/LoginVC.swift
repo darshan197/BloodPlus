@@ -38,6 +38,17 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         if let userName = userNameField.text ,let password = passwordField.text{
             
+            if userName.isBlank || userName.isEmail == false  {
+                let alertController = UIAlertController(title: "Invalid Email!", message: "Please enter email in the form of abc@xyz.com", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            if password.isBlank || password.characters.count < 6  {
+                let alertController = UIAlertController(title: "Invalid Password!", message: "Please enter atlease 6 characters", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            
             FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
                 
                 if error == nil {
@@ -93,4 +104,34 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
 
 }
-
+extension String {
+    
+    //To check text field or String is blank or not
+    var isBlank: Bool {
+        get {
+            let trimmed = stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            return trimmed.isEmpty
+        }
+    }
+    
+    //Validate Email
+    var isEmail: Bool {
+        do {
+            let regex = try NSRegularExpression(pattern: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}", options: .CaseInsensitive)
+            return regex.firstMatchInString(self, options: NSMatchingOptions(rawValue: 0), range: NSMakeRange(0, self.characters.count)) != nil
+        } catch {
+            return false
+        }
+    }
+    
+    //validate PhoneNumber
+    var isPhoneNumber: Bool {
+        
+        let charcter  = NSCharacterSet(charactersInString: "+0123456789").invertedSet
+        var filtered:NSString!
+        let inputString:NSArray = self.componentsSeparatedByCharactersInSet(charcter)
+        filtered = inputString.componentsJoinedByString("")
+        return  self == filtered
+        
+    }
+}

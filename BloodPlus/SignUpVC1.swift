@@ -41,6 +41,18 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
         
         if let userName = emailField.text ,let password = passwordField.text{
             
+            if userName.isBlank || userName.isEmail == false  {
+                let alertController = UIAlertController(title: "Invalid Email!", message: "Please enter email in the form of abc@xyz.com", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+            if password.isBlank || password.characters.count < 6  {
+                let alertController = UIAlertController(title: "Invalid Password!", message: "Please enter atlease 6 characters", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+
+            
             FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
                 
                 if error == nil {
