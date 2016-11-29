@@ -852,7 +852,7 @@
         <scene sceneID="VSP-6Z-yr4">
             <objects>
                 <navigationController id="JSz-z4-DC6" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gv1-Gi-CsS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gv1-Gi-CsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

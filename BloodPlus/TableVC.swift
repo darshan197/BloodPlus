@@ -54,6 +54,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         //search
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Enter blood group , ex: O+,AB-,..."
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
@@ -85,7 +86,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
            user = users[indexPath.row]
         }
 
-        
+
         if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
             
         cell.layer.borderWidth = 2.5
