@@ -42,6 +42,7 @@
 		C958A0CB1DEB35DE00174291 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C958A0D01DEB425900174291 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		C986C5741DEE8B83006EEC50 /* BloodPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BloodPlus.entitlements; sourceTree = "<group>"; };
 		C9C320DA1DEB9F74008F750E /* SignUpVC1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC1.swift; sourceTree = "<group>"; };
 		CB61E4361DE623FE00015F2C /* BloodPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloodPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB61E4391DE623FE00015F2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +154,7 @@
 		CB61E4381DE623FE00015F2C /* BloodPlus */ = {
 			isa = PBXGroup;
 			children = (
+				C986C5741DEE8B83006EEC50 /* BloodPlus.entitlements */,
 				C986C56F1DEE80E4006EEC50 /* Utilities */,
 				C958A0CF1DEB424700174291 /* Services */,
 				C958A0B61DEA58CE00174291 /* Model */,
@@ -205,6 +207,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = R4WAP78ZC5;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

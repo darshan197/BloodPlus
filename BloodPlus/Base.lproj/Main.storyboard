@@ -12,7 +12,7 @@
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="LoginVC" customClass="LoginVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" id="BYZ-38-t0r" userLabel="LoginVC" customClass="LoginVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -746,7 +746,7 @@
         <!--Navigation Controller-->
         <scene sceneID="VSP-6Z-yr4">
             <objects>
-                <navigationController id="JSz-z4-DC6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="nav" id="JSz-z4-DC6" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gv1-Gi-CsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

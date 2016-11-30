@@ -31,6 +31,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
+        
+        
+        //monitor log in status, if user already logged in take to home page
+        FIRAuth.auth()?.addAuthStateDidChangeListener({(auth,user) in
+            if user != nil {
+                self.performSegueWithIdentifier("login1", sender: nil)
+            }
+        })
     }
 
 

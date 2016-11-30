@@ -15,13 +15,15 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var storyboard:UIStoryboard?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         GMSPlacesClient.provideAPIKey("AIzaSyAiiDnQ9ZwGuF-AAWTP-Ok18RjKkLNNX3U")
         GMSServices.provideAPIKey("AIzaSyAiiDnQ9ZwGuF-AAWTP-Ok18RjKkLNNX3U")
-        FIRApp.configure()
         
+        FIRApp.configure()
+
         return true
     }
 
