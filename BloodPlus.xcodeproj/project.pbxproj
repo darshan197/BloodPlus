@@ -125,6 +125,13 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		C986C56F1DEE80E4006EEC50 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		CB61E42D1DE623FE00015F2C = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +153,7 @@
 		CB61E4381DE623FE00015F2C /* BloodPlus */ = {
 			isa = PBXGroup;
 			children = (
+				C986C56F1DEE80E4006EEC50 /* Utilities */,
 				C958A0CF1DEB424700174291 /* Services */,
 				C958A0B61DEA58CE00174291 /* Model */,
 				C958A0B71DEA58D400174291 /* View */,

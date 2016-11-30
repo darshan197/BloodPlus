@@ -87,10 +87,73 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     }
     //
     func imageTapped(){
-        presentViewController(imagePicker, animated: true, completion: nil)
+        //allow users to choose
+        
+        // 1
+        let optionMenu = UIAlertController(title: "", message: "Choose image method", preferredStyle: .ActionSheet)
+        
+        // 2
+        let mediaAction = UIAlertAction(title: "Choose from device", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        })
+        let frontCameraAction = UIAlertAction(title: "Front camera", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //
+            if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
+                if UIImagePickerController.availableCaptureModesForCameraDevice(.Front) != nil {
+                    self.imagePicker.sourceType = .Camera
+                    self.imagePicker.cameraCaptureMode = .Photo
+                    self.presentViewController(self.imagePicker, animated: true, completion: {})
+                } else {
+                    let alert = UIAlertController(title: "No front camera", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            } else {
+                let alert = UIAlertController(title: "No camera available", message: "Check your app settings for camera", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            //
+        })
+        
+        //
+        let backCameraAction = UIAlertAction(title: "Back camera", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            //
+            if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
+                if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                    self.imagePicker.sourceType = .Camera
+                    self.imagePicker.cameraCaptureMode = .Photo
+                    self.presentViewController(self.imagePicker, animated: true, completion: {})
+                } else {
+                    let alert = UIAlertController(title: "No rear camera", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            } else {
+                let alert = UIAlertController(title: "No camera available", message: "Check your app settings for camera", preferredStyle: UIAlertControllerStyle.Alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
+            //
+        })
+        // 4
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        // 5
+        optionMenu.addAction(mediaAction)
+        optionMenu.addAction(frontCameraAction)
+        optionMenu.addAction(backCameraAction)
+        optionMenu.addAction(cancelAction)
+        
+        // 6
+        self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
-    //
+    // finished choosing image
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -98,6 +161,10 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         }
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
 
+    }
+    //imaeg picking cancelled
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     //
