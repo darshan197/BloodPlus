@@ -98,26 +98,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             //
             self.presentViewController(self.imagePicker, animated: true, completion: nil)
         })
-        let frontCameraAction = UIAlertAction(title: "Front camera", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            //
-            if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
-                if UIImagePickerController.availableCaptureModesForCameraDevice(.Front) != nil {
-                    self.imagePicker.sourceType = .Camera
-                    self.imagePicker.cameraCaptureMode = .Photo
-                    self.presentViewController(self.imagePicker, animated: true, completion: {})
-                } else {
-                    let alert = UIAlertController(title: "No front camera", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            } else {
-                let alert = UIAlertController(title: "No camera available", message: "Check your app settings for camera", preferredStyle: UIAlertControllerStyle.Alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alert, animated: true, completion: nil)
-            }
-            //
-        })
+
         
         //
         let backCameraAction = UIAlertAction(title: "Back camera", style: .Default, handler: {
@@ -145,7 +126,6 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         
         // 5
         optionMenu.addAction(mediaAction)
-        optionMenu.addAction(frontCameraAction)
         optionMenu.addAction(backCameraAction)
         optionMenu.addAction(cancelAction)
         

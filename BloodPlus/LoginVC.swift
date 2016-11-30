@@ -44,7 +44,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
 
 
     @IBAction func loginBtnPressed(sender: RoundButton) {
-        
+        print("login called")
         if let userName = userNameField.text ,let password = passwordField.text{
             
             if userName.isBlank || userName.isEmail == false  {
@@ -108,11 +108,46 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         performSegueWithIdentifier("login1", sender: nil)
     }
     
-    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue){}
+    
+    //reset
+    @IBAction func resetPassword(sender: AnyObject) {
+        
+        if userNameField.text!.isBlank || userNameField.text!.isEmail == false {
+            let alertController = UIAlertController(title: "Empty/Invalid Email!", message: "Please re-enter the email for password reset", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alertController, animated: true, completion: nil)
+        } else {
+            
+            //
+            if let email = userNameField.text {
+                FIRAuth.auth()?.sendPasswordResetWithEmail(email, completion: {(error) in
+                    if error != nil {
+                        print("error resetting")
+                        let alertController = UIAlertController(title: "Error Resetting password", message: "Please try again", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        
+                        
+                    } else {
+                        print("success to reset")
+                        let alertController = UIAlertController(title: "Link to reset password sent to inbox", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        
+                    }
+                })
+            }
+            //
+        }
+
         
     }
+    
 
 }
+
+//string extensions
 extension String {
     
     //To check text field or String is blank or not
