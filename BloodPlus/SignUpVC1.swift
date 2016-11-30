@@ -126,5 +126,10 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
         self.emailField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
     }
+    
+    //
+    @IBAction func backPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 
 }

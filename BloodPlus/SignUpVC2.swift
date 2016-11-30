@@ -81,7 +81,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let titleData = pickerArray[row]
-        let pickerTitle = NSAttributedString(string: titleData, attributes: [ NSFontAttributeName:UIFont(name:"Georgia",size:20)!,NSForegroundColorAttributeName : UIColor.whiteColor()])
+        let pickerTitle = NSAttributedString(string: titleData, attributes: [ NSFontAttributeName:UIFont(name:"Georgia",size:20)!,NSForegroundColorAttributeName : UIColor.blackColor()])
         return pickerTitle
         
     }

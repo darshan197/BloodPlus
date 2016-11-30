@@ -63,9 +63,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 if error == nil {
                     
                     print ("user exists and successfully logged in")
-                    self.completeSignIn()
-
-                
+                    self.completeSignIn()                
                 }
                     
                 else{

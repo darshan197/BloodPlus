@@ -72,9 +72,11 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
     
     //call
     func callUser(){
+        
+        print("call user called")
         let callAlert = UIAlertController(title: "Call?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
-        callAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        callAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
            
             let CleanphoneNumber = self.phone.text!.stringByReplacingOccurrencesOfString(" ", withString: "")
             if let phoneCallURL:NSURL = NSURL(string: "tel://\(CleanphoneNumber)") {
@@ -97,10 +99,10 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
     
     //mail
     func mailUser(){
-        
+        print("mail user called")
         let mailAlert = UIAlertController(title: "Mail?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
-        mailAlert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { (action: UIAlertAction!) in
+        mailAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
             //
             if MFMailComposeViewController.canSendMail() {
                 let mail = MFMailComposeViewController()

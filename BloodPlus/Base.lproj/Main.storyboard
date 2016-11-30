@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="cRH-Af-ABX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,7 +24,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZ3-Zj-5bL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Id" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-3A-Qe1">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email id" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6n8-3A-Qe1">
                                         <rect key="frame" x="58" y="120" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="HvC-fp-ySI"/>
@@ -34,7 +34,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password-atleast 6 characters" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PLS-6D-nIS">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PLS-6D-nIS">
                                         <rect key="frame" x="58" y="200" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="mYk-1w-9qi"/>
@@ -97,7 +97,7 @@
                                         </constraints>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
-                                                <fragment content="SignUp">
+                                                <fragment content="Sign up">
                                                     <attributes>
                                                         <font key="NSFont" size="20" name="AvenirNext-Regular"/>
                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
@@ -215,7 +215,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVX-O0-Xaa">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Id" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EOv-Lb-P66">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Id" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EOv-Lb-P66">
                                         <rect key="frame" x="58" y="196" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="M9y-ml-vsx"/>
@@ -225,7 +225,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password-atleast 6 characters" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-yi-C4Z">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password-atleast 6 characters" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="pdj-yi-C4Z">
                                         <rect key="frame" x="58" y="286" width="260" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="PP7-np-VtK"/>
@@ -235,7 +235,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzJ-QG-oGH">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzJ-QG-oGH">
                                         <rect key="frame" x="146" y="44" width="90" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="90" id="JIK-P3-F6Q"/>
@@ -258,13 +258,27 @@
                                             <action selector="nextBtnPressed:" destination="Xvy-we-BF6" eventType="touchUpInside" id="vun-ii-wOj"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCd-ae-Ukw" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
+                                        <rect key="frame" x="16" y="16" width="40" height="25"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="EEc-0M-iUu"/>
+                                            <constraint firstAttribute="height" constant="25" id="TsU-l6-6SO"/>
+                                        </constraints>
+                                        <state key="normal" title="Back"/>
+                                        <connections>
+                                            <action selector="backPressed:" destination="Xvy-we-BF6" eventType="touchUpInside" id="92v-Pm-Zth"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.89902611301369861" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="OzJ-QG-oGH" firstAttribute="top" secondItem="eVX-O0-Xaa" secondAttribute="top" constant="44" id="64s-ha-Vj0"/>
                                     <constraint firstItem="BVT-IL-yBz" firstAttribute="centerX" secondItem="eVX-O0-Xaa" secondAttribute="centerX" id="8m6-QU-qPp"/>
                                     <constraint firstItem="pdj-yi-C4Z" firstAttribute="centerX" secondItem="eVX-O0-Xaa" secondAttribute="centerX" id="BM4-So-iJq"/>
+                                    <constraint firstItem="TCd-ae-Ukw" firstAttribute="top" secondItem="eVX-O0-Xaa" secondAttribute="top" constant="16" id="CMx-GJ-92S"/>
                                     <constraint firstItem="BVT-IL-yBz" firstAttribute="top" secondItem="pdj-yi-C4Z" secondAttribute="bottom" constant="85" id="fNf-dq-F2F"/>
+                                    <constraint firstItem="TCd-ae-Ukw" firstAttribute="leading" secondItem="eVX-O0-Xaa" secondAttribute="leading" constant="16" id="i5T-OE-Kmk"/>
                                     <constraint firstItem="pdj-yi-C4Z" firstAttribute="top" secondItem="EOv-Lb-P66" secondAttribute="bottom" constant="40" id="lbs-eR-lGg"/>
                                     <constraint firstItem="EOv-Lb-P66" firstAttribute="top" secondItem="OzJ-QG-oGH" secondAttribute="bottom" constant="131" id="tNa-8Q-jjE"/>
                                     <constraint firstItem="OzJ-QG-oGH" firstAttribute="centerX" secondItem="eVX-O0-Xaa" secondAttribute="centerX" constant="3.5" id="udp-bN-3WM"/>
@@ -362,7 +376,7 @@
                             <constraint firstItem="Vh3-nV-jJN" firstAttribute="centerX" secondItem="8pQ-cA-2G7" secondAttribute="centerX" id="yXX-9S-bBb"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ZSf-ib-AAE">
+                    <navigationItem key="navigationItem" title="Search/Donate Blood" id="ZSf-ib-AAE">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="ELR-ms-24W">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="AO6-U9-v9x" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
                                 <rect key="frame" x="276" y="7" width="83" height="30"/>
@@ -570,7 +584,7 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="uXI-U0-zBx">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="uXI-U0-zBx">
                                         <rect key="frame" x="125" y="95" width="125" height="125"/>
                                         <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -579,10 +593,10 @@
                                         </constraints>
                                     </imageView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZFf-8p-ltg">
-                                        <rect key="frame" x="58" y="451" width="260" height="120"/>
-                                        <color key="backgroundColor" red="1" green="0.23137254901960785" blue="0.10196078431372549" alpha="0.90004280821917804" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="58" y="451" width="260" height="80"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="120" id="etJ-5f-pmE"/>
+                                            <constraint firstAttribute="height" constant="80" id="etJ-5f-pmE"/>
                                             <constraint firstAttribute="width" constant="260" id="kSm-qj-iv5"/>
                                         </constraints>
                                     </pickerView>
@@ -819,12 +833,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add-image" width="88" height="88"/>
         <image name="call-image" width="246" height="246"/>
+        <image name="defaultProfilePic" width="256" height="256"/>
         <image name="mail-image" width="184" height="184"/>
         <image name="sad_cloud_dark.png" width="144" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Kjm-ef-Kab"/>
+        <segue reference="cm2-yt-bHS"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -23,7 +23,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("tableview loaded")
         //tableview delegate
         tableView.dataSource = self
         tableView.delegate = self
@@ -32,7 +32,6 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         //append Firebase data to array
         DataService.ds.REF_USERS.observeEventType(FIRDataEventType.Value, withBlock: {(snapshot) in
            
-            
             if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshots{
 
