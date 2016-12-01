@@ -63,6 +63,8 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
         
+      
+        
     }
     
     
@@ -291,5 +293,37 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         //
     }
 
+    //start editing
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == phoneField || textField == addressField {
+        
+        }
+    }
+    //keyboard hide
+    func keyboardWillShow(notification: NSNotification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            if view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+            else {
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+            }
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
+            if view.frame.origin.y != 0 {
+                self.view.frame.origin.y += keyboardSize.height
+            }
+            else {
+                
+            }
+        }
+    }
+    //
 
 }

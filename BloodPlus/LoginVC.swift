@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 
-class LoginVC: UIViewController, UITextFieldDelegate {
+class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField {
 
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -47,15 +47,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         print("login called")
         if let userName = userNameField.text ,let password = passwordField.text{
             
-            if userName.isBlank || userName.isEmail == false  {
-                let alertController = UIAlertController(title: "Invalid Email!", message: "Please enter email in the form of abc@xyz.com", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+            if self.userNameField.text!.isEmpty  {
+                // addAnimationToTextField(self.userNameField)
+                self.addAnimationToTextField(self.userNameField)
             }
-            if password.isBlank || password.characters.count < 6  {
-                let alertController = UIAlertController(title: "Invalid Password!", message: "Please enter atlease 6 characters", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+            if self.passwordField.text!.isEmpty {
+                self.addAnimationToTextField(self.passwordField)
             }
             
             FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
@@ -68,16 +65,24 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     
                 else{
                     print("No user found")
-                    let alertController = UIAlertController(title: "No account exists!", message: "Please sign up!", preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alertController, animated: true, completion: nil)
+                    //let user know that account doesnt exisy
+                    if self.userNameField.text!.isEmpty == false
+                        && self.passwordField.text!.isEmpty == false {
+
+                        self.showAlert("No account exists", message: "Please sign up")
+                        
+                        //clear both fields
+                        self.userNameField.text = ""
+                        self.passwordField.text = ""
+                    }
+
                 
 
                 }
                 
             })       
         }
-        
+
     }
     
     
@@ -111,10 +116,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     //reset
     @IBAction func resetPassword(sender: AnyObject) {
         
-        if userNameField.text!.isBlank || userNameField.text!.isEmail == false {
-            let alertController = UIAlertController(title: "Empty/Invalid Email!", message: "Please re-enter the email for password reset", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
+        if userNameField.text!.isBlank  {
+            
+            self.showAlert("Email field empty", message: "Please fill the email for password reset")
+            
         } else {
             
             //
@@ -122,28 +127,43 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 FIRAuth.auth()?.sendPasswordResetWithEmail(email, completion: {(error) in
                     if error != nil {
                         print("error resetting")
-                        let alertController = UIAlertController(title: "Error Resetting password", message: "Please try again", preferredStyle: UIAlertControllerStyle.Alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alertController, animated: true, completion: nil)
                         
+                        self.showAlert("Error Resetting password", message: "")
                         
                     } else {
                         print("success to reset")
-                        let alertController = UIAlertController(title: "Link to reset password sent to inbox", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alertController, animated: true, completion: nil)
+                        
+                        self.showAlert("Link to reset password sent to inbox", message: "")
                         
                     }
                 })
             }
             //
         }
-
-        
     }
     
+    //email and password check
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        if textField == userNameField {
+            if textField.text!.isBlank || textField.text!.isEmail == false {
+                textField.text = ""
+                self.addAnimationToTextField(userNameField)
+            }
+        }
+        
+        if textField == passwordField {
+            if textField.text!.isBlank || textField.text!.characters.count < 6 {
+                textField.text = ""
+                self.addAnimationToTextField(passwordField)
+            }
+        }
 
+    }
+    //
 }
+
+
 
 //string extensions
 extension String {

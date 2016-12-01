@@ -10,11 +10,20 @@ import Foundation
 import UIKit
 import Firebase
 
-class SignUpVC1 : UIViewController , UITextFieldDelegate{
+class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeTextField , ShakeLabel{
     
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPassword: UITextField!
+    
+    @IBOutlet weak var userMessage: UILabel!
+    
+    @IBOutlet weak var emailFormatMessage: UILabel!
+    
+    @IBOutlet weak var passwordFormatMessage: UILabel!
+    
+    @IBOutlet weak var mismatchMessage: UILabel!
     
     var signUpSuccess:Bool = false
     var savedUID :String?
@@ -22,10 +31,11 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // FIRApp.configure()
+        userMessage.hidden = true
         
         emailField.delegate = self
         passwordField.delegate = self
+        confirmPassword.delegate = self
         
         //tap gesture
         view.userInteractionEnabled = true
@@ -38,29 +48,41 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
     
     @IBAction func nextBtnPressed(sender: RoundButton) {
         
+        if emailField.text!.isBlank {
+            addAnimationToTextField(emailField)
+        }
+        if passwordField.text!.isBlank {
+            addAnimationToTextField(passwordField)
+        }
+        if confirmPassword.text!.isBlank{
+            addAnimationToTextField(confirmPassword)
+        }
+        if passwordField.text!.isBlank == false && confirmPassword.text?.isBlank == false  {
+            if passwordField.text != confirmPassword.text {
+                addAnimationToTextField(confirmPassword)
+                mismatchMessage.text = "Passwords do not match"
+                mismatchMessage.hidden = false
+                addAnimationToLabelField(mismatchMessage)
+                
+            }
+        }
         
+        if emailField.text!.isBlank || passwordField.text!.isBlank || confirmPassword.text!.isBlank{
+            userMessage.text = "Please fill all fields"
+            userMessage.hidden = false
+            addAnimationToLabelField(userMessage)
+        } else {
+        //
         if let userName = emailField.text ,let password = passwordField.text{
             
-            if userName.isBlank || userName.isEmail == false  {
-                let alertController = UIAlertController(title: "Invalid Email!", message: "Please enter email in the form of abc@xyz.com", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-            if password.isBlank || password.characters.count < 6  {
-                let alertController = UIAlertController(title: "Invalid Password!", message: "Please enter atlease 6 characters", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-
             
             FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
                 
                 if error == nil {
                     
                     print ("user exists ")
-                    let alertController = UIAlertController(title: "User already exists!", message: "Please give different email/password", preferredStyle: UIAlertControllerStyle.Alert)
-                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    self.showAlert("User already exists", message: "Please enter different username/password")
 
                     
                 }
@@ -72,14 +94,9 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
                         if error != nil {
                             
                             print("cannot sign in")
-                            let alertController = UIAlertController(title: "Account creation error!", message: "Please try again", preferredStyle: UIAlertControllerStyle.Alert)
-                            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                            self.presentViewController(alertController, animated: true, completion: nil)
+                            self.showAlert("Account creation error", message: "Please try again")
 
-                            
-                        }
-                            
-                        else{
+                        } else{
                             self.savedUID =  user?.uid
                             print("user created and authenticated")
                             self.signUpSuccess = true
@@ -95,10 +112,8 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
             
             
         }
-        
-
-
-        
+        //
+      }
     }
     
     //
@@ -118,6 +133,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.emailField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
+        self.confirmPassword.resignFirstResponder()
         return true
     }
     
@@ -125,11 +141,33 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate{
     func backgroundTapped()  {
         self.emailField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
+        self.confirmPassword.resignFirstResponder()
     }
     
-    //
-    @IBAction func backPressed(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    //email and password checks
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        if textField == emailField {
+            if textField.text!.isBlank || textField.text!.isEmail == false {
+                textField.text = ""
+                self.addAnimationToTextField(emailField)
+                self.addAnimationToLabelField(emailFormatMessage)
+            }
+        }
+        
+        if textField == passwordField {
+            if textField.text!.isBlank || textField.text!.characters.count < 6 {
+                textField.text = ""
+                self.addAnimationToTextField(passwordField)
+                self.addAnimationToLabelField(passwordFormatMessage)
+            }
+        }
+        
+        
     }
-
+    //
+    func textFieldDidBeginEditing(textField: UITextField) {
+        userMessage.hidden = true
+    }
+    //
 }

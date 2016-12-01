@@ -9,93 +9,116 @@
 //import Foundation
 import UIKit
 import MapKit
-import CoreLocation
-import GooglePlaces
-import GoogleMaps
-import GooglePlacePicker
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark : MKPlacemark)
+}
 
-class HospitalVC : UIViewController , CLLocationManagerDelegate{
-    var googleMapView : GMSMapView!
-    var locationManager : CLLocationManager!
-    var placePicker : GMSPlacePicker!
-    var latitude : Double!
-    var longitude : Double!
+class HospitalVC : UIViewController {
     
     
-   //let locationManager = CLLocationManager()//prompts the user for permission and ask the device for
-                                               //the current location
-  //  @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var mapView: MKMapView!
+    var selectedPin : MKPlacemark? = nil
     
-  // @IBOutlet weak var mapViewContainer: UIView!
-    @IBOutlet var mapViewContainer: UIView!
+    var resultSearchController:UISearchController? = nil
+    
+    let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         //Do any additional setup after loading the view, typically from a nib.
-        //locationManager = CLLocationManager()
-//        locationManager.delegate = self
-//       locationManager.desiredAccuracy = kCLLocationAccuracyBest  //for best accuracy , can use
-//                                                                    //kCLLocationAccuracyHundredMeters 
-//                                                                   //for saving batery life
-//        locationManager.requestWhenInUseAuthorization()
-//        locationManager.requestLocation()
-//        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
         
-        self.locationManager = CLLocationManager()
-        self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.startUpdatingLocation()
+        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for Hospitals"
+        searchBar.text = "Hospitals"
+        self.resultSearchController!.active = true
+        navigationItem.titleView = resultSearchController?.searchBar
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        locationSearchTable.mapView = mapView
+        
+        locationSearchTable.handleMapSearchDelegate = self
+        
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        //self.googleMapView layoutIfNeeded()
-        self.googleMapView = GMSMapView(frame: self.mapViewContainer.frame)
-        self.googleMapView.animateToZoom(18.0)
-        self.view.addSubview(googleMapView)
-    }
-
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let location : CLLocation = locations.last!   //returns an array with at least one CLLocation object
-        self.latitude = location.coordinate.latitude
-        self.longitude = location.coordinate.longitude
-        
-        
-        
-        //marker object is constructed with the co ordinates got above
-        let coOrdinates = CLLocationCoordinate2DMake(self.latitude,self.longitude)
-        let marker = GMSMarker(position: coOrdinates)
-        marker.title = "current position"
-        marker.map = self.googleMapView
-        self.googleMapView.animateToLocation(coOrdinates)
+    func getDirections(){
+        if let selectedPin = selectedPin {
+            let mapItem = MKMapItem(placemark:selectedPin)
+            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+            mapItem.openInMapsWithLaunchOptions(launchOptions)
+        }
     }
     
-
 }
 
 
+extension HospitalVC : CLLocationManagerDelegate{
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse{
+            locationManager.requestLocation()
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first{
+            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let region = MKCoordinateRegionMake(location.coordinate, span)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print ("error:\(error)")
+    }
+}
 
+extension HospitalVC: HandleMapSearch{
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        selectedPin = placemark
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+            let state = placemark.administrativeArea{
+            annotation.subtitle = "\(city)\(state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpanMake(0.05, 0.05)
+        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        mapView.setRegion(region, animated: true)
+    }
+}
 
-//extension HospitalVC : CLLocationManagerDelegate{ // to group related delegate methods
-//    
-//    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-//        if status == .AuthorizedWhenInUse{
-//            locationManager.requestLocation()
-//        }
-//    }
-//    
-////    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-////        if let location = locations.first {
-////            let span = MKCoordinateSpanMake(0.05, 0.05)
-////            let region = MKCoordinateRegionMake(location.coordinate, span)
-////            mapView.setRegion(region, animated: true)
-////            print ("location: \(location)")
-////        }
-////    }
-////    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-////        print("error :\(error)")
-////    }
-//}
+extension HospitalVC: MKMapViewDelegate{
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation{
+            return nil
+        }
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        pinView?.pinTintColor = UIColor.greenColor()
+        pinView?.canShowCallout = true
+        let smallSquare = CGSize(width: 30,height: 30)
+        let button = UIButton(frame:CGRect(origin: CGPointZero ,size: smallSquare))
+        button.setBackgroundImage(UIImage(named: "car"), forState: .Normal)
+        button.addTarget(self, action: "getDirections" , forControlEvents: .TouchUpInside)
+        pinView?.leftCalloutAccessoryView = button
+        return pinView
+    }
+}
 
 
 
