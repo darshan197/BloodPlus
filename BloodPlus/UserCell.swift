@@ -36,6 +36,8 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
         email.userInteractionEnabled = true
         email.addGestureRecognizer(tapGestureRecognizer2)
         
+        //round pic
+        RoundPic.roundPicture.roundPic(profileImage)
     }
     
     

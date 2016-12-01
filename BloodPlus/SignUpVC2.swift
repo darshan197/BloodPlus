@@ -38,12 +38,13 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
     
     
-
+    var thisVC :UIViewController!
     
+    var isPopOverPresent = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         thisVC = self.presentingViewController
                 //print("recieved object is \(newUser.uid) with email \(newUser.emailId)")
         bloodTypePicker.delegate = self
         bloodTypePicker.dataSource = self
@@ -61,6 +62,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(imageTapped))
         imagePressed.userInteractionEnabled = true
         imagePressed.addGestureRecognizer(tapGestureRecognizer)
+        RoundPic.roundPicture.roundPic(imagePressed)
         
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -76,15 +78,14 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         //keyboard
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
-        
-
-        
+     
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+        
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -92,6 +93,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        
+        pickerView.subviews.forEach({
+            $0.hidden = $0.frame.height == 0.5
+        })
+        
         return 1
     }
     
@@ -126,7 +132,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
 
         
         //
-        let backCameraAction = UIAlertAction(title: "Back camera", style: .Default, handler: {
+        let backCameraAction = UIAlertAction(title: "Camera", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             //
             if (UIImagePickerController.isSourceTypeAvailable(.Camera)) {
@@ -230,6 +236,9 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         if signUpSuccess{
             //user has entered valid fields, complete sign up
             // alert controller for successfully signing up
+            
+            sender.userInteractionEnabled = false //disable sign up
+            
             let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
             let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
                 self.performSegueWithIdentifier("signup2", sender: self)
@@ -271,6 +280,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         self.lastNameField.resignFirstResponder()
         self.phoneField.resignFirstResponder()
         self.addressField.resignFirstResponder()
+        if isPopOverPresent {
+            popoverPresentationController?.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            isPopOverPresent = false
+        }
+
         return true
     }
     
@@ -280,6 +294,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         self.lastNameField.resignFirstResponder()
         self.phoneField.resignFirstResponder()
         self.addressField.resignFirstResponder()
+        if isPopOverPresent {
+        popoverPresentationController?.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
+            isPopOverPresent = false
+
+        }
 
     }
     
@@ -287,6 +306,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     func textFieldDidEndEditing(textField: UITextField) {
 
         //pop
+        
         let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
         popupController.modalPresentationStyle = .Popover
         
@@ -299,29 +319,53 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             popoverController.delegate = self
 
         }
+        
             if textField.text!.isBlank {
                 addAnimationToTextField(textField)
-                popupController.message = "Empty Field"
-                presentViewController(popupController, animated: true, completion: nil)
+               // popupController.message = "Empty Field"
+               // presentViewController(popupController, animated: true, completion: nil)
+            textField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         if textField == phoneField {
             if textField.text!.characters.count != 10 {
                 addAnimationToTextField(textField)
                 textField.text = ""
-                popupController.message = "Enter 10 digits"
-                presentViewController(popupController, animated: true, completion: nil)
+               // popupController.message = "Enter 10 digits"
+               // presentViewController(popupController, animated: true, completion: nil)
+            textField.attributedPlaceholder = NSAttributedString(string:"Phone number must have exactly 10 numbers",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
     }
 
     //start editing
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        //popover
+        let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
+        popupController.modalPresentationStyle = .Popover
+        popupController.preferredContentSize = CGSizeMake(textField.frame.width  ,textField.frame.height )
+        if let popoverController = popupController.popoverPresentationController {
+            popoverController.sourceView = textField as UIView
+            popoverController.sourceRect = textField.bounds
+            popoverController.preferredContentSize
+            popoverController.permittedArrowDirections = .Any
+            popoverController.delegate = self
+            
+        }
+        
+        
         //fname and lname
         if textField == firstNameField || textField == lastNameField {
             let alphaSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ")
             if (string.rangeOfCharacterFromSet(alphaSet) != nil) {
+                if isPopOverPresent {
+                    dismissViewControllerAnimated(true, completion: nil)
+                    isPopOverPresent = false
+                }
                 return true
             }else {
+                popupController.message = "Only letters and whitespace allowed"
+                presentViewController(popupController, animated: true, completion: nil)
+                isPopOverPresent = true
                 return false
             }
         }
@@ -329,8 +373,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         if textField == phoneField {
             let numSet = NSCharacterSet(charactersInString: "0123456789")
             if (string.rangeOfCharacterFromSet(numSet) != nil) && textField.text!.characters.count < 10 {
+                if isPopOverPresent {
+                    dismissViewControllerAnimated(true, completion: nil)
+                    isPopOverPresent = false
+                }
                 return true
             }else {
+                popupController.message = "Only numbers allowed"
+                presentViewController(popupController, animated: true, completion: nil)
+                isPopOverPresent = true
                 return false
             }
         }
@@ -340,8 +391,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         if textField == addressField {
             let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"")
             if (string.rangeOfCharacterFromSet(addrSet) != nil){
+                if isPopOverPresent {
+                    dismissViewControllerAnimated(true, completion: nil)
+                    isPopOverPresent = false
+                }
                 return true
             }else {
+                popupController.message = "only letters and numbers allowed"
+                presentViewController(popupController, animated: true, completion: nil)
+                isPopOverPresent = true
                 return false
             }
         
@@ -361,10 +419,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     }
     //
     //popover
+    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
-
+    
     
     
 }

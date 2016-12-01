@@ -16,13 +16,6 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
-    
-    @IBOutlet weak var userMessage: UILabel!
-    
-    @IBOutlet weak var emailFormatMessage: UILabel!
-    
-    @IBOutlet weak var passwordFormatMessage: UILabel!
-    
     @IBOutlet weak var mismatchMessage: UILabel!
     
     var signUpSuccess:Bool = false
@@ -32,12 +25,10 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userMessage.hidden = true
-        
         emailField.delegate = self
         passwordField.delegate = self
         confirmPassword.delegate = self
-        
+        mismatchMessage.hidden = true
         //tap gesture
         view.userInteractionEnabled = true
         let aSelector :Selector = #selector(SignUpVC1.backgroundTapped)
@@ -66,15 +57,21 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 mismatchMessage.hidden = false
                 addAnimationToLabelField(mismatchMessage)
                 passwordMatched = false
+
             } else {
+                mismatchMessage.hidden = true
                 passwordMatched = true
             }
         }
         
         if emailField.text!.isBlank || passwordField.text!.isBlank || confirmPassword.text!.isBlank{
-            userMessage.text = "Please fill all fields"
-            userMessage.hidden = false
-            addAnimationToLabelField(userMessage)
+            
+            emailField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            passwordField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            confirmPassword.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            
+            
+            
         } else {
             if passwordMatched {
         //
@@ -155,7 +152,8 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
             if textField.text!.isBlank || textField.text!.isEmail == false {
                 textField.text = ""
                 self.addAnimationToTextField(emailField)
-                self.addAnimationToLabelField(emailFormatMessage)
+
+                textField.attributedPlaceholder = NSAttributedString(string:"Email format : abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
         
@@ -163,7 +161,8 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
             if textField.text!.isBlank || textField.text!.characters.count < 6 {
                 textField.text = ""
                 self.addAnimationToTextField(passwordField)
-                self.addAnimationToLabelField(passwordFormatMessage)
+                
+                textField.attributedPlaceholder = NSAttributedString(string:"Password: Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
         
@@ -171,7 +170,20 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     }
     //
     func textFieldDidBeginEditing(textField: UITextField) {
-        userMessage.hidden = true
+
+        
+        if textField == emailField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Email Id",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        
+        if textField == passwordField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Password",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        
+        if textField == confirmPassword {
+            textField.attributedPlaceholder = NSAttributedString(string:"Confirm Password",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+
     }
     //
 }

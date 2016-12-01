@@ -19,7 +19,6 @@ class SearchVC : UIViewController{
         
         navigationController?.navigationBar.barTintColor = UIColor(red:1.00, green:0.24, blue:0.14, alpha:1.0)
 
-
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
         
         navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
