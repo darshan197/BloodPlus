@@ -10,5 +10,4 @@ target 'BloodPlus' do
   pod ‘Firebase/Auth’
   pod ‘Firebase/Database’
   pod ‘Firebase/Storage’ 
-  pod 'IQKeyboardManagerSwift', '3.3.3.1'
 end

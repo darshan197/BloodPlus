@@ -26,6 +26,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     @IBOutlet weak var mismatchMessage: UILabel!
     
     var signUpSuccess:Bool = false
+    var passwordMatched:Bool = false
     var savedUID :String?
     
     override func viewDidLoad() {
@@ -59,11 +60,14 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         }
         if passwordField.text!.isBlank == false && confirmPassword.text?.isBlank == false  {
             if passwordField.text != confirmPassword.text {
+                confirmPassword.text = ""
                 addAnimationToTextField(confirmPassword)
                 mismatchMessage.text = "Passwords do not match"
                 mismatchMessage.hidden = false
                 addAnimationToLabelField(mismatchMessage)
-                
+                passwordMatched = false
+            } else {
+                passwordMatched = true
             }
         }
         
@@ -72,6 +76,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
             userMessage.hidden = false
             addAnimationToLabelField(userMessage)
         } else {
+            if passwordMatched {
         //
         if let userName = emailField.text ,let password = passwordField.text{
             
@@ -109,10 +114,9 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 
             })
             
-            
-            
-        }
+         }
         //
+       }
       }
     }
     

@@ -13,6 +13,11 @@ class RoundButton : UIButton{
     override func awakeFromNib() {
         super.awakeFromNib()
         layer.cornerRadius = 15
+       // layer.shadowColor = UIColor.whiteColor().CGColor
+        layer.shadowColor = UIColor.redColor().CGColor
+        layer.shadowOffset = CGSizeMake(5, 5)
+        layer.shadowRadius = 5
+        layer.shadowOpacity = 0.4
     }
     
 

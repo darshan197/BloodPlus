@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 import Firebase
 
-class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource , UIImagePickerControllerDelegate , UINavigationControllerDelegate,UITextFieldDelegate{
+
+class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource , UIImagePickerControllerDelegate , UINavigationControllerDelegate,UITextFieldDelegate ,
+    ShowAlert,ShakeLabel, ShakeTextField , UIPopoverPresentationControllerDelegate {
     
     var newUser:User!
     
@@ -28,19 +30,27 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     
     @IBOutlet weak var addressField: UITextField!
     
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     //
-    var bloodType:String = "O+"
+    var bloodType:String = "B+"
     //
     var signUpSuccess:Bool = false
     var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
     
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
                 //print("recieved object is \(newUser.uid) with email \(newUser.emailId)")
         bloodTypePicker.delegate = self
         bloodTypePicker.dataSource = self
-
+        bloodTypePicker.selectRow(4, inComponent: 0, animated: true)
+        bloodTypePicker.layer.borderWidth = 3
+        bloodTypePicker.layer.cornerRadius = 10
+        bloodTypePicker.layer.borderColor = UIColor(colorLiteralRed: 212.0/255.0, green: 212.0/255.0, blue: 212.0/255.0, alpha: 1.0).CGColor
         //text delegates
         firstNameField.delegate = self
         lastNameField.delegate = self
@@ -63,10 +73,23 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
         
-      
+        //keyboard
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        
+
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
+    }
+
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -83,7 +106,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let titleData = pickerArray[row]
-        let pickerTitle = NSAttributedString(string: titleData, attributes: [ NSFontAttributeName:UIFont(name:"Georgia",size:20)!,NSForegroundColorAttributeName : UIColor.blackColor()])
+        let pickerTitle = NSAttributedString(string: titleData, attributes: [ NSFontAttributeName:UIFont(name:"Georgia",size:20)!,NSForegroundColorAttributeName : UIColor.redColor()])
         return pickerTitle
         
     }
@@ -152,45 +175,56 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     //
     @IBAction func signUpTapped(sender: RoundButton) {
         
-        //check for empty fields
-        if firstNameField.text!.isBlank || lastNameField.text!.isBlank
-            || phoneField.text!.isBlank || addressField.text!.isBlank {
-            let alertController = UIAlertController(title: "Please make sure all fields are filled..", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alertController, animated: true, completion: nil)
-            
+
+        if firstNameField.text!.isBlank {
+            addAnimationToTextField(firstNameField)
+        }
+        if lastNameField.text!.isBlank{
+            addAnimationToTextField(lastNameField)
+        }
+        if phoneField.text!.isBlank {
+            addAnimationToTextField(phoneField)
+        }
+        if addressField.text!.isBlank {
+            addAnimationToTextField(addressField)
         }
         
-        if let img = imagePressed.image {
-            
-            if let imageData = UIImageJPEGRepresentation(img, 0.2){
+        //check for empty fields
+        if firstNameField.text!.isBlank == false && lastNameField.text!.isBlank == false
+            && phoneField.text!.isBlank == false && addressField.text!.isBlank == false {
+            //
+            if let img = imagePressed.image {
                 
-                let imageUid = NSUUID().UUIDString
-                let metadata = FIRStorageMetadata()
-                metadata.contentType = "image/jpeg"
-                
-                DataService.ds.REF_USER_IMAGES.child(imageUid).putData(imageData, metadata: metadata){
-                (metadata,error) in
+                if let imageData = UIImageJPEGRepresentation(img, 0.2){
                     
-                    //
-                    if error != nil{
-                        print("ImageErr: Unable to upload image - \(error.debugDescription)")
-                    }else{
-                        print("ImageSuccess: Successfully uploaded to firbase")
-                        let downloadUrl = metadata?.downloadURL()?.absoluteString
+                    let imageUid = NSUUID().UUIDString
+                    let metadata = FIRStorageMetadata()
+                    metadata.contentType = "image/jpeg"
+                    
+                    DataService.ds.REF_USER_IMAGES.child(imageUid).putData(imageData, metadata: metadata){
+                        (metadata,error) in
                         
-                        if let url = downloadUrl{
-                            self.postToFirebase(url)
-                            self.signUpSuccess = true
+                        //
+                        if error != nil{
+                            print("ImageErr: Unable to upload image - \(error.debugDescription)")
+                        }else{
+                            print("ImageSuccess: Successfully uploaded to firbase")
+                            let downloadUrl = metadata?.downloadURL()?.absoluteString
+                            
+                            if let url = downloadUrl{
+                                self.postToFirebase(url)
+                                self.signUpSuccess = true
+                            }
+                            
                         }
+                        //
                         
                     }
                     //
                     
                 }
-                //
-        
             }
+            //
         }
         
         if signUpSuccess{
@@ -246,84 +280,91 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         self.lastNameField.resignFirstResponder()
         self.phoneField.resignFirstResponder()
         self.addressField.resignFirstResponder()
+
     }
     
     //text delegate checks
     func textFieldDidEndEditing(textField: UITextField) {
+
+        //pop
+        let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
+        popupController.modalPresentationStyle = .Popover
         
-        //fname
-        if textField == firstNameField {
-            
-            if textField.text!.isBlank {
-                let alertController = UIAlertController(title: "First Name should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        }
-        //lname
-        if textField == lastNameField {
-            
-            if textField.text!.isBlank {
-                let alertController = UIAlertController(title: "Last Name should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        }
-        //
-        //lname
-        if textField == addressField {
-            
-            if textField.text!.isBlank {
-                let alertController = UIAlertController(title: "Address should not be empty!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
-        }
-        //
-        //lname
-        if textField == phoneField {
-            
-            if textField.text!.characters.count != 10 || textField.text!.isBlank {
-                let alertController = UIAlertController(title: "Please enter valid phone number!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Re-Enter", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-            }
+        popupController.preferredContentSize = CGSizeMake(textField.frame.width * 0.75 ,textField.frame.height * 0.75)
+        if let popoverController = popupController.popoverPresentationController {
+            popoverController.sourceView = textField as UIView
+            popoverController.sourceRect = textField.bounds
+            popoverController.preferredContentSize
+            popoverController.permittedArrowDirections = .Any
+            popoverController.delegate = self
 
         }
-        //
+            if textField.text!.isBlank {
+                addAnimationToTextField(textField)
+                popupController.message = "Empty Field"
+                presentViewController(popupController, animated: true, completion: nil)
+            }
+        if textField == phoneField {
+            if textField.text!.characters.count != 10 {
+                addAnimationToTextField(textField)
+                textField.text = ""
+                popupController.message = "Enter 10 digits"
+                presentViewController(popupController, animated: true, completion: nil)
+            }
+        }
     }
 
     //start editing
-    func textFieldDidBeginEditing(textField: UITextField) {
-        if textField == phoneField || textField == addressField {
-        
-        }
-    }
-    //keyboard hide
-    func keyboardWillShow(notification: NSNotification) {
-        
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            if view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-            else {
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-                NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        //fname and lname
+        if textField == firstNameField || textField == lastNameField {
+            let alphaSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ")
+            if (string.rangeOfCharacterFromSet(alphaSet) != nil) {
+                return true
+            }else {
+                return false
             }
         }
+        //phone
+        if textField == phoneField {
+            let numSet = NSCharacterSet(charactersInString: "0123456789")
+            if (string.rangeOfCharacterFromSet(numSet) != nil) && textField.text!.characters.count < 10 {
+                return true
+            }else {
+                return false
+            }
+        }
+
         
+        //addr
+        if textField == addressField {
+            let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"")
+            if (string.rangeOfCharacterFromSet(addrSet) != nil){
+                return true
+            }else {
+                return false
+            }
+        
+        }
+        return true
     }
     
-    func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue() {
-            if view.frame.origin.y != 0 {
-                self.view.frame.origin.y += keyboardSize.height
-            }
-            else {
-                
-            }
+    //keyboard hide
+    func keyboardWillShow(notification:NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
+            self.view.frame.origin.y = -keyboardSize.height
         }
     }
+    
+    func keyboardWillHide(notification:NSNotification) {
+        self.view.frame.origin.y = 0
+    }
     //
+    //popover
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
+    }
 
+    
+    
 }

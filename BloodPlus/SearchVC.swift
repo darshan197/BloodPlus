@@ -17,11 +17,17 @@ class SearchVC : UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.barTintColor = UIColor(red:1.00, green:0.24, blue:0.14, alpha:1.0)
+
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
         
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
     }
     
     
-    @IBAction func signoutTapped(sender: AnyObject) {
+    
+    func signoutTapped() {
         try! FIRAuth.auth()?.signOut()
         performSegueWithIdentifier("log", sender: self)
         

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */; };
+		C9208AD91DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */; };
+		C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */; };
+		C9208ADF1DF01FC500B9CE64 /* MessagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */; };
 		C9385F9D1DEF857400DD27D0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385F9C1DEF857400DD27D0 /* LocationSearchTable.swift */; };
 		C9385F9F1DEF918A00DD27D0 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */; };
 		C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */; };
@@ -24,7 +27,6 @@
 		C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0CB1DEB35DE00174291 /* MapVC.swift */; };
 		C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */; };
 		C958A0D11DEB425900174291 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0D01DEB425900174291 /* DataService.swift */; };
-		C97A0DBE1DEFEC3100EEDFF8 /* IQKeyboardManagerSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C97A0DBD1DEFEC3100EEDFF8 /* IQKeyboardManagerSwift.framework */; };
 		C9C320DB1DEB9F74008F750E /* SignUpVC1.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C320DA1DEB9F74008F750E /* SignUpVC1.swift */; };
 		CB61E43A1DE623FE00015F2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E4391DE623FE00015F2C /* AppDelegate.swift */; };
 		CB61E43C1DE623FE00015F2C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB61E43B1DE623FE00015F2C /* LoginVC.swift */; };
@@ -37,6 +39,10 @@
 /* Begin PBXFileReference section */
 		8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BloodPlus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B270766CFE320606E60D07E7 /* Pods-BloodPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloodPlus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus.debug.xcconfig"; sourceTree = "<group>"; };
+		C9208AD61DEFF81000B9CE64 /* UnderKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnderKeyboard.framework; path = "Pods/../build/Debug-iphoneos/UnderKeyboard/UnderKeyboard.framework"; sourceTree = "<group>"; };
+		C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
+		C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowTextField.swift; sourceTree = "<group>"; };
+		C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopUpViewController.swift; sourceTree = "<group>"; };
 		C9385F9C1DEF857400DD27D0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
@@ -72,7 +78,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C97A0DBE1DEFEC3100EEDFF8 /* IQKeyboardManagerSwift.framework in Frameworks */,
 				CB7E7F4F1DEC9FE100CADDC7 /* CoreLocation.framework in Frameworks */,
 				455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */,
 			);
@@ -93,6 +98,7 @@
 		BC51D2D761F82E291067416D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C9208AD61DEFF81000B9CE64 /* UnderKeyboard.framework */,
 				C97A0DBD1DEFEC3100EEDFF8 /* IQKeyboardManagerSwift.framework */,
 				CB7E7F4E1DEC9FE100CADDC7 /* CoreLocation.framework */,
 				8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */,
@@ -113,6 +119,7 @@
 			children = (
 				C958A0BB1DEB2CFB00174291 /* RoundButton.swift */,
 				C958A0BF1DEB32A400174291 /* UserCell.swift */,
+				C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -130,6 +137,7 @@
 				C958A0CB1DEB35DE00174291 /* MapVC.swift */,
 				C9C320DA1DEB9F74008F750E /* SignUpVC1.swift */,
 				C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */,
+				C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -145,6 +153,7 @@
 		C986C56F1DEE80E4006EEC50 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */,
 				C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */,
 				C9385FA41DEFBA5300DD27D0 /* ShakeTextField.swift */,
 				C9385FA61DEFCC6700DD27D0 /* ShakeLabel.swift */,
@@ -319,9 +328,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9208ADF1DF01FC500B9CE64 /* MessagePopUpViewController.swift in Sources */,
 				C958A0CA1DEB35BB00174291 /* TableVC.swift in Sources */,
 				C958A0D11DEB425900174291 /* DataService.swift in Sources */,
 				C9C320DB1DEB9F74008F750E /* SignUpVC1.swift in Sources */,
+				C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */,
+				C9208AD91DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift in Sources */,
 				C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */,
 				C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */,
 				C958A0C41DEB34D400174291 /* SearchVC.swift in Sources */,
@@ -452,6 +464,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = R4WAP78ZC5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/UnderKeyboard",
+				);
 				INFOPLIST_FILE = BloodPlus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.DarshanHosakote.BloodPlus;
@@ -467,6 +483,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = R4WAP78ZC5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/UnderKeyboard",
+				);
 				INFOPLIST_FILE = BloodPlus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.DarshanHosakote.BloodPlus;
