@@ -218,7 +218,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                             let downloadUrl = metadata?.downloadURL()?.absoluteString
                             
                             if let url = downloadUrl{
-                                self.postToFirebase(url)
+                                self.postToFirebase(url, success: true)
                                 self.signUpSuccess = true
                             }
                             
@@ -233,23 +233,10 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             //
         }
         
-        if signUpSuccess{
-            //user has entered valid fields, complete sign up
-            // alert controller for successfully signing up
-            
-            sender.userInteractionEnabled = false //disable sign up
-            
-            let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
-            let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
-                self.performSegueWithIdentifier("signup2", sender: self)
-            }
-            alertController.addAction(acceptAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
-        }
     }
     //
     // posting to firebase
-    func postToFirebase(imgUrl:String)  {
+    func postToFirebase(imgUrl:String,success: Bool)  {
         //dictionary keys need to match the firebase keys
         let userToAdd = [
             
@@ -265,7 +252,20 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         let firebasePost = DataService.ds.REF_USERS.childByAutoId()
         firebasePost.setValue(userToAdd)
         
-               //
+               //create alert
+        if success  {
+            //user has entered valid fields, complete sign up
+            // alert controller for successfully signing up
+            
+            
+            
+            let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
+            let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
+                self.performSegueWithIdentifier("signup2", sender: self)
+            }
+            alertController.addAction(acceptAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
     //
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

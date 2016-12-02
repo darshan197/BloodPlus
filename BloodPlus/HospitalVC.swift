@@ -9,57 +9,107 @@
 //import Foundation
 import UIKit
 import MapKit
-protocol HandleMapSearch {
-    func dropPinZoomIn(placemark : MKPlacemark)
-}
+import CoreLocation
 
-class HospitalVC : UIViewController {
-    
-    
-    @IBOutlet weak var mapView: MKMapView!
-    var selectedPin : MKPlacemark? = nil
-    
-    var resultSearchController:UISearchController? = nil
-    
+class HospitalVC : UIViewController  ,MKMapViewDelegate{
     let locationManager = CLLocationManager()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        
-        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
-        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-        resultSearchController?.searchResultsUpdater = locationSearchTable
-        
-        
-        let searchBar = resultSearchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder = "Search for Hospitals"
-        searchBar.text = "Hospitals"
-        self.resultSearchController!.active = true
-        navigationItem.titleView = resultSearchController?.searchBar
-        
-        resultSearchController?.hidesNavigationBarDuringPresentation = false
-        resultSearchController?.dimsBackgroundDuringPresentation = true
-        definesPresentationContext = true
-        
-        locationSearchTable.mapView = mapView
-        
-        locationSearchTable.handleMapSearchDelegate = self
-        
-    }
-    
-    func getDirections(){
-        if let selectedPin = selectedPin {
-            let mapItem = MKMapItem(placemark:selectedPin)
-            let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
-            mapItem.openInMapsWithLaunchOptions(launchOptions)
+    var hospitalLocations:[MKMapItem] = [MKMapItem()]
+
+    @IBOutlet weak var mapView: MKMapView!
+    //action to switch between map types i.e., standard and satellite
+    @IBAction func switchMapType(sender: AnyObject) {
+        if mapView.mapType == MKMapType.Standard {
+            mapView.mapType = MKMapType.Satellite
+        }
+        else {
+            mapView.mapType = MKMapType.Standard
         }
     }
     
+     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest // for best accuracy
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        //zoomIn()
+        performSearch()
+        
+    }
+    
+    func performSearch() {
+        
+        hospitalLocations.removeAll()
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = "hospitals"
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        
+        search.startWithCompletionHandler({(response, error) in
+            
+            if error != nil {
+                print("Error occured in search: \(error!.localizedDescription)")
+            } else if response!.mapItems.count == 0 {
+                print("No matches found")
+            } else {
+                print("Matches found")
+                
+                for item in response!.mapItems {
+                    print("Name = \(item.name)")
+                    print("Phone = \(item.phoneNumber)")
+                    
+                    self.hospitalLocations.append(item as MKMapItem)
+                    print("Matching items = \(self.hospitalLocations.count)")
+                    
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = item.placemark.coordinate
+                    annotation.title = item.name
+                    self.mapView.addAnnotation(annotation)
+                }
+            }
+        })
+    }
+    
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = UIColor.greenColor()
+            //next line sets a button for the right side of the callout...
+            let smallSquare = CGSize(width: 30 ,height:30)
+            let button = UIButton(frame: CGRect(origin:CGPointZero,size: smallSquare))
+            button.setBackgroundImage(UIImage(named: "car"), forState: .Normal)
+            pinView!.rightCalloutAccessoryView = button
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        let selectedLoc = view.annotation
+        print("Annotation '\(selectedLoc!.title!)' has been selected")
+        let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
+        let selectedPlacemark = MKPlacemark(coordinate: selectedLoc!.coordinate, addressDictionary: nil)
+        let selectedMapItem = MKMapItem(placemark: selectedPlacemark)
+        let mapItems = [selectedMapItem, currentLocMapItem]
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+        MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
+    }
 }
 
 
@@ -83,42 +133,7 @@ extension HospitalVC : CLLocationManagerDelegate{
     }
 }
 
-extension HospitalVC: HandleMapSearch{
-    func dropPinZoomIn(placemark: MKPlacemark) {
-        selectedPin = placemark
-        mapView.removeAnnotations(mapView.annotations)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
-        if let city = placemark.locality,
-            let state = placemark.administrativeArea{
-            annotation.subtitle = "\(city)\(state)"
-        }
-        mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
-        mapView.setRegion(region, animated: true)
-    }
-}
 
-extension HospitalVC: MKMapViewDelegate{
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKUserLocation{
-            return nil
-        }
-        let reuseId = "pin"
-        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-        pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-        pinView?.pinTintColor = UIColor.greenColor()
-        pinView?.canShowCallout = true
-        let smallSquare = CGSize(width: 30,height: 30)
-        let button = UIButton(frame:CGRect(origin: CGPointZero ,size: smallSquare))
-        button.setBackgroundImage(UIImage(named: "car"), forState: .Normal)
-        button.addTarget(self, action: "getDirections" , forControlEvents: .TouchUpInside)
-        pinView?.leftCalloutAccessoryView = button
-        return pinView
-    }
-}
 
 
 
