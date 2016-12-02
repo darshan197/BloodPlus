@@ -30,7 +30,7 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest // for best accuracy
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest // for best accuracy , can metres and kilometers as well
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         //zoomIn()
@@ -39,7 +39,6 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
     }
     
     func performSearch() {
-        
         hospitalLocations.removeAll()
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = "hospitals"
@@ -63,6 +62,7 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
                     self.hospitalLocations.append(item as MKMapItem)
                     print("Matching items = \(self.hospitalLocations.count)")
                     
+                    //pinning of places i.e., hospitals on mapview
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = item.placemark.coordinate
                     annotation.title = item.name
@@ -101,9 +101,9 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        let selectedLoc = view.annotation
+        let selectedLoc = view.annotation   //selected location
         print("Annotation '\(selectedLoc!.title!)' has been selected")
-        let currentLocMapItem = MKMapItem.mapItemForCurrentLocation()
+        let currentLocMapItem = MKMapItem.mapItemForCurrentLocation() //current location
         let selectedPlacemark = MKPlacemark(coordinate: selectedLoc!.coordinate, addressDictionary: nil)
         let selectedMapItem = MKMapItem(placemark: selectedPlacemark)
         let mapItems = [selectedMapItem, currentLocMapItem]
@@ -122,6 +122,7 @@ extension HospitalVC : CLLocationManagerDelegate{
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first{
+            //setting region for around the user's location
             let span = MKCoordinateSpanMake(0.05, 0.05)
             let region = MKCoordinateRegionMake(location.coordinate, span)
             mapView.setRegion(region, animated: true)
