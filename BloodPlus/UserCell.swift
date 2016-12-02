@@ -77,9 +77,9 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
         
         print("call user called")
         let callAlert = UIAlertController(title: "Call?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        
+
         callAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
-           
+                   print("inside alert")
             let CleanphoneNumber = self.phone.text!.stringByReplacingOccurrencesOfString(" ", withString: "")
             if let phoneCallURL:NSURL = NSURL(string: "tel://\(CleanphoneNumber)") {
                 let application:UIApplication = UIApplication.sharedApplication()
@@ -98,7 +98,7 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
         
         self.window?.rootViewController!.presentViewController(callAlert, animated: true, completion: nil)
     }
-    
+    //call
     //mail
     func mailUser(){
         print("mail user called")
@@ -125,7 +125,7 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
         
         self.window?.rootViewController!.presentViewController(mailAlert, animated: true, completion: nil)
     }
-    
+    //mail
     //
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)

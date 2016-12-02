@@ -10,6 +10,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import Firebase
 
 class HospitalVC : UIViewController  ,MKMapViewDelegate{
     let locationManager = CLLocationManager()
@@ -29,6 +30,10 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
      
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //nav
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest // for best accuracy , can metres and kilometers as well
         locationManager.requestWhenInUseAuthorization()
@@ -109,6 +114,13 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
         let mapItems = [selectedMapItem, currentLocMapItem]
         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
         MKMapItem.openMapsWithItems(mapItems, launchOptions:launchOptions)
+    }
+    
+    //
+    func signoutTapped() {
+        try! FIRAuth.auth()?.signOut()
+        performSegueWithIdentifier("maptohome", sender: self)
+        
     }
 }
 

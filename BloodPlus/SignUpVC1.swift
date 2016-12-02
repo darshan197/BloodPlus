@@ -66,55 +66,21 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         
         if emailField.text!.isBlank || passwordField.text!.isBlank || confirmPassword.text!.isBlank{
             
-            emailField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
-            passwordField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
-            confirmPassword.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
-            
-            
-            
+            if emailField.text!.isBlank {
+                emailField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            }
+            if passwordField.text!.isBlank {
+                passwordField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            }
+            if confirmPassword.text!.isBlank {
+                confirmPassword.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            }
+         
         } else {
             if passwordMatched {
-        //
-        if let userName = emailField.text ,let password = passwordField.text{
-            
-            
-            FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
-                
-                if error == nil {
-                    
-                    print ("user exists ")
-                    
-                    self.showAlert("User already exists", message: "Please enter different username/password")
-
-                    
-                }
-                    
-                else{
-                    
-                    FIRAuth.auth()?.createUserWithEmail(userName, password: password,completion: {(user,error) in
-                        
-                        if error != nil {
-                            
-                            print("cannot sign in")
-                            self.showAlert("Account creation error", message: "Please try again")
-
-                        } else{
-                            self.savedUID =  user?.uid
-                            print("user created and authenticated")
-                            self.signUpSuccess = true
-                            self.completeSignUp()
-                        }
-                        
-                    })
-                    
-                }
-                
-            })
-            
-         }
-        //
-       }
-      }
+                completeSignUp()
+            }
+        }
     }
     
     //
@@ -124,9 +90,10 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     
     //
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let signUpUser = User(email: emailField.text!, uid: savedUID!)
+        //let signUpUser = User(email: emailField.text!, uid: savedUID!)
         if let destViewController = segue.destinationViewController as? SignUpVC2 {
-            destViewController.newUser = signUpUser
+            //destViewController.newUser = signUpUser
+            destViewController.newUser = UserDetails(email: emailField.text!, password: passwordField.text!)
         }
     }
     //
@@ -171,6 +138,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     //
     func textFieldDidBeginEditing(textField: UITextField) {
 
+        mismatchMessage.hidden = true
         
         if textField == emailField {
             textField.attributedPlaceholder = NSAttributedString(string:"Email Id",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
@@ -193,4 +161,5 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         return true
     }
     //
+    
 }

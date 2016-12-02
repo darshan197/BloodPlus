@@ -33,55 +33,57 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
         view.addGestureRecognizer(tapGesture)
         
         
-        //monitor log in status, if user already logged in take to home page
-        FIRAuth.auth()?.addAuthStateDidChangeListener({(auth,user) in
-            if user != nil {
-                self.performSegueWithIdentifier("login1", sender: nil)
-            }
-        })
+
     }
 
 
 
     @IBAction func loginBtnPressed(sender: RoundButton) {
         print("login called")
-        if let userName = userNameField.text ,let password = passwordField.text{
-            
-            if self.userNameField.text!.isEmpty  {
-                // addAnimationToTextField(self.userNameField)
-                self.addAnimationToTextField(self.userNameField)
-            }
-            if self.passwordField.text!.isEmpty {
-                self.addAnimationToTextField(self.passwordField)
-            }
-            
-            FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
-                
-                if error == nil {
+        
+                //login presess
+                if let userName = self.userNameField.text ,let password = self.passwordField.text{
                     
-                    print ("user exists and successfully logged in")
-                    self.completeSignIn()                
-                }
-                    
-                else{
-                    print("No user found")
-                    //let user know that account doesnt exisy
-                    if self.userNameField.text!.isEmpty == false
-                        && self.passwordField.text!.isEmpty == false {
-
-                        self.showAlert("No account exists", message: "Please sign up")
+                    if self.userNameField.text!.isEmpty  {
+                        // addAnimationToTextField(self.userNameField)
+                        self.addAnimationToTextField(self.userNameField)
+                        self.userNameField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
                         
-                        //clear both fields
-                        self.userNameField.text = ""
-                        self.passwordField.text = ""
                     }
-
-                
-
+                    if self.passwordField.text!.isEmpty {
+                        self.addAnimationToTextField(self.passwordField)
+                        
+                        self.passwordField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                    }
+                    
+                    FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
+                        
+                        if error == nil {
+                            
+                            print ("user exists and successfully logged in")
+                            self.completeSignIn()
+                        }
+                            
+                        else{
+                            print("No user found")
+                            //let user know that account doesnt exisy
+                            if self.userNameField.text!.isEmpty == false
+                                && self.passwordField.text!.isEmpty == false {
+                                
+                                self.showAlert("No account exists", message: "Please sign up")
+                                
+                                //clear both fields
+                                self.userNameField.text = ""
+                                self.passwordField.text = ""
+                            }
+                            
+                            
+                            
+                        }
+                        
+                    })       
                 }
-                
-            })       
-        }
+                //login
 
     }
     
@@ -149,6 +151,8 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
             if textField.text!.isBlank || textField.text!.isEmail == false {
                 textField.text = ""
                 self.addAnimationToTextField(userNameField)
+                
+                textField.attributedPlaceholder = NSAttributedString(string:"Email format : abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
         
@@ -156,12 +160,24 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
             if textField.text!.isBlank || textField.text!.characters.count < 6 {
                 textField.text = ""
                 self.addAnimationToTextField(passwordField)
+                
+        textField.attributedPlaceholder = NSAttributedString(string:"Password: Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
 
     }
     //
-
+    func textFieldDidBeginEditing(textField: UITextField) {
+        
+        if textField == userNameField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Email Id",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        
+        if textField == passwordField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Password",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+    }
+    //
 }
 
 

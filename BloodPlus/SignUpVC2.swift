@@ -14,7 +14,9 @@ import Firebase
 class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource , UIImagePickerControllerDelegate , UINavigationControllerDelegate,UITextFieldDelegate ,
     ShowAlert,ShakeLabel, ShakeTextField , UIPopoverPresentationControllerDelegate {
     
-    var newUser:User!
+    var newUser:UserDetails!
+    
+    var 😄 = "Smiley"
     
     @IBOutlet weak var bloodTypePicker: UIPickerView!
     
@@ -87,13 +89,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
         
     }
-
+    
+    /*
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        print("touch began")
         self.view.endEditing(true)
     }
-    
+    */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        
+        //remove lines in picker view
         pickerView.subviews.forEach({
             $0.hidden = $0.frame.height == 0.5
         })
@@ -199,38 +203,82 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         if firstNameField.text!.isBlank == false && lastNameField.text!.isBlank == false
             && phoneField.text!.isBlank == false && addressField.text!.isBlank == false {
             //
-            if let img = imagePressed.image {
-                
-                if let imageData = UIImageJPEGRepresentation(img, 0.2){
+            //create user email in firebase
+            
+            //
+                FIRAuth.auth()?.signInWithEmail(newUser.email , password: newUser.password, completion: {(user,error) in
                     
-                    let imageUid = NSUUID().UUIDString
-                    let metadata = FIRStorageMetadata()
-                    metadata.contentType = "image/jpeg"
-                    
-                    DataService.ds.REF_USER_IMAGES.child(imageUid).putData(imageData, metadata: metadata){
-                        (metadata,error) in
+                    if error == nil {
                         
-                        //
-                        if error != nil{
-                            print("ImageErr: Unable to upload image - \(error.debugDescription)")
-                        }else{
-                            print("ImageSuccess: Successfully uploaded to firbase")
-                            let downloadUrl = metadata?.downloadURL()?.absoluteString
-                            
-                            if let url = downloadUrl{
-                                self.postToFirebase(url, success: true)
-                                self.signUpSuccess = true
-                            }
-                            
-                        }
-                        //
+                        print ("user exists ")
+                        
+                        self.showAlert("User already exists", message: "Please enter different username/password")
+                        
                         
                     }
-                    //
+                        
+                    else{
+                        
+                        FIRAuth.auth()?.createUserWithEmail(self.newUser.email, password: self.newUser.password,completion: {(user,error) in
+                            
+                            if error != nil {
+                                
+                                print("cannot sign in")
+                                self.showAlert("Account creation error", message: "Please try again")
+                                
+                            } else{
+                                //self.savedUID =  user?.uid
+                                print("user created and authenticated")
+                                self.signUpSuccess = true
+                                //self.completeSignUp()
+                                if let fireUser = user {
+                                    self.newUser.uid = fireUser.uid
+                                }
+                                //MARK: upload images
+                                //
+                                // image upload
+                                if let img = self.imagePressed.image {
+                                    
+                                    if let imageData = UIImageJPEGRepresentation(img, 0.2){
+                                        
+                                        let imageUid = NSUUID().UUIDString
+                                        let metadata = FIRStorageMetadata()
+                                        metadata.contentType = "image/jpeg"
+                                        
+                                        DataService.ds.REF_USER_IMAGES.child(imageUid).putData(imageData, metadata: metadata){
+                                            (metadata,error) in
+                                            
+                                            //
+                                            if error != nil{
+                                                print("ImageErr: Unable to upload image - \(error.debugDescription)")
+                                            }else{
+                                                print("ImageSuccess: Successfully uploaded to firbase")
+                                                let downloadUrl = metadata?.downloadURL()?.absoluteString
+                                                
+                                                if let url = downloadUrl{
+                                                    
+                                                    self.postToFirebase(url, success: true)
+                                                    self.signUpSuccess = true
+                                                }
+                                                
+                                            }
+                                            //
+                                            
+                                        }
+                                        //
+                                        
+                                    }
+                                }
+                                // image upload
+                                //
+                            }
+                            
+                        })
+                        
+                    }
                     
-                }
-            }
-            //
+                })
+                //completion of firebase authentication
         }
         
     }
@@ -239,27 +287,30 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     func postToFirebase(imgUrl:String,success: Bool)  {
         //dictionary keys need to match the firebase keys
         let userToAdd = [
-            
+            //"email":newUser.emailid
             "address": addressField.text! as String,
             "bloodtype":bloodType,
-            "email":newUser.emailId,
+            "email":newUser.email,
             "firstname":firstNameField.text! as String,
             "lastname":lastNameField.text! as String,
             "phone":phoneField.text! as String,
             "profilepic": imgUrl as String,
             ] as [String : AnyObject]
         
-        let firebasePost = DataService.ds.REF_USERS.childByAutoId()
-        firebasePost.setValue(userToAdd)
+        
+        //let firebasePost = DataService.ds.REF_USERS.childByAutoId()
+
+        //firebasePost.setValue(userToAdd)
+        DataService.ds.REF_USERS.child(self.newUser.uid).setValue(userToAdd)
         
                //create alert
         if success  {
             //user has entered valid fields, complete sign up
             // alert controller for successfully signing up
+            print("Success Alert!")
             
             
-            
-            let alertController = UIAlertController(title: "Sucess!Thank you for signing up :)" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Sucess!Thank you for signing up 😄" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
             let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
                 self.performSegueWithIdentifier("signup2", sender: self)
             }
@@ -339,6 +390,14 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
 
     //start editing
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let  char = string.cStringUsingEncoding(NSUTF8StringEncoding)!
+        let isBackSpace = strcmp(char, "\\b")
+        
+        if (isBackSpace == -92) {
+            print("Backspace was pressed")
+            return true
+        }
         //popover
         let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
         popupController.modalPresentationStyle = .Popover
@@ -358,13 +417,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             let alphaSet = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ")
             if (string.rangeOfCharacterFromSet(alphaSet) != nil) {
                 if isPopOverPresent {
-                    dismissViewControllerAnimated(true, completion: nil)
+                //    dismissViewControllerAnimated(true, completion: nil)
                     isPopOverPresent = false
                 }
                 return true
             }else {
                 popupController.message = "Only letters and whitespace allowed"
                 presentViewController(popupController, animated: true, completion: nil)
+                
+                delayPopUpDismiss()
                 isPopOverPresent = true
                 return false
             }
@@ -374,13 +435,14 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             let numSet = NSCharacterSet(charactersInString: "0123456789")
             if (string.rangeOfCharacterFromSet(numSet) != nil) && textField.text!.characters.count < 10 {
                 if isPopOverPresent {
-                    dismissViewControllerAnimated(true, completion: nil)
+                //   dismissViewControllerAnimated(true, completion: nil)
                     isPopOverPresent = false
                 }
                 return true
             }else {
                 popupController.message = "Only numbers allowed"
                 presentViewController(popupController, animated: true, completion: nil)
+                delayPopUpDismiss()
                 isPopOverPresent = true
                 return false
             }
@@ -389,22 +451,42 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         
         //addr
         if textField == addressField {
-            let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"")
+            let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"").invertedSet
             if (string.rangeOfCharacterFromSet(addrSet) != nil){
+                popupController.message = "only letters and numbers allowed"
+                presentViewController(popupController, animated: true, completion: nil)
+                delayPopUpDismiss()
+                isPopOverPresent = true
+                return false
+            }else {
                 if isPopOverPresent {
-                    dismissViewControllerAnimated(true, completion: nil)
+                    //   dismissViewControllerAnimated(true, completion: nil)
                     isPopOverPresent = false
                 }
                 return true
-            }else {
-                popupController.message = "only letters and numbers allowed"
-                presentViewController(popupController, animated: true, completion: nil)
-                isPopOverPresent = true
-                return false
             }
         
         }
         return true
+    }
+    
+    //text
+    func textFieldDidBeginEditing(textField: UITextField) {
+
+        if textField == firstNameField {
+            textField.attributedPlaceholder = NSAttributedString(string:"First Name",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        
+        if textField == lastNameField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Last Name",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        
+        if textField == phoneField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Phone Number",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
+        if textField == addressField {
+            textField.attributedPlaceholder = NSAttributedString(string:"Address",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        }
     }
     
     //keyboard hide
@@ -424,6 +506,12 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         return UIModalPresentationStyle.None
     }
     
-    
+    func delayPopUpDismiss(){
+        let delay = 0.75 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
     
 }

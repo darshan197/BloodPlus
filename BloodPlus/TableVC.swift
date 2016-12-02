@@ -19,12 +19,19 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     var userStore = UserStore(allUsers: [], filteredUsers: [])
     //var users = [User]()
     //var filteredUsers = [User]()
-    
+
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("tableview loaded")
+        
+        // search bar color
+        searchController.searchBar.layer.borderColor = UIColor.redColor().CGColor
+        searchController.searchBar.tintColor = UIColor.redColor()
+        //
+        navigationController?.navigationBar.barTintColor = UIColor(red:1.00, green:0.24, blue:0.14, alpha:1.0)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
         //tableview delegate
         tableView.dataSource = self
         tableView.delegate = self
@@ -92,10 +99,14 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
 
 
         if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
-            
+        cell.selectionStyle = .None
+        //cell.contentView.userInteractionEnabled = false//disable cell interaction
         cell.layer.borderWidth = 2.5
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.redColor().CGColor
+        
+            
+            
             
             //
             if let img = TableVC.imageCache.objectForKey(user.profilePicUrl){
@@ -165,7 +176,15 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         }
     }
     //
-
+    func signoutTapped() {
+        try! FIRAuth.auth()?.signOut()
+        performSegueWithIdentifier("tabletohome", sender: self)
+        
+    }
+    
+    
+    //
+    
 }
 
 
