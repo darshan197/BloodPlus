@@ -12,6 +12,7 @@
 		C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */; };
 		C9208ADF1DF01FC500B9CE64 /* MessagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */; };
 		C93718E11DF0AD660047E027 /* RoundPic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93718E01DF0AD660047E027 /* RoundPic.swift */; };
+		C93718E31DF0EBC00047E027 /* UserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93718E21DF0EBC00047E027 /* UserStore.swift */; };
 		C9385F9D1DEF857400DD27D0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385F9C1DEF857400DD27D0 /* LocationSearchTable.swift */; };
 		C9385F9F1DEF918A00DD27D0 /* LaunchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */; };
 		C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */; };
@@ -45,6 +46,7 @@
 		C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowTextField.swift; sourceTree = "<group>"; };
 		C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopUpViewController.swift; sourceTree = "<group>"; };
 		C93718E01DF0AD660047E027 /* RoundPic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundPic.swift; sourceTree = "<group>"; };
+		C93718E21DF0EBC00047E027 /* UserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStore.swift; sourceTree = "<group>"; };
 		C9385F9C1DEF857400DD27D0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchVC.swift; sourceTree = "<group>"; };
 		C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				C958A0BD1DEB2F7900174291 /* User.swift */,
+				C93718E21DF0EBC00047E027 /* UserStore.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				C9C320DB1DEB9F74008F750E /* SignUpVC1.swift in Sources */,
 				C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */,
 				C9208AD91DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift in Sources */,
+				C93718E31DF0EBC00047E027 /* UserStore.swift in Sources */,
 				C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */,
 				C93718E11DF0AD660047E027 /* RoundPic.swift in Sources */,
 				C958A0CC1DEB35DE00174291 /* MapVC.swift in Sources */,

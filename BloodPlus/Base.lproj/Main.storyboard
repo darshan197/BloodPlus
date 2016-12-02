@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="43G-yU-HAQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Po9-P4-Fac">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--LaunchVC-->
         <scene sceneID="lKm-qd-3MZ">
             <objects>
-                <viewController id="kcJ-J2-zgB" customClass="LaunchVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="home" id="kcJ-J2-zgB" customClass="LaunchVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1wK-Dg-JrL"/>
                         <viewControllerLayoutGuide type="bottom" id="ykd-so-LVK"/>
@@ -39,7 +39,7 @@
                                             <color key="titleShadowColor" red="1" green="0.23137254900000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="4sO-so-TZV"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" id="z9l-aB-bb0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yb5-Kb-U86" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
@@ -53,7 +53,7 @@
                                             <color key="titleShadowColor" red="1" green="0.23137254900000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Xvy-we-BF6" kind="show" id="R9C-gh-lz8"/>
+                                            <segue destination="Xvy-we-BF6" kind="show" id="gOh-Se-uvc"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -70,13 +70,14 @@
                             <constraint firstItem="ykd-so-LVK" firstAttribute="top" secondItem="qnH-Xl-2YD" secondAttribute="bottom" id="tfI-s2-cZe"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="yDp-dD-hPo"/>
                     <connections>
                         <outlet property="imgv" destination="qnH-Xl-2YD" id="Hqj-iq-hUS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rc7-gn-6qR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-684" y="-1035.832083958021"/>
+            <point key="canvasLocation" x="-684" y="-1037"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
@@ -246,6 +247,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-684" y="-64"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8G7-1G-JOB">
+            <objects>
+                <navigationController id="Po9-P4-Fac" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wkB-Q3-2jM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="kcJ-J2-zgB" kind="relationship" relationship="rootViewController" id="MQz-TG-cfg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iBj-nQ-hGB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1929" y="-1037"/>
         </scene>
         <!--SignUpVC1-->
         <scene sceneID="Yv7-H4-bXx">
@@ -447,7 +464,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search/Donate Blood" id="ZSf-ib-AAE"/>
                     <connections>
-                        <segue destination="US0-vA-LK4" kind="unwind" identifier="log" unwindAction="prepareForUnwind:" id="BqJ-6T-0GT"/>
+                        <segue destination="US0-vA-LK4" kind="unwind" identifier="log" unwindAction="backToHome:" id="BqJ-6T-0GT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s8X-so-Cfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -895,6 +912,6 @@
         <image name="mail-image" width="184" height="184"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cm2-yt-bHS"/>
+        <segue reference="Kjm-ef-Kab"/>
     </inferredMetricsTieBreakers>
 </document>

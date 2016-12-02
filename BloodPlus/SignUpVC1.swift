@@ -185,5 +185,12 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         }
 
     }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if mismatchMessage.hidden == false {
+            mismatchMessage.hidden = true
+        }
+        return true
+    }
     //
 }

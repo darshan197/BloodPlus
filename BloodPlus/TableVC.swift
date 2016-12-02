@@ -16,8 +16,9 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     @IBOutlet weak var tableView: UITableView!
     static var imageCache:NSCache = NSCache()
     
-    var users = [User]()
-    var filteredUsers = [User]()
+    var userStore = UserStore(allUsers: [], filteredUsers: [])
+    //var users = [User]()
+    //var filteredUsers = [User]()
     
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -28,7 +29,8 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         tableView.dataSource = self
         tableView.delegate = self
         
-        self.users = []
+        //self.users = []
+        self.userStore.allUsers = []
         //append Firebase data to array
         DataService.ds.REF_USERS.observeEventType(FIRDataEventType.Value, withBlock: {(snapshot) in
            
@@ -38,7 +40,8 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
                     if let userDict = snap.value as? Dictionary<String,AnyObject>{
                         let key = snap.key
                         let user = User(uid: key, userData: userDict)
-                        self.users.append(user)
+                        //self.users.append(user)
+                        self.userStore.allUsers.append(user)
                         print("User key:\(key) with name \(user.firstName)")
                     }
                     
@@ -65,9 +68,11 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.active && searchController.searchBar.text != "" {
-            return filteredUsers.count
+           // return filteredUsers.count
+            return self.userStore.filteredUsers.count
         }
-        return users.count
+        //return users.count
+        return self.userStore.allUsers.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,14 +80,14 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         let user:User
         
         if searchController.active && searchController.searchBar.text != "" {
-            if filteredUsers.count == 0 {
-                user = users[indexPath.row]
+            if self.userStore.filteredUsers.count == 0 {
+                user = self.userStore.allUsers[indexPath.row]
             }else {
-                user = filteredUsers[indexPath.row]
+                user = self.userStore.filteredUsers[indexPath.row]
             }
         
         }else{
-           user = users[indexPath.row]
+           user = self.userStore.allUsers[indexPath.row]
         }
 
 
@@ -128,28 +133,30 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         
         switch scope {
         case "BloodType":
-            filteredUsers = []
+            //filteredUsers = []
+            self.userStore.filteredUsers = []
             let lower = searchText.lowercaseString
             print("lower is \(lower)")
-            for user in users {
+            for user in self.userStore.allUsers {
                 if lower == user.bloodType.lowercaseString {
-                    filteredUsers.append(user)
+                    self.userStore.filteredUsers.append(user)
                 }
             }
-            print("After filter count is \(filteredUsers.count)")
+            //print("After filter count is \(filteredUsers.count)")
             
             tableView.reloadData()
 
         case "Address" :
-            filteredUsers = []
+            //filteredUsers = []
+            self.userStore.filteredUsers = []
             let lower = searchText.lowercaseString
             print("lower is \(lower)")
-            for user in users {
+            for user in self.userStore.allUsers {
                 if (user.address.lowercaseString.rangeOfString(lower) != nil) {
-                    filteredUsers.append(user)
+                    self.userStore.filteredUsers.append(user)
                 }
             }
-            print("After filter count is \(filteredUsers.count)")
+            print("After filter count is \(self.userStore.filteredUsers.count)")
             
             tableView.reloadData()
             

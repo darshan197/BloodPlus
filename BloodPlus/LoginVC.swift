@@ -19,7 +19,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(goBack))
+       // navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(goBack))
         // Do any additional setup after loading the view, typically from a nib.
         userNameField.delegate = self
         passwordField.delegate = self
@@ -161,10 +161,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
 
     }
     //
-    //back
-    func goBack(){
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
+
 }
 
 
