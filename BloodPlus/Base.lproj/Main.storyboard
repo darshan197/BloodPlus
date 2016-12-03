@@ -75,7 +75,7 @@
                         <outlet property="imgv" destination="qnH-Xl-2YD" id="Hqj-iq-hUS"/>
                         <outlet property="loginPressed" destination="fSS-Bj-uvS" id="BMy-Td-A46"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="firsttimelogin" id="NMb-WA-96f"/>
-                        <segue destination="JSz-z4-DC6" kind="show" identifier="alreadyloggedin" id="KkQ-M9-r0y"/>
+                        <segue destination="JSz-z4-DC6" kind="show" identifier="alreadyloggedin" id="tDN-KR-7KL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rc7-gn-6qR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,7 +220,7 @@
                     <connections>
                         <outlet property="passwordField" destination="PLS-6D-nIS" id="Cm3-71-pKu"/>
                         <outlet property="userNameField" destination="6n8-3A-Qe1" id="unq-dT-Khv"/>
-                        <segue destination="JSz-z4-DC6" kind="show" identifier="login1" id="Kjm-ef-Kab"/>
+                        <segue destination="JSz-z4-DC6" kind="show" identifier="login1" id="R17-Dl-rve"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -581,7 +581,7 @@
                         <outlet property="imagePressed" destination="uXI-U0-zBx" id="tdd-ej-hG0"/>
                         <outlet property="lastNameField" destination="peq-J2-eVB" id="mxy-oZ-ZVt"/>
                         <outlet property="phoneField" destination="aV2-Hq-FPC" id="Vdi-3j-X0F"/>
-                        <segue destination="JSz-z4-DC6" kind="show" identifier="signup2" id="cm2-yt-bHS"/>
+                        <segue destination="JSz-z4-DC6" kind="show" identifier="signup2" id="7gQ-Ib-wRF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYc-48-G7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -635,11 +635,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Pdb-6h-gRr"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3Jq-fn-9uk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="178" sectionHeaderHeight="5" sectionFooterHeight="5" translatesAutoresizingMaskIntoConstraints="NO" id="exu-Ta-HJP">
-                                <rect key="frame" x="0.0" y="94" width="375" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="user" rowHeight="178" id="Awc-ob-kxu" customClass="UserCell" customModule="BloodPlus" customModuleProvider="target">
@@ -760,7 +760,9 @@
                             <constraint firstAttribute="trailing" secondItem="exu-Ta-HJP" secondAttribute="trailing" id="xey-HG-o59"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="YGf-wj-r1K" userLabel="Donor list"/>
+                    <tabBarItem key="tabBarItem" title="Search" id="YGf-wj-r1K" userLabel="Donor list">
+                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="tableView" destination="exu-Ta-HJP" id="0oZ-LJ-7jv"/>
                         <segue destination="RCX-by-EJr" kind="unwind" identifier="tabletohome" unwindAction="backToHome:" id="0YQ-mt-Mmr"/>
@@ -769,28 +771,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tox-PD-alo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RCX-by-EJr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2439" y="-193"/>
+            <point key="canvasLocation" x="2124" y="-242"/>
         </scene>
         <!--Find/Donate Blood-->
         <scene sceneID="hHK-oZ-Y57">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="partialCurl" id="DpD-Bm-nj5" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" title="Find/Donate Blood" id="2Mb-Cf-YMh"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="partialCurl" id="DpD-Bm-nj5" customClass="TabbarVC" customModule="BloodPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Find/Donate Blood" id="2Mb-Cf-YMh">
+                        <barButtonItem key="backBarButtonItem" title="back" id="n8U-AO-16G"/>
+                        <barButtonItem key="rightBarButtonItem" title="Sign out" style="plain" id="RVR-Gi-1Ql">
+                            <connections>
+                                <action selector="signoutPressed:" destination="DpD-Bm-nj5" id="EHW-ya-7yN"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="RXr-o5-ad5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="selectedImageTintColor" red="1" green="0.23137254900000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="cRH-Af-ABX" kind="relationship" relationship="viewControllers" id="GLu-Do-55v"/>
                         <segue destination="NkF-qH-QtB" kind="relationship" relationship="viewControllers" id="cJr-oW-uwL"/>
                         <segue destination="C8e-hX-O0D" kind="relationship" relationship="viewControllers" id="Vef-qG-i09"/>
+                        <segue destination="yAe-1s-c4T" kind="unwind" identifier="tabvc" unwindAction="backToHome:" id="dtW-e1-wp6"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Isk-dS-6Wz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yAe-1s-c4T" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1299" y="87"/>
+            <point key="canvasLocation" x="1076" y="-64"/>
         </scene>
         <!--HospitalVC-->
         <scene sceneID="zdZ-sS-h8j">
@@ -801,7 +813,7 @@
                         <viewControllerLayoutGuide type="bottom" id="T2I-E6-Xme"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Iqf-aI-NP5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J6a-Jg-2Y4">
@@ -811,7 +823,7 @@
                                 </connections>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ohM-a1-kNe" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
-                                <rect key="frame" x="97" y="543" width="180" height="30"/>
+                                <rect key="frame" x="97" y="479" width="180" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="I6D-jY-xD5"/>
@@ -836,7 +848,7 @@
                             <constraint firstAttribute="trailing" secondItem="J6a-Jg-2Y4" secondAttribute="trailing" id="trf-ZT-yfL"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="qfE-ES-FgL"/>
+                    <tabBarItem key="tabBarItem" title="Hospitals" id="qfE-ES-FgL"/>
                     <connections>
                         <outlet property="mapView" destination="J6a-Jg-2Y4" id="WPM-b0-ZkJ"/>
                         <segue destination="c7g-j5-BvX" kind="unwind" identifier="maptohome" unwindAction="backToHome:" id="Sl0-Mk-QxG"/>
@@ -856,42 +868,95 @@
                         <viewControllerLayoutGuide type="bottom" id="lpX-P1-7Iy"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zDq-C2-tZw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="firstname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uGl-Bw-pEq">
-                                <rect key="frame" x="87.5" y="318.5" width="200" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="LQH-ev-Orl" customClass="RoundPic" customModule="BloodPlus" customModuleProvider="target">
+                                <rect key="frame" x="124.5" y="60" width="125" height="125"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="MHn-bH-L3H"/>
-                                    <constraint firstAttribute="width" constant="200" id="qn9-Pt-3fU"/>
+                                    <constraint firstAttribute="width" constant="125" id="WNv-lE-9RK"/>
+                                    <constraint firstAttribute="height" constant="125" id="rpj-nk-ugD"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bschiranth@gmail.com" borderStyle="roundedRect" placeholder="E-mail" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gmJ-B6-TKo">
+                                <rect key="frame" x="10" y="260" width="355" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="kLH-bb-gs5"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="di4-DO-XPU">
-                                <rect key="frame" x="152" y="412" width="70" height="40"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4dc-GD-CDJ">
+                                <rect key="frame" x="10" y="310" width="355" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="jQI-fe-h6y"/>
-                                    <constraint firstAttribute="height" constant="40" id="w8t-KS-4K0"/>
+                                    <constraint firstAttribute="height" constant="40" id="Jtv-07-6aW"/>
                                 </constraints>
-                                <state key="normal" title="update"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="phone" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fSB-kc-u1r">
+                                <rect key="frame" x="10" y="358" width="355" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="umx-Vo-rNc"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Address" borderStyle="roundedRect" placeholder="Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="niH-ZI-aS5">
+                                <rect key="frame" x="10" y="406" width="355" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="hXr-o6-cny"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fC-5z-lpo" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
+                                <rect key="frame" x="10" y="467" width="355" height="45"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="6vz-QK-ml7"/>
+                                </constraints>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" red="1" green="0.23137254900000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
-                                    <action selector="update:" destination="C8e-hX-O0D" eventType="touchUpInside" id="ayg-IQ-xDw"/>
+                                    <action selector="updatePressed:" destination="C8e-hX-O0D" eventType="touchUpInside" id="9JS-7Y-S5c"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.23921568630000001" blue="0.14117647059999999" alpha="0.90443065069999995" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="di4-DO-XPU" firstAttribute="top" secondItem="uGl-Bw-pEq" secondAttribute="bottom" constant="63.5" id="7mi-BV-eIT"/>
-                            <constraint firstItem="uGl-Bw-pEq" firstAttribute="centerX" secondItem="zDq-C2-tZw" secondAttribute="centerX" id="Aun-2p-XZk"/>
-                            <constraint firstItem="uGl-Bw-pEq" firstAttribute="centerY" secondItem="zDq-C2-tZw" secondAttribute="centerY" id="h82-xW-Fwr"/>
-                            <constraint firstItem="di4-DO-XPU" firstAttribute="centerX" secondItem="zDq-C2-tZw" secondAttribute="centerX" id="xcn-7H-UGq"/>
+                            <constraint firstItem="6fC-5z-lpo" firstAttribute="top" secondItem="niH-ZI-aS5" secondAttribute="bottom" constant="21" id="61A-gI-20y"/>
+                            <constraint firstAttribute="trailing" secondItem="4dc-GD-CDJ" secondAttribute="trailing" constant="10" id="G3p-Hf-ZQY"/>
+                            <constraint firstAttribute="trailing" secondItem="fSB-kc-u1r" secondAttribute="trailing" constant="10" id="U5L-AM-VR8"/>
+                            <constraint firstItem="fSB-kc-u1r" firstAttribute="top" secondItem="4dc-GD-CDJ" secondAttribute="bottom" constant="8" id="WBW-k3-HUB"/>
+                            <constraint firstItem="6fC-5z-lpo" firstAttribute="leading" secondItem="zDq-C2-tZw" secondAttribute="leading" constant="10" id="Zsb-sa-ab5"/>
+                            <constraint firstItem="gmJ-B6-TKo" firstAttribute="top" secondItem="LQH-ev-Orl" secondAttribute="bottom" constant="75" id="bF5-n1-Fxm"/>
+                            <constraint firstItem="LQH-ev-Orl" firstAttribute="top" secondItem="SXP-iu-CfP" secondAttribute="bottom" constant="60" id="bqH-BM-6TO"/>
+                            <constraint firstAttribute="trailing" secondItem="6fC-5z-lpo" secondAttribute="trailing" constant="10" id="dYQ-XL-srf"/>
+                            <constraint firstAttribute="trailing" secondItem="gmJ-B6-TKo" secondAttribute="trailing" constant="10" id="esi-gc-eCZ"/>
+                            <constraint firstItem="niH-ZI-aS5" firstAttribute="top" secondItem="fSB-kc-u1r" secondAttribute="bottom" constant="8" id="fDO-bI-ku4"/>
+                            <constraint firstItem="fSB-kc-u1r" firstAttribute="leading" secondItem="zDq-C2-tZw" secondAttribute="leading" constant="10" id="gFv-ES-WiI"/>
+                            <constraint firstAttribute="trailing" secondItem="niH-ZI-aS5" secondAttribute="trailing" constant="10" id="iSX-uh-cmY"/>
+                            <constraint firstItem="gmJ-B6-TKo" firstAttribute="leading" secondItem="zDq-C2-tZw" secondAttribute="leading" constant="10" id="joW-0B-4Dp"/>
+                            <constraint firstItem="LQH-ev-Orl" firstAttribute="centerX" secondItem="zDq-C2-tZw" secondAttribute="centerX" id="k8U-jL-Vuc"/>
+                            <constraint firstItem="niH-ZI-aS5" firstAttribute="leading" secondItem="zDq-C2-tZw" secondAttribute="leading" constant="10" id="kSM-HQ-hq8"/>
+                            <constraint firstItem="4dc-GD-CDJ" firstAttribute="leading" secondItem="zDq-C2-tZw" secondAttribute="leading" constant="10" id="sCo-ir-iHw"/>
+                            <constraint firstItem="4dc-GD-CDJ" firstAttribute="top" secondItem="gmJ-B6-TKo" secondAttribute="bottom" constant="10" id="wif-zo-4oI"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Hz6-mq-mvn"/>
+                    <tabBarItem key="tabBarItem" title="Profile" id="Hz6-mq-mvn"/>
                     <connections>
-                        <outlet property="firstField" destination="uGl-Bw-pEq" id="KAC-ia-unv"/>
+                        <outlet property="addressField" destination="niH-ZI-aS5" id="3Ey-Di-kqe"/>
+                        <outlet property="editButtonOutlet" destination="6fC-5z-lpo" id="K60-MG-mk6"/>
+                        <outlet property="emailField" destination="gmJ-B6-TKo" id="R6b-E4-a0K"/>
+                        <outlet property="passwordField" destination="4dc-GD-CDJ" id="g8L-Wz-mHe"/>
+                        <outlet property="phoneFIeld" destination="fSB-kc-u1r" id="XpO-lf-Gsd"/>
+                        <outlet property="profilePic" destination="LQH-ev-Orl" id="Cw3-oA-haN"/>
                         <segue destination="1FF-0w-4av" kind="unwind" identifier="uservc" unwindAction="backToHome:" id="lic-CZ-6ja"/>
                     </connections>
                 </viewController>
@@ -909,12 +974,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="DpD-Bm-nj5" kind="relationship" relationship="rootViewController" id="Xoj-Ln-88M"/>
+                        <segue destination="DpD-Bm-nj5" kind="relationship" relationship="rootViewController" id="AHg-KM-gpA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L1X-ne-4gu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="265" y="-64"/>
+            <point key="canvasLocation" x="321" y="-64"/>
         </scene>
     </scenes>
     <resources>
@@ -924,6 +989,6 @@
         <image name="mail-image" width="184" height="184"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KkQ-M9-r0y"/>
+        <segue reference="7gQ-Ib-wRF"/>
     </inferredMetricsTieBreakers>
 </document>

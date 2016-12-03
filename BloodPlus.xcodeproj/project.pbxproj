@@ -19,6 +19,8 @@
 		C9385FA71DEFCC6700DD27D0 /* ShakeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9385FA61DEFCC6700DD27D0 /* ShakeLabel.swift */; };
 		C94FE3D41DF15A9E00A17219 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3D31DF15A9E00A17219 /* UserDetails.swift */; };
 		C94FE3D61DF17F1000A17219 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3D51DF17F1000A17219 /* UserVC.swift */; };
+		C94FE3D81DF22D1900A17219 /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3D71DF22D1900A17219 /* TabbarVC.swift */; };
+		C94FE3DB1DF2A74600A17219 /* drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C94FE3DA1DF2A74600A17219 /* drop.mp3 */; };
 		C958A0BC1DEB2CFB00174291 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BB1DEB2CFB00174291 /* RoundButton.swift */; };
 		C958A0BE1DEB2F7900174291 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BD1DEB2F7900174291 /* User.swift */; };
 		C958A0C01DEB32A400174291 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BF1DEB32A400174291 /* UserCell.swift */; };
@@ -52,6 +54,8 @@
 		C9385FA61DEFCC6700DD27D0 /* ShakeLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShakeLabel.swift; sourceTree = "<group>"; };
 		C94FE3D31DF15A9E00A17219 /* UserDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
 		C94FE3D51DF17F1000A17219 /* UserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		C94FE3D71DF22D1900A17219 /* TabbarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
+		C94FE3DA1DF2A74600A17219 /* drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop.mp3; sourceTree = "<group>"; };
 		C958A0BB1DEB2CFB00174291 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C958A0BD1DEB2F7900174291 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C958A0BF1DEB32A400174291 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C94FE3D91DF2A73100A17219 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C94FE3DA1DF2A74600A17219 /* drop.mp3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		C958A0B61DEA58CE00174291 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +153,7 @@
 				C9385F9E1DEF918A00DD27D0 /* LaunchVC.swift */,
 				C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */,
 				C94FE3D51DF17F1000A17219 /* UserVC.swift */,
+				C94FE3D71DF22D1900A17219 /* TabbarVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -185,6 +198,7 @@
 		CB61E4381DE623FE00015F2C /* BloodPlus */ = {
 			isa = PBXGroup;
 			children = (
+				C94FE3D91DF2A73100A17219 /* Resources */,
 				C986C5741DEE8B83006EEC50 /* BloodPlus.entitlements */,
 				C986C56F1DEE80E4006EEC50 /* Utilities */,
 				C958A0CF1DEB424700174291 /* Services */,
@@ -270,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB61E4441DE623FE00015F2C /* LaunchScreen.storyboard in Resources */,
+				C94FE3DB1DF2A74600A17219 /* drop.mp3 in Resources */,
 				C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */,
 				CB61E4411DE623FE00015F2C /* Assets.xcassets in Resources */,
 				CB61E43F1DE623FE00015F2C /* Main.storyboard in Resources */,
@@ -348,6 +363,7 @@
 				C9385FA51DEFBA5300DD27D0 /* ShakeTextField.swift in Sources */,
 				C9385F9F1DEF918A00DD27D0 /* LaunchVC.swift in Sources */,
 				CB61E43C1DE623FE00015F2C /* LoginVC.swift in Sources */,
+				C94FE3D81DF22D1900A17219 /* TabbarVC.swift in Sources */,
 				C958A0C81DEB353100174291 /* HospitalVC.swift in Sources */,
 				C958A0C01DEB32A400174291 /* UserCell.swift in Sources */,
 				C9385FA71DEFCC6700DD27D0 /* ShakeLabel.swift in Sources */,

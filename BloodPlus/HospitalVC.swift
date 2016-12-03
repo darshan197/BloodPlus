@@ -30,7 +30,7 @@ class HospitalVC : UIViewController  ,MKMapViewDelegate{
      
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //self.tabBarController?.tabBar.items![1].image = UIImage(named: "iconTab1.png")
         //nav
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
         

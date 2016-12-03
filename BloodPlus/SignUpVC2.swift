@@ -224,7 +224,8 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                             if error != nil {
                                 
                                 print("cannot sign in")
-                                self.showAlert("Account creation error", message: "Please try again")
+                               // self.showAlert("Account creation error", message: "Please try again")
+                                self.showAlert("Email/Password already exists", message: "Please enter different username/password")
                                 
                             } else{
                                 //self.savedUID =  user?.uid

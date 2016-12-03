@@ -24,6 +24,8 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       // self.tabBarController?.tabBar.items![0].image = UIImage(named: "iconTab0.png")
+
         
         // search bar color
         searchController.searchBar.layer.borderColor = UIColor.redColor().CGColor
@@ -67,6 +69,15 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
+
+    override func viewWillAppear(animated: Bool) {
+        //notification to reload tableview
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableVC.loadList(_:)),name:"load", object: nil)
+        
+        tableView.reloadData()
+        print("reloaded after tab bar switch")
+    }
+    
 
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -175,6 +186,12 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
             print("default")
         }
     }
+    //reload tableview
+    func loadList(notification: NSNotification){
+        //load data here
+        self.tableView.reloadData()
+    }
+    
     //
     func signoutTapped() {
         try! FIRAuth.auth()?.signOut()

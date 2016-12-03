@@ -36,8 +36,6 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
 
     }
 
-
-
     @IBAction func loginBtnPressed(sender: RoundButton) {
         print("login called")
         
@@ -110,7 +108,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     }
     
     func completeSignIn(){
-        performSegueWithIdentifier("login1", sender: nil)
+      // performSegueWithIdentifier("login1", sender: nil)
     }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){}

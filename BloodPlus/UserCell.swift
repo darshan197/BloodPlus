@@ -69,7 +69,7 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
                 }
             
             })//datawithmaxsize
-        }
+        }//download pic
     }
     
     //call
