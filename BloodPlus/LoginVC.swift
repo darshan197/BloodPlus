@@ -19,8 +19,9 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(goBack))
-        // Do any additional setup after loading the view, typically from a nib.
+    
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         userNameField.delegate = self
         passwordField.delegate = self
         
@@ -45,13 +46,13 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                     if self.userNameField.text!.isEmpty  {
                         // addAnimationToTextField(self.userNameField)
                         self.addAnimationToTextField(self.userNameField)
-                        self.userNameField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                        self.userNameField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
                         
                     }
                     if self.passwordField.text!.isEmpty {
                         self.addAnimationToTextField(self.passwordField)
                         
-                        self.passwordField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                        self.passwordField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
                     }
                     
                     FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
@@ -150,7 +151,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                 textField.text = ""
                 self.addAnimationToTextField(userNameField)
                 
-                textField.attributedPlaceholder = NSAttributedString(string:"Email format : abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                textField.attributedPlaceholder = NSAttributedString(string:"abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
         
@@ -159,7 +160,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                 textField.text = ""
                 self.addAnimationToTextField(passwordField)
                 
-        textField.attributedPlaceholder = NSAttributedString(string:"Password: Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+        textField.attributedPlaceholder = NSAttributedString(string:"Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
 

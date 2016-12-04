@@ -215,9 +215,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                         self.showAlert("User already exists", message: "Please enter different username/password")
                         
                         
-                    }
-                        
-                    else{
+                    }else{
                         
                         FIRAuth.auth()?.createUserWithEmail(self.newUser.email, password: self.newUser.password,completion: {(user,error) in
                             
@@ -257,9 +255,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                                                 let downloadUrl = metadata?.downloadURL()?.absoluteString
                                                 
                                                 if let url = downloadUrl{
-                                                    
+                                                        self.signUpSuccess = true
+                                    
                                                     self.postToFirebase(url, success: true)
-                                                    self.signUpSuccess = true
+                                                
+                                                    print("is signed up :\(self.signUpSuccess)")
                                                 }
                                                 
                                             }
@@ -279,6 +279,8 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                     }
                     
                 })
+            
+            
                 //completion of firebase authentication
         }
         
@@ -305,18 +307,25 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         DataService.ds.REF_USERS.child(self.newUser.uid).setValue(userToAdd)
         
                //create alert
+        print("success status : \(success)")
         if success  {
             //user has entered valid fields, complete sign up
+            
+
+            
+            
             // alert controller for successfully signing up
             print("Success Alert!")
             
+            let successAlert = UIAlertController(title: "Sucess!Thank you for signing up 😄", message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
+            successAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
+                print("after alert")
+                //self.performSegueWithIdentifier("signup2", sender: self)
+            }))
+            //UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(successAlert, animated: true, completion: nil)
+            //self.presentViewController(successAlert, animated: true, completion: nil)
+            print("After success alert")
             
-            let alertController = UIAlertController(title: "Sucess!Thank you for signing up 😄" , message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
-            let acceptAction = UIAlertAction(title: "Ok", style: .Default) { (_) -> Void in
-                self.performSegueWithIdentifier("signup2", sender: self)
-            }
-            alertController.addAction(acceptAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
         }
     }
     //
@@ -372,11 +381,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
 
         }
         
-            if textField.text!.isBlank {
+        if textField.text!.isBlank {
                 addAnimationToTextField(textField)
                // popupController.message = "Empty Field"
                // presentViewController(popupController, animated: true, completion: nil)
-            textField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            textField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         if textField == phoneField {
             if textField.text!.characters.count != 10 {
@@ -384,7 +393,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                 textField.text = ""
                // popupController.message = "Enter 10 digits"
                // presentViewController(popupController, animated: true, completion: nil)
-            textField.attributedPlaceholder = NSAttributedString(string:"Phone number must have exactly 10 numbers",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+            textField.attributedPlaceholder = NSAttributedString(string:"10 numbers only",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
     }
@@ -423,7 +432,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                 }
                 return true
             }else {
-                popupController.message = "Only letters and whitespace allowed"
+                popupController.message = "Letters and whitespace only"
                 presentViewController(popupController, animated: true, completion: nil)
                 
                 delayPopUpDismiss()
@@ -441,7 +450,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                 }
                 return true
             }else {
-                popupController.message = "Only numbers allowed"
+                popupController.message = "Numbers only"
                 presentViewController(popupController, animated: true, completion: nil)
                 delayPopUpDismiss()
                 isPopOverPresent = true
@@ -454,7 +463,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         if textField == addressField {
             let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"").invertedSet
             if (string.rangeOfCharacterFromSet(addrSet) != nil){
-                popupController.message = "only letters and numbers allowed"
+                popupController.message = "Letters and numbers only"
                 presentViewController(popupController, animated: true, completion: nil)
                 delayPopUpDismiss()
                 isPopOverPresent = true

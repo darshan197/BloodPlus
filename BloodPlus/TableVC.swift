@@ -9,12 +9,14 @@
 import Foundation
 import UIKit
 import Firebase
+import MessageUI
 
-class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating , UISearchBarDelegate {
+class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISearchResultsUpdating , UISearchBarDelegate, MFMailComposeViewControllerDelegate {
     
     
     @IBOutlet weak var tableView: UITableView!
     static var imageCache:NSCache = NSCache()
+    
     
     var userStore = UserStore(allUsers: [], filteredUsers: [])
     //var users = [User]()
@@ -70,13 +72,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         tableView.tableHeaderView = searchController.searchBar
     }
 
-    override func viewWillAppear(animated: Bool) {
-        //notification to reload tableview
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TableVC.loadList(_:)),name:"load", object: nil)
-        
-        tableView.reloadData()
-        print("reloaded after tab bar switch")
-    }
+ 
     
 
     
@@ -96,7 +92,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let user:User
-        
+
         if searchController.active && searchController.searchBar.text != "" {
             if self.userStore.filteredUsers.count == 0 {
                 user = self.userStore.allUsers[indexPath.row]
@@ -112,13 +108,26 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
         cell.selectionStyle = .None
         //cell.contentView.userInteractionEnabled = false//disable cell interaction
+   
+            //mail tap
+            let mailTap = UITapGestureRecognizer(target:self, action:#selector(TableVC.mailUser(_:)))
+            cell.email.userInteractionEnabled = true
+            cell.email.addGestureRecognizer(mailTap)
+    
+            /////
+            
+            //call tap
+            let callTap = UITapGestureRecognizer(target:self, action:#selector(TableVC.callUser(_:)))
+            //tapGestureRecognizer.cancelsTouchesInView = true
+            cell.phone.userInteractionEnabled = true
+            cell.phone.addGestureRecognizer(callTap)
+     
+            
+            /////
         cell.layer.borderWidth = 2.5
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.redColor().CGColor
-        
-            
-            
-            
+    
             //
             if let img = TableVC.imageCache.objectForKey(user.profilePicUrl){
                 cell.configureCell(user, img: img as? UIImage)
@@ -186,11 +195,88 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
             print("default")
         }
     }
-    //reload tableview
-    func loadList(notification: NSNotification){
-        //load data here
-        self.tableView.reloadData()
+
+    //mail
+    func mailUser(sender:UITapGestureRecognizer){
+        
+        //using sender, we can get the point in respect to the table view
+        let tapLocation = sender.locationInView(self.tableView)
+        
+        //using the tapLocation, we retrieve the corresponding indexPath
+        let indexPath = self.tableView.indexPathForRowAtPoint(tapLocation)
+        
+        print("mail user table called")
+        let mailAlert = UIAlertController(title: "Mail?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        mailAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
+            //
+            print("inside action1")
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                //we could even get the cell from the index, too
+                if let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as? UserCell {
+                   mail.setToRecipients([cell.email.text!])
+                }
+                mail.setSubject("Mail from Blood+")
+                mail.setMessageBody("<p>Please help by donating blood..</p>", isHTML: true)
+                self.presentViewController(mail, animated: true, completion: nil)
+            } else {
+                print("Cant send mail")
+            }
+            
+            
+            //
+        }))
+        
+        mailAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        self.presentViewController(mailAlert, animated: true, completion: nil)
     }
+    
+    //
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // call
+    //call
+    func callUser(sender:UITapGestureRecognizer){
+        //using sender, we can get the point in respect to the table view
+        let tapLocation = sender.locationInView(self.tableView)
+        
+        //using the tapLocation, we retrieve the corresponding indexPath
+        let indexPath = self.tableView.indexPathForRowAtPoint(tapLocation)
+        
+        print("call user called")
+        let callAlert = UIAlertController(title: "Call?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        callAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
+            print("inside alert")
+            if let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as? UserCell {
+        let CleanphoneNumber = cell.phone.text!.stringByReplacingOccurrencesOfString(" ", withString:
+            "")
+                if let phoneCallURL:NSURL = NSURL(string: "tel://\(CleanphoneNumber)") {
+                    let application:UIApplication = UIApplication.sharedApplication()
+                    if (application.canOpenURL(phoneCallURL)) {
+                        application.openURL(phoneCallURL);
+                    } else {
+                        let alertController = UIAlertController(title: "Error making call!", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                    }
+                }
+            }
+
+
+            
+        }))
+        
+        callAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        
+        self.presentViewController(callAlert, animated: true, completion: nil)
+    }
+    //call
     
     //
     func signoutTapped() {

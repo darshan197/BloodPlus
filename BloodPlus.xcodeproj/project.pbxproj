@@ -21,11 +21,11 @@
 		C94FE3D61DF17F1000A17219 /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3D51DF17F1000A17219 /* UserVC.swift */; };
 		C94FE3D81DF22D1900A17219 /* TabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3D71DF22D1900A17219 /* TabbarVC.swift */; };
 		C94FE3DB1DF2A74600A17219 /* drop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C94FE3DA1DF2A74600A17219 /* drop.mp3 */; };
+		C94FE3DF1DF36B8700A17219 /* CredentialsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FE3DE1DF36B8700A17219 /* CredentialsVC.swift */; };
 		C958A0BC1DEB2CFB00174291 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BB1DEB2CFB00174291 /* RoundButton.swift */; };
 		C958A0BE1DEB2F7900174291 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BD1DEB2F7900174291 /* User.swift */; };
 		C958A0C01DEB32A400174291 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0BF1DEB32A400174291 /* UserCell.swift */; };
 		C958A0C21DEB346500174291 /* SignUpVC2.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C11DEB346500174291 /* SignUpVC2.swift */; };
-		C958A0C41DEB34D400174291 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C31DEB34D400174291 /* SearchVC.swift */; };
 		C958A0C81DEB353100174291 /* HospitalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C71DEB353100174291 /* HospitalVC.swift */; };
 		C958A0CA1DEB35BB00174291 /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C958A0C91DEB35BB00174291 /* TableVC.swift */; };
 		C958A0CE1DEB3C8F00174291 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */; };
@@ -56,11 +56,11 @@
 		C94FE3D51DF17F1000A17219 /* UserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		C94FE3D71DF22D1900A17219 /* TabbarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarVC.swift; sourceTree = "<group>"; };
 		C94FE3DA1DF2A74600A17219 /* drop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = drop.mp3; sourceTree = "<group>"; };
+		C94FE3DE1DF36B8700A17219 /* CredentialsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsVC.swift; sourceTree = "<group>"; };
 		C958A0BB1DEB2CFB00174291 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		C958A0BD1DEB2F7900174291 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C958A0BF1DEB32A400174291 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		C958A0C11DEB346500174291 /* SignUpVC2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpVC2.swift; sourceTree = "<group>"; };
-		C958A0C31DEB34D400174291 /* SearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		C958A0C71DEB353100174291 /* HospitalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HospitalVC.swift; sourceTree = "<group>"; };
 		C958A0C91DEB35BB00174291 /* TableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
 		C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -146,7 +146,6 @@
 			children = (
 				CB61E43B1DE623FE00015F2C /* LoginVC.swift */,
 				C958A0C11DEB346500174291 /* SignUpVC2.swift */,
-				C958A0C31DEB34D400174291 /* SearchVC.swift */,
 				C958A0C71DEB353100174291 /* HospitalVC.swift */,
 				C958A0C91DEB35BB00174291 /* TableVC.swift */,
 				C9C320DA1DEB9F74008F750E /* SignUpVC1.swift */,
@@ -154,6 +153,7 @@
 				C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */,
 				C94FE3D51DF17F1000A17219 /* UserVC.swift */,
 				C94FE3D71DF22D1900A17219 /* TabbarVC.swift */,
+				C94FE3DE1DF36B8700A17219 /* CredentialsVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -355,10 +355,10 @@
 				C93718E31DF0EBC00047E027 /* UserStore.swift in Sources */,
 				C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */,
 				C93718E11DF0AD660047E027 /* RoundPic.swift in Sources */,
-				C958A0C41DEB34D400174291 /* SearchVC.swift in Sources */,
 				C958A0C21DEB346500174291 /* SignUpVC2.swift in Sources */,
 				C94FE3D41DF15A9E00A17219 /* UserDetails.swift in Sources */,
 				C958A0BC1DEB2CFB00174291 /* RoundButton.swift in Sources */,
+				C94FE3DF1DF36B8700A17219 /* CredentialsVC.swift in Sources */,
 				C94FE3D61DF17F1000A17219 /* UserVC.swift in Sources */,
 				C9385FA51DEFBA5300DD27D0 /* ShakeTextField.swift in Sources */,
 				C9385F9F1DEF918A00DD27D0 /* LaunchVC.swift in Sources */,

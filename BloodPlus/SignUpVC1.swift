@@ -25,6 +25,9 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+
+        
         emailField.delegate = self
         passwordField.delegate = self
         confirmPassword.delegate = self
@@ -67,13 +70,13 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         if emailField.text!.isBlank || passwordField.text!.isBlank || confirmPassword.text!.isBlank{
             
             if emailField.text!.isBlank {
-                emailField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                emailField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
             if passwordField.text!.isBlank {
-                passwordField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                passwordField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
             if confirmPassword.text!.isBlank {
-                confirmPassword.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                confirmPassword.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
          
         } else {
@@ -120,7 +123,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 textField.text = ""
                 self.addAnimationToTextField(emailField)
 
-                textField.attributedPlaceholder = NSAttributedString(string:"Email format : abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                textField.attributedPlaceholder = NSAttributedString(string:"abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
         
@@ -129,7 +132,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 textField.text = ""
                 self.addAnimationToTextField(passwordField)
                 
-                textField.attributedPlaceholder = NSAttributedString(string:"Password: Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                textField.attributedPlaceholder = NSAttributedString(string:"Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
             }
         }
         
