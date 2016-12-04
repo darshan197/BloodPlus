@@ -17,31 +17,31 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     @IBOutlet weak var tableView: UITableView!
     static var imageCache:NSCache = NSCache()
     
-    
+    //initialize userstore
     var userStore = UserStore(allUsers: [], filteredUsers: [])
-    //var users = [User]()
-    //var filteredUsers = [User]()
 
+    // search bar
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // self.tabBarController?.tabBar.items![0].image = UIImage(named: "iconTab0.png")
 
-        
         // search bar color
         searchController.searchBar.layer.borderColor = UIColor.redColor().CGColor
         searchController.searchBar.tintColor = UIColor.redColor()
-        //
+        
+        // navigation bar color
         navigationController?.navigationBar.barTintColor = UIColor(red:1.00, green:0.24, blue:0.14, alpha:1.0)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(signoutTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
+        
         //tableview delegate
         tableView.dataSource = self
         tableView.delegate = self
         
         //self.users = []
         self.userStore.allUsers = []
+        
         //append Firebase data to array
         DataService.ds.REF_USERS.observeEventType(FIRDataEventType.Value, withBlock: {(snapshot) in
            
@@ -71,11 +71,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
-
- 
-    
-
-    
+  
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -93,6 +89,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         
         let user:User
 
+        // return user based on search mode
         if searchController.active && searchController.searchBar.text != "" {
             if self.userStore.filteredUsers.count == 0 {
                 user = self.userStore.allUsers[indexPath.row]
@@ -106,29 +103,26 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
 
 
         if let cell = tableView.dequeueReusableCellWithIdentifier("user") as? UserCell {
-        cell.selectionStyle = .None
-        //cell.contentView.userInteractionEnabled = false//disable cell interaction
+        cell.selectionStyle = .None // disable cell selection
+
    
-            //mail tap
+            //mail tap gesture
             let mailTap = UITapGestureRecognizer(target:self, action:#selector(TableVC.mailUser(_:)))
             cell.email.userInteractionEnabled = true
             cell.email.addGestureRecognizer(mailTap)
     
-            /////
-            
-            //call tap
+            //call tap gesture
             let callTap = UITapGestureRecognizer(target:self, action:#selector(TableVC.callUser(_:)))
-            //tapGestureRecognizer.cancelsTouchesInView = true
             cell.phone.userInteractionEnabled = true
             cell.phone.addGestureRecognizer(callTap)
      
             
-            /////
+            ///// cell customization
         cell.layer.borderWidth = 2.5
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.redColor().CGColor
     
-            //
+            // check if image is in cache and configure table cell
             if let img = TableVC.imageCache.objectForKey(user.profilePicUrl){
                 cell.configureCell(user, img: img as? UIImage)
                 return cell
@@ -145,7 +139,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         
     }
     
-    //search
+    //search results
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         print("search called")
         
@@ -154,12 +148,12 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         filterContentForSearchScope(searchBar.text!, scope: scope)
     }
     
-    //scope
+    //search scope
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchScope(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
     
-    //search func
+    //search func to filter users
     func filterContentForSearchScope(searchText:String , scope: String = "BloodType"){
         
         switch scope {
@@ -196,7 +190,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         }
     }
 
-    //mail
+    //mail users
     func mailUser(sender:UITapGestureRecognizer){
         
         //using sender, we can get the point in respect to the table view
@@ -210,11 +204,11 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         
         mailAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
             //
-            print("inside action1")
+            // check is mail can be sent by device
             if MFMailComposeViewController.canSendMail() {
                 let mail = MFMailComposeViewController()
                 mail.mailComposeDelegate = self
-                //we could even get the cell from the index, too
+                //get the cell from the index
                 if let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as? UserCell {
                    mail.setToRecipients([cell.email.text!])
                 }
@@ -224,9 +218,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
             } else {
                 print("Cant send mail")
             }
-            
-            
-            //
+       //
         }))
         
         mailAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
@@ -234,13 +226,12 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         self.presentViewController(mailAlert, animated: true, completion: nil)
     }
     
-    //
+    // dismiss mail composer after sending mail
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // call
-    //call
+    // call user function
     func callUser(sender:UITapGestureRecognizer){
         //using sender, we can get the point in respect to the table view
         let tapLocation = sender.locationInView(self.tableView)
@@ -252,12 +243,14 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
         let callAlert = UIAlertController(title: "Call?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         
         callAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
-            print("inside alert")
+            
             if let cell = self.tableView.cellForRowAtIndexPath(indexPath!) as? UserCell {
+                
         let CleanphoneNumber = cell.phone.text!.stringByReplacingOccurrencesOfString(" ", withString:
             "")
                 if let phoneCallURL:NSURL = NSURL(string: "tel://\(CleanphoneNumber)") {
                     let application:UIApplication = UIApplication.sharedApplication()
+                    // check if phoneurl can be used
                     if (application.canOpenURL(phoneCallURL)) {
                         application.openURL(phoneCallURL);
                     } else {
@@ -267,9 +260,7 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
                     }
                 }
             }
-
-
-            
+         
         }))
         
         callAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
@@ -278,16 +269,13 @@ class TableVC:UIViewController,UITableViewDelegate, UITableViewDataSource,UISear
     }
     //call
     
-    //
+    //sign out
     func signoutTapped() {
         try! FIRAuth.auth()?.signOut()
         performSegueWithIdentifier("tabletohome", sender: self)
         
     }
-    
-    
     //
-    
 }
 
 

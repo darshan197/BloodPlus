@@ -28,11 +28,7 @@ class TabbarVC: UITabBarController {
         print("tab bar")
         
         let tabBarItems = tabBar.items! as [UITabBarItem]
-        /*
-        self.tabBarController?.tabBar.items![0].image = UIImage(named: "iconTab0.png")
-        self.tabBarController?.tabBar.items![1].image = UIImage(named: "iconTab1.png")
-        self.tabBarController?.tabBar.items![2].image = UIImage(named: "iconTab2.png")
-         */
+        //load tab bar icons
         tabBarItems[0].image = UIImage(named: "iconTab0")
         tabBarItems[1].image = UIImage(named: "iconTab1")
         tabBarItems[2].image = UIImage(named: "iconTab2")

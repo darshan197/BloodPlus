@@ -13,6 +13,7 @@ import Firebase
 class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeTextField , ShakeLabel{
     
     
+    //outlets
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPassword: UITextField!
@@ -27,12 +28,13 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 
-        
+        //text delegates
         emailField.delegate = self
         passwordField.delegate = self
         confirmPassword.delegate = self
         mismatchMessage.hidden = true
-        //tap gesture
+        
+        //tap gesture for background tap
         view.userInteractionEnabled = true
         let aSelector :Selector = #selector(SignUpVC1.backgroundTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
@@ -93,13 +95,14 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
     
     //
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        //save details to next screen
         //let signUpUser = User(email: emailField.text!, uid: savedUID!)
         if let destViewController = segue.destinationViewController as? SignUpVC2 {
             //destViewController.newUser = signUpUser
             destViewController.newUser = UserDetails(email: emailField.text!, password: passwordField.text!)
         }
     }
-    //
+    
     // textfield return pressed
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.emailField.resignFirstResponder()
@@ -138,7 +141,8 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
         
         
     }
-    //
+    
+    // reassign placeholders
     func textFieldDidBeginEditing(textField: UITextField) {
 
         mismatchMessage.hidden = true
@@ -157,6 +161,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
 
     }
     
+    //
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         if mismatchMessage.hidden == false {
             mismatchMessage.hidden = true

@@ -14,31 +14,26 @@ import Firebase
 class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource , UIImagePickerControllerDelegate , UINavigationControllerDelegate,UITextFieldDelegate ,
     ShowAlert,ShakeLabel, ShakeTextField , UIPopoverPresentationControllerDelegate {
     
-    var newUser:UserDetails!
+    var newUser:UserDetails! // object to access user email, password
     
-    var 😄 = "Smiley"
+    var 😄 = "Smiley" //smiley to display success
     
-    @IBOutlet weak var bloodTypePicker: UIPickerView!
+    @IBOutlet weak var bloodTypePicker: UIPickerView! //to choose blood type
     
     var imagePicker:UIImagePickerController! // to pick the image from mobile
     
+    // outlets
     @IBOutlet weak var imagePressed: UIImageView!
-    
     @IBOutlet weak var firstNameField: UITextField!
-    
     @IBOutlet weak var lastNameField: UITextField!
-    
     @IBOutlet weak var phoneField: UITextField!
-    
     @IBOutlet weak var addressField: UITextField!
-    
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     //
-    var bloodType:String = "B+"
+    var bloodType:String = "B+" // initial picker value
     //
     var signUpSuccess:Bool = false
     var pickerArray : [String] = ["O+","O-","A+","A-","B+","B-","AB+","AB-"]
-    
     
     var thisVC :UIViewController!
     
@@ -47,55 +42,52 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     override func viewDidLoad() {
         super.viewDidLoad()
          thisVC = self.presentingViewController
-                //print("recieved object is \(newUser.uid) with email \(newUser.emailId)")
+    
+        //picker view customization and delegates
         bloodTypePicker.delegate = self
         bloodTypePicker.dataSource = self
         bloodTypePicker.selectRow(4, inComponent: 0, animated: true)
         bloodTypePicker.layer.borderWidth = 3
         bloodTypePicker.layer.cornerRadius = 10
         bloodTypePicker.layer.borderColor = UIColor(colorLiteralRed: 212.0/255.0, green: 212.0/255.0, blue: 212.0/255.0, alpha: 1.0).CGColor
-        //text delegates
+        
+        //text field delegates
         firstNameField.delegate = self
         lastNameField.delegate = self
         phoneField.delegate = self
         addressField.delegate = self
         
-        //image tap
+        //image tap gesture
         let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(imageTapped))
         imagePressed.userInteractionEnabled = true
         imagePressed.addGestureRecognizer(tapGestureRecognizer)
         RoundPic.roundPicture.roundPic(imagePressed)
         
+        //image picker delegate
         imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
         
-        //tap gesture
+        //tap gesture for background tap
         view.userInteractionEnabled = true
         let aSelector :Selector = #selector(SignUpVC1.backgroundTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
         
-        //keyboard
+        //adjusting view for keyboard
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SignUpVC2.keyboardWillHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
      
     }
     
+    //remove observers
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        
     }
     
-    /*
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        print("touch began")
-        self.view.endEditing(true)
-    }
-    */
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         //remove lines in picker view
         pickerView.subviews.forEach({
@@ -113,6 +105,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         return pickerArray[row]
     }
     
+    //title for each picker view row
     func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         
         let titleData = pickerArray[row]
@@ -120,14 +113,16 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         return pickerTitle
         
     }
+    
     //
     func imageTapped(){
         //allow users to choose
         
-        // 1
+        // create view controller
         let optionMenu = UIAlertController(title: "", message: "Choose image method", preferredStyle: .ActionSheet)
         
-        // 2
+
+        // pick from phone
         let mediaAction = UIAlertAction(title: "Choose from device", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             //
@@ -135,7 +130,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         })
 
         
-        //
+        // take pic
         let backCameraAction = UIAlertAction(title: "Camera", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             //
@@ -156,15 +151,15 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             }
             //
         })
-        // 4
+        // cancel
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
-        // 5
+        // add actions to sheet
         optionMenu.addAction(mediaAction)
         optionMenu.addAction(backCameraAction)
         optionMenu.addAction(cancelAction)
         
-        // 6
+        // present the alert
         self.presentViewController(optionMenu, animated: true, completion: nil)
     }
     
@@ -177,15 +172,17 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
 
     }
-    //imaeg picking cancelled
+    //dismiss if cancelled
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    //
+    //sign up button
     @IBAction func signUpTapped(sender: RoundButton) {
         
-
+        print("signup tapped")
+        
+        // handle all blank case
         if firstNameField.text!.isBlank {
             addAnimationToTextField(firstNameField)
         }
@@ -199,13 +196,12 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             addAnimationToTextField(addressField)
         }
         
-        //check for empty fields
+        
+        //no fields must be empty
         if firstNameField.text!.isBlank == false && lastNameField.text!.isBlank == false
             && phoneField.text!.isBlank == false && addressField.text!.isBlank == false {
-            //
-            //create user email in firebase
             
-            //
+                //create user email in firebase
                 FIRAuth.auth()?.signInWithEmail(newUser.email , password: newUser.password, completion: {(user,error) in
                     
                     if error == nil {
@@ -216,7 +212,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                         
                         
                     }else{
-                        
+                        //create new user with recieved details from previous screen
                         FIRAuth.auth()?.createUserWithEmail(self.newUser.email, password: self.newUser.password,completion: {(user,error) in
                             
                             if error != nil {
@@ -229,8 +225,9 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                                 //self.savedUID =  user?.uid
                                 print("user created and authenticated")
                                 self.signUpSuccess = true
-                                //self.completeSignUp()
+                             
                                 if let fireUser = user {
+                                    //save user id
                                     self.newUser.uid = fireUser.uid
                                 }
                                 //MARK: upload images
@@ -244,6 +241,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                                         let metadata = FIRStorageMetadata()
                                         metadata.contentType = "image/jpeg"
                                         
+                                        //store image in Firebase storage
                                         DataService.ds.REF_USER_IMAGES.child(imageUid).putData(imageData, metadata: metadata){
                                             (metadata,error) in
                                             
@@ -252,14 +250,16 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                                                 print("ImageErr: Unable to upload image - \(error.debugDescription)")
                                             }else{
                                                 print("ImageSuccess: Successfully uploaded to firbase")
+                                                
                                                 let downloadUrl = metadata?.downloadURL()?.absoluteString
                                                 
                                                 if let url = downloadUrl{
                                                         self.signUpSuccess = true
-                                    
+                                                    
+                                                    //post data to firebase
                                                     self.postToFirebase(url, success: true)
-                                                
-                                                    print("is signed up :\(self.signUpSuccess)")
+
+                                                    
                                                 }
                                                 
                                             }
@@ -279,18 +279,17 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
                     }
                     
                 })
-            
-            
-                //completion of firebase authentication
+        //completion of firebase authentication
         }
         
     }
     //
     // posting to firebase
     func postToFirebase(imgUrl:String,success: Bool)  {
-        //dictionary keys need to match the firebase keys
+        
+        //dictionary keys match the firebase keys
         let userToAdd = [
-            //"email":newUser.emailid
+         
             "address": addressField.text! as String,
             "bloodtype":bloodType,
             "email":newUser.email,
@@ -298,39 +297,37 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             "lastname":lastNameField.text! as String,
             "phone":phoneField.text! as String,
             "profilepic": imgUrl as String,
+            
             ] as [String : AnyObject]
         
         
+        // auto id created by firebase
         //let firebasePost = DataService.ds.REF_USERS.childByAutoId()
-
-        //firebasePost.setValue(userToAdd)
-        DataService.ds.REF_USERS.child(self.newUser.uid).setValue(userToAdd)
         
-               //create alert
+        //post with userid
+        DataService.ds.REF_USERS.child(self.newUser.uid).setValue(userToAdd)
+      
+        //create alert
         print("success status : \(success)")
         if success  {
             //user has entered valid fields, complete sign up
-            
-
-            
-            
+   
             // alert controller for successfully signing up
             print("Success Alert!")
-            
-            let successAlert = UIAlertController(title: "Sucess!Thank you for signing up 😄", message: "Welcome to Blood+ community.", preferredStyle: UIAlertControllerStyle.Alert)
-            successAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
-                print("after alert")
-                //self.performSegueWithIdentifier("signup2", sender: self)
-            }))
-            //UIApplication.sharedApplication().keyWindow?.rootViewController!.presentViewController(successAlert, animated: true, completion: nil)
-            //self.presentViewController(successAlert, animated: true, completion: nil)
+            let alertController = UIAlertController(title: "Sucess!Thank you for signing up 😄", message: "Welcome to Blood+ community.", preferredStyle: .Alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            let alertWindow = UIWindow(frame: UIScreen.mainScreen().bounds)
+            alertWindow.rootViewController = UIViewController()
+            alertWindow.windowLevel = UIWindowLevelAlert + 1;
+            alertWindow.makeKeyAndVisible()
+            alertWindow.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
             print("After success alert")
             
         }
     }
-    //
+    
+    // selected row in picker
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-       
         let selectedBloodType = pickerArray[row]
         bloodType = selectedBloodType
     }
@@ -366,12 +363,11 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
     //text delegate checks
     func textFieldDidEndEditing(textField: UITextField) {
 
-        //pop
-        
+        //popover presentation controller to show error
         let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
         popupController.modalPresentationStyle = .Popover
-        
         popupController.preferredContentSize = CGSizeMake(textField.frame.width * 0.75 ,textField.frame.height * 0.75)
+        
         if let popoverController = popupController.popoverPresentationController {
             popoverController.sourceView = textField as UIView
             popoverController.sourceRect = textField.bounds
@@ -380,19 +376,17 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
             popoverController.delegate = self
 
         }
-        
+        // empty field
         if textField.text!.isBlank {
-                addAnimationToTextField(textField)
-               // popupController.message = "Empty Field"
-               // presentViewController(popupController, animated: true, completion: nil)
+            addAnimationToTextField(textField)
             textField.attributedPlaceholder = NSAttributedString(string:"Please fill all fields",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
+        
+        //phone field 10 numbers
         if textField == phoneField {
             if textField.text!.characters.count != 10 {
                 addAnimationToTextField(textField)
                 textField.text = ""
-               // popupController.message = "Enter 10 digits"
-               // presentViewController(popupController, animated: true, completion: nil)
             textField.attributedPlaceholder = NSAttributedString(string:"10 numbers only",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
@@ -459,7 +453,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         }
 
         
-        //addr
+        //address
         if textField == addressField {
             let addrSet = NSCharacterSet(charactersInString: "0123456789ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ,-.\"").invertedSet
             if (string.rangeOfCharacterFromSet(addrSet) != nil){
@@ -480,7 +474,7 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         return true
     }
     
-    //text
+    //assign placeholders back
     func textFieldDidBeginEditing(textField: UITextField) {
 
         if textField == firstNameField {
@@ -499,23 +493,24 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         }
     }
     
-    //keyboard hide
+    //show keyboard after adjusting view height
     func keyboardWillShow(notification:NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
             self.view.frame.origin.y = -keyboardSize.height
         }
     }
     
+    //hide keyboard
     func keyboardWillHide(notification:NSNotification) {
         self.view.frame.origin.y = 0
     }
     //
     //popover
-    
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.None
     }
     
+    //assign a 0.75 sec delay before dismissing popover view controller
     func delayPopUpDismiss(){
         let delay = 0.75 * Double(NSEC_PER_SEC)
         let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))

@@ -12,34 +12,37 @@ import Firebase
 
 class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPopoverPresentationControllerDelegate {
 
+    //firebase reference and currently signed in user
     let curUser = FIRAuth.auth()?.currentUser
     var userref = DataService.ds.REF_USERS
 
     var profileDetails:User!
+    
+    //bools to check edit
     var isProfileEdit = false
     var isImageChanged = false
     var isEmailChanged = false
     var isPasswordChanged = false
     
+    //label outlets
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var profilePic: RoundPic!
     @IBOutlet weak var phoneFIeld: UITextField!
     @IBOutlet weak var addressField: UITextField!
     
+    //button outlet
     @IBOutlet weak var editButtonOutlet: RoundButton!
 
     
     var imagePicker:UIImagePickerController! // to pick the image from mobile
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
        // self.tabBarController?.tabBar.items![2].image = UIImage(named: "iconTab2.png")
         RoundPic.roundPicture.roundPic(profilePic)
-        //firstField.delegate = self
-        //keyboard
-       // NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserVC.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-      //  NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserVC.keyboardWillHide(_:)), name: UIKeyboardDidHideNotification, object: nil)
+
         
         //delegates
         addressField.delegate = self
@@ -66,7 +69,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         profilePic.userInteractionEnabled = true
         profilePic.addGestureRecognizer(tapGestureRecognizer1)
 
-        //image tap gestures
+        //update password gesture
         let tapGestureRecognizer2 = UITapGestureRecognizer(target:self,action:#selector(updateLabelTapped))
         updateLabel.userInteractionEnabled = true
         updateLabel.addGestureRecognizer(tapGestureRecognizer2)
@@ -74,14 +77,15 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         //disable edit on load
         phoneFIeld.userInteractionEnabled = false
         addressField.userInteractionEnabled = false
-        //
-    
+        
+        //sign out button
         self.navigationController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign out", style: .Plain, target: self, action: #selector(performSignOut))
         navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
         
         //load all user profile details
         if let uid = curUser?.uid {
         
+            //firebase observer to get user datas
             userref.child((curUser?.uid)!).observeSingleEventOfType(.Value, withBlock: {(snapshot) in
                 //print("url is :\(snapshot.value)")
                 //go through snap shot
@@ -97,8 +101,6 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                                 self.addressField.text = snap.value as? String
                             case "profilepic" :
                                 //download image with url
-                                //download pic
-                                
                                 let ref = FIRStorage.storage().referenceForURL(snap.value as! String)
                                 ref.dataWithMaxSize(2*1024*1024, completion: {(data,error) in
                                     
@@ -119,7 +121,6 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                         }
                     }
                 }
-                //
                 
             })//observe singleevent type
         }
@@ -134,6 +135,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
             sender.setTitle("Save", forState: .Normal)//button title
             isProfileEdit = true
 
+            //move cursor to end of phone field
             phoneFIeld.userInteractionEnabled = true
             phoneFIeld.becomeFirstResponder()
             phoneFIeld.selectedTextRange = phoneFIeld.textRangeFromPosition(phoneFIeld.endOfDocument, toPosition: phoneFIeld.endOfDocument)
@@ -145,7 +147,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
             let saveAlert = UIAlertController(title: "Save and exit?", message: "App needs to logout to save changes", preferredStyle: UIAlertControllerStyle.Alert)
             
             saveAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
-                //save to firebase here
+                //save to firebase
                 //phone and address
                 self.userref.child("\(self.curUser!.uid)/phone").setValue(self.phoneFIeld.text)
                 self.userref.child("\(self.curUser!.uid)/address").setValue(self.addressField.text)
@@ -154,7 +156,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                 if self.isImageChanged {
                     self.saveImageToFirebase()
                 }
-                //
+                //signout and go to home page
                 try! FIRAuth.auth()?.signOut()
                 self.performSegueWithIdentifier("uservc", sender: nil)
                 print("save here")
@@ -166,17 +168,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         }
     }
     
-    //keyboard hide
-    func keyboardWillShow(notification:NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.CGRectValue() {
-            self.view.frame.origin.y = -keyboardSize.height
-        }
-    }
-    
-    func keyboardWillHide(notification:NSNotification) {
-        self.view.frame.origin.y = 0
-    }
-    //
+
     // textfield return pressed
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -190,7 +182,8 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         phoneFIeld.resignFirstResponder()
         addressField.resignFirstResponder()
     }
-    //
+    
+    // check field after edit
     func textFieldDidEndEditing(textField: UITextField) {
         
         if textField.text!.isBlank {
@@ -205,15 +198,12 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                 textField.attributedPlaceholder = NSAttributedString(string:"10 numbers only",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
-        
-
-        
+      
     }
-    //
+    
+    // set placeholders
     func textFieldDidBeginEditing(textField: UITextField) {
         
-
-                
         if textField == phoneFIeld {
             textField.attributedPlaceholder = NSAttributedString(string:"Phone Numbers",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
         }
@@ -222,7 +212,8 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
             textField.attributedPlaceholder = NSAttributedString(string:"Address",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
         }
     }
-    //
+    
+    // block unnecessary characters
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         ///////
@@ -236,14 +227,14 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         //popover
         let popupController = storyboard?.instantiateViewControllerWithIdentifier("myPopUp") as! MessagePopUpViewCOntroller
         popupController.modalPresentationStyle = .Popover
-        popupController.preferredContentSize = CGSizeMake(textField.frame.width  ,textField.frame.height )
+        popupController.preferredContentSize = CGSizeMake(textField.frame.size.width  ,textField.frame.size.height )
         if let popoverController = popupController.popoverPresentationController {
             popoverController.sourceView = textField as UIView
             popoverController.sourceRect = textField.bounds
             popoverController.preferredContentSize
             popoverController.permittedArrowDirections = .Any
             popoverController.delegate = self
-            
+            popoverController.sourceRect = CGRectMake(0, 0, textField.frame.size.width, textField.frame.size.height)
         }
         
         
@@ -285,18 +276,16 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         profilePic.userInteractionEnabled = true
         //allow users to choose
         editButtonOutlet.setTitle("Save", forState: .Normal)
-        // 1
+
         let optionMenu = UIAlertController(title: "", message: "Choose image method", preferredStyle: .ActionSheet)
-        
-        // 2
+
         let mediaAction = UIAlertAction(title: "Choose from device", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             //
             self.presentViewController(self.imagePicker, animated: true, completion: nil)
         })
         
-        
-        //
+
         let backCameraAction = UIAlertAction(title: "Camera", style: .Default, handler: {
             (alert: UIAlertAction!) -> Void in
             //
@@ -317,15 +306,13 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
             }
             //
         })
-        // 4
+ 
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         
-        // 5
         optionMenu.addAction(mediaAction)
         optionMenu.addAction(backCameraAction)
         optionMenu.addAction(cancelAction)
         
-        // 6
         self.presentViewController(optionMenu, animated: true, completion: nil)
         
     }
@@ -401,12 +388,13 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
-    ////
+    
+    //// go to update screen
     func updateLabelTapped(){
         performSegueWithIdentifier("update", sender: nil)
     }
     
-    //
+    // sign out
     func performSignOut(){
         
         try! FIRAuth.auth()?.signOut()

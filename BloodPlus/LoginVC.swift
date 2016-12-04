@@ -15,36 +15,34 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     @IBOutlet weak var userNameField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        //back button color
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
+        //text field delegates
         userNameField.delegate = self
         passwordField.delegate = self
         
-        
-        //tap gesture
+        //tap gesture for background tap
         view.userInteractionEnabled = true
         let aSelector :Selector = #selector(LoginVC.backgroundTapped)
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         tapGesture.numberOfTapsRequired = 1
         view.addGestureRecognizer(tapGesture)
         
-        
-
     }
 
     @IBAction func loginBtnPressed(sender: RoundButton) {
         print("login called")
         
-                //login presess
+                //login press
                 if let userName = self.userNameField.text ,let password = self.passwordField.text{
                     
+                    //add animation to empty yext fields
                     if self.userNameField.text!.isEmpty  {
-                        // addAnimationToTextField(self.userNameField)
+                       
                         self.addAnimationToTextField(self.userNameField)
                         self.userNameField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
                         
@@ -54,7 +52,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                         
                         self.passwordField.attributedPlaceholder = NSAttributedString(string:"Empty Field",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
                     }
-                    
+                    //sign in with firebase
                     FIRAuth.auth()?.signInWithEmail(userName, password: password, completion: {(user,error) in
                         
                         if error == nil {
@@ -75,9 +73,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                                 self.userNameField.text = ""
                                 self.passwordField.text = ""
                             }
-                            
-                            
-                            
+                      
                         }
                         
                     })       
@@ -89,14 +85,11 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     
     // textfield return pressed
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //resign text responsders
         self.userNameField.resignFirstResponder()
         self.passwordField.resignFirstResponder()
         return true
     }
-
-    
-    //
-
 
     ///// background tap
     func backgroundTapped()  {
@@ -109,7 +102,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     }
     
     func completeSignIn(){
-      // performSegueWithIdentifier("login1", sender: nil)
+       performSegueWithIdentifier("login1", sender: nil)
     }
     
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){}
@@ -118,13 +111,13 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
     @IBAction func resetPassword(sender: AnyObject) {
         
         if userNameField.text!.isBlank  {
-            
+            //empty field, cannot reset
             self.showAlert("Email field empty", message: "Please fill the email for password reset")
             
         } else {
             
-            //
             if let email = userNameField.text {
+                //call firebase method to reset
                 FIRAuth.auth()?.sendPasswordResetWithEmail(email, completion: {(error) in
                     if error != nil {
                         print("error resetting")
@@ -134,7 +127,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
                     } else {
                         print("success to reset")
                         
-                        self.showAlert("Link to reset password sent to inbox", message: "")
+                        self.showAlert("Link to reset password sent to your mail inbox", message: "")
                         
                     }
                 })
@@ -165,7 +158,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
         }
 
     }
-    //
+    // set placeholders back when editing begins
     func textFieldDidBeginEditing(textField: UITextField) {
         
         if textField == userNameField {
@@ -181,7 +174,7 @@ class LoginVC: UIViewController, UITextFieldDelegate , ShowAlert ,ShakeTextField
 
 
 
-//string extensions
+//string extensions for validations
 extension String {
     
     //To check text field or String is blank or not

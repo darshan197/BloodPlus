@@ -11,6 +11,7 @@ import UIKit
 
 protocol ShakeLabel {}
 
+//extension to add shake animation to text field
 extension ShakeLabel where Self:UIViewController {
     
     func addAnimationToLabelField (labelField:UILabel){

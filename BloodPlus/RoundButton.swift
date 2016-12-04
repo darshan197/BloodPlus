@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+//class for button with rounded corners
 class RoundButton : UIButton{
     override func awakeFromNib() {
         super.awakeFromNib()

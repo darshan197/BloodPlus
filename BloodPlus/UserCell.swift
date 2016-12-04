@@ -11,6 +11,7 @@ import UIKit
 import Firebase
 import MessageUI
 
+//tableview cell class that has all the cell outlets
 class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
     
     
@@ -25,15 +26,11 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-
-
-        
         //round pic
         RoundPic.roundPicture.roundPic(profileImage)
     }
     
-    
+    //assigns values recieved from user class to outlets
     func configureCell(user:User,img:UIImage?=nil){
         
         self.userObj = user
@@ -46,7 +43,7 @@ class UserCell:UITableViewCell,MFMailComposeViewControllerDelegate {
         if img != nil {
             self.profileImage.image = img
         }else{
-            //download pic
+            //download pic with firebase reference url
             let ref = FIRStorage.storage().referenceForURL(user.profilePicUrl)
             ref.dataWithMaxSize(2*1024*1024, completion: {(data,error) in
             

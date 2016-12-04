@@ -55,7 +55,7 @@
                                             <color key="titleShadowColor" red="1" green="0.23137254900000001" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="Xvy-we-BF6" kind="show" id="gOh-Se-uvc"/>
+                                            <action selector="signUpPressed:" destination="kcJ-J2-zgB" eventType="touchUpInside" id="MA3-bO-4Ke"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -76,8 +76,10 @@
                     <connections>
                         <outlet property="imgv" destination="qnH-Xl-2YD" id="Hqj-iq-hUS"/>
                         <outlet property="loginPressed" destination="fSS-Bj-uvS" id="BMy-Td-A46"/>
+                        <outlet property="signUpPressed" destination="yb5-Kb-U86" id="c6p-SZ-kHl"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="firsttimelogin" id="NMb-WA-96f"/>
                         <segue destination="JSz-z4-DC6" kind="show" identifier="alreadyloggedin" id="tDN-KR-7KL"/>
+                        <segue destination="Xvy-we-BF6" kind="show" identifier="signup" id="dRR-09-mXz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rc7-gn-6qR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -427,7 +429,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2lD-sh-4zv">
                                         <rect key="frame" x="10" y="447" width="355" height="40"/>
@@ -503,7 +505,7 @@
                         <outlet property="imagePressed" destination="uXI-U0-zBx" id="tdd-ej-hG0"/>
                         <outlet property="lastNameField" destination="peq-J2-eVB" id="mxy-oZ-ZVt"/>
                         <outlet property="phoneField" destination="aV2-Hq-FPC" id="Vdi-3j-X0F"/>
-                        <segue destination="JSz-z4-DC6" kind="show" identifier="signup2" id="7gQ-Ib-wRF"/>
+                        <segue destination="JSz-z4-DC6" kind="show" identifier="signup2" id="CRZ-fF-tCk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYc-48-G7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1022,6 +1024,6 @@
         <image name="mail-image" width="184" height="184"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7gQ-Ib-wRF"/>
+        <segue reference="tDN-KR-7KL"/>
     </inferredMetricsTieBreakers>
 </document>

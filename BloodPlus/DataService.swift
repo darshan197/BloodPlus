@@ -14,6 +14,7 @@ let STORAGE_BASE = FIRStorage.storage().reference()
 
 class DataService{
 
+    //static class available throughout the project
     static let ds = DataService()
     
     //firebase references

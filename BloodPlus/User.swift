@@ -9,7 +9,9 @@
 import Foundation
 import Firebase
 
+//model user class to store user information
 class User {
+    
     private var _firstName : String!
     private var _lastName : String!
     private var _address : String!

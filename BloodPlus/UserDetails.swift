@@ -9,7 +9,7 @@
 import Foundation
 
 class UserDetails {
-
+    //class to store just email and password of user
     private var _email : String!
     private var _password:String!
     var uid: String = ""

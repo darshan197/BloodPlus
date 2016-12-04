@@ -15,10 +15,9 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
     let curUser = FIRAuth.auth()?.currentUser
     var userref = DataService.ds.REF_USERS
     
+    //outlets
     @IBOutlet weak var newEmailField: UITextField!
-
     @IBOutlet weak var newPasswordField: UITextField!
-    
     @IBOutlet weak var newConfirmPasswordField: UITextField!
     @IBOutlet weak var presentEmailLabel: UILabel!
     
@@ -27,15 +26,18 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //text delegates
         newEmailField.delegate = self
         newPasswordField.delegate = self
         newConfirmPasswordField.delegate = self
         
         navigationController?.navigationItem.title = "Update email/password"
         
+        //current user email
         presentEmailLabel.text = "Current Email id: "+(curUser?.email)!
     }
     
+    // update credentials
     @IBAction func updatePressed(sender: AnyObject) {
         
         if newEmailField.text!.isBlank || newPasswordField.text!.isBlank || newConfirmPasswordField.text!.isBlank {
@@ -53,6 +55,7 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
         
         }
        
+        //check password matching
         if newPasswordField.text!.isBlank == false && newConfirmPasswordField.text?.isBlank == false  {
             if newPasswordField.text != newConfirmPasswordField.text {
                 passwordConfirmed = false
@@ -82,10 +85,7 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
                 
                 saveAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
                 presentViewController(saveAlert, animated: true, completion: nil)
-                
-
-                
-                
+            
             }
             
         }
@@ -147,12 +147,14 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
         newPasswordField.resignFirstResponder()
         newConfirmPasswordField.resignFirstResponder()
     }
-    //
+    
+    // do firebase update
     func performUpdate(){
     
         //email and password
         let credential = FIREmailPasswordAuthProvider.credentialWithEmail(self.newEmailField.text!, password: self.newPasswordField.text!)
         
+        //firebse reauthentication
         self.curUser?.reauthenticateWithCredential(credential) { error in
             if let error = error {
                 // An error happened.
@@ -161,8 +163,10 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
             } else {
                 // User re-authenticated.
                 print("email password change success")
+                //change email in database
                 self.userref.child("\(self.curUser!.uid)/email").setValue(self.newEmailField?.text!)
                 self.showAlert("Update Successfull", message: "Please re-login with new email/password")
+                //signout and go to home
                 try! FIRAuth.auth()?.signOut()
                 self.performSegueWithIdentifier("credential", sender: nil)
             }

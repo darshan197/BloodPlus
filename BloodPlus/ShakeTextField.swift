@@ -11,6 +11,7 @@ import UIKit
 
 protocol ShakeTextField {}
 
+//extension to add shake animation to text field
 extension ShakeTextField where Self:UIViewController {
 
     func addAnimationToTextField (txtField:UITextField){

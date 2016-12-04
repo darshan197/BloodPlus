@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		455A4AA9E7EBBCDA19BB41D2 /* Pods_BloodPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */; };
-		C9208AD91DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */; };
 		C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */; };
 		C9208ADF1DF01FC500B9CE64 /* MessagePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */; };
 		C93718E11DF0AD660047E027 /* RoundPic.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93718E01DF0AD660047E027 /* RoundPic.swift */; };
@@ -43,7 +42,6 @@
 		8A3E96DA7D7E876CAB2E8147 /* Pods_BloodPlus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BloodPlus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B270766CFE320606E60D07E7 /* Pods-BloodPlus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BloodPlus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BloodPlus/Pods-BloodPlus.debug.xcconfig"; sourceTree = "<group>"; };
 		C9208AD61DEFF81000B9CE64 /* UnderKeyboard.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnderKeyboard.framework; path = "Pods/../build/Debug-iphoneos/UnderKeyboard/UnderKeyboard.framework"; sourceTree = "<group>"; };
-		C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutConstraint.swift; sourceTree = "<group>"; };
 		C9208ADC1DF013D400B9CE64 /* ShadowTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowTextField.swift; sourceTree = "<group>"; };
 		C9208ADE1DF01FC500B9CE64 /* MessagePopUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePopUpViewController.swift; sourceTree = "<group>"; };
 		C93718E01DF0AD660047E027 /* RoundPic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundPic.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 		C986C56F1DEE80E4006EEC50 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				C9208AD81DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift */,
 				C9385FA21DEFB3F700DD27D0 /* ShowAlert.swift */,
 				C9385FA41DEFBA5300DD27D0 /* ShakeTextField.swift */,
 				C9385FA61DEFCC6700DD27D0 /* ShakeLabel.swift */,
@@ -198,16 +195,16 @@
 		CB61E4381DE623FE00015F2C /* BloodPlus */ = {
 			isa = PBXGroup;
 			children = (
-				C94FE3D91DF2A73100A17219 /* Resources */,
 				C986C5741DEE8B83006EEC50 /* BloodPlus.entitlements */,
+				C94FE3D91DF2A73100A17219 /* Resources */,
 				C986C56F1DEE80E4006EEC50 /* Utilities */,
 				C958A0CF1DEB424700174291 /* Services */,
 				C958A0B61DEA58CE00174291 /* Model */,
 				C958A0B71DEA58D400174291 /* View */,
 				C958A0B81DEA58DE00174291 /* Controller */,
 				CB61E4391DE623FE00015F2C /* AppDelegate.swift */,
-				CB61E43D1DE623FE00015F2C /* Main.storyboard */,
 				CB61E4401DE623FE00015F2C /* Assets.xcassets */,
+				CB61E43D1DE623FE00015F2C /* Main.storyboard */,
 				CB61E4421DE623FE00015F2C /* LaunchScreen.storyboard */,
 				C958A0CD1DEB3C8F00174291 /* GoogleService-Info.plist */,
 				CB61E4451DE623FE00015F2C /* Info.plist */,
@@ -351,7 +348,6 @@
 				C958A0D11DEB425900174291 /* DataService.swift in Sources */,
 				C9C320DB1DEB9F74008F750E /* SignUpVC1.swift in Sources */,
 				C9208ADD1DF013D400B9CE64 /* ShadowTextField.swift in Sources */,
-				C9208AD91DEFFB3D00B9CE64 /* KeyboardLayoutConstraint.swift in Sources */,
 				C93718E31DF0EBC00047E027 /* UserStore.swift in Sources */,
 				C9385FA31DEFB3F700DD27D0 /* ShowAlert.swift in Sources */,
 				C93718E11DF0AD660047E027 /* RoundPic.swift in Sources */,
