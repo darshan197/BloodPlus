@@ -23,7 +23,8 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
     var isImageChanged = false
     var isEmailChanged = false
     var isPasswordChanged = false
-    
+    var isImagePressed = false
+    var newImage:UIImage!
     //label outlets
     @IBOutlet weak var updateLabel: UILabel!
     @IBOutlet weak var profilePic: RoundPic!
@@ -103,13 +104,15 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                                 //download image with url
                                 let ref = FIRStorage.storage().referenceForURL(snap.value as! String)
                                 ref.dataWithMaxSize(2*1024*1024, completion: {(data,error) in
-                                    
+                                    print("profile pic - \(snap.value)")
                                     if error != nil{
                                         print("Firbase download error")
                                     }else {
                                         if let imgData = data {
                                             if let image = UIImage(data: imgData) {
                                                 self.profilePic.image = image
+                                                self.newImage = image//save downloaded image
+                                                print("image downloaded")
                                             }
                                         }
                                     }
@@ -130,11 +133,11 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
     // save and exit
     @IBAction func updatePressed(sender: AnyObject) {
         //enable user interaction
-        if isProfileEdit == false {
+        if isProfileEdit == false && isImagePressed == false {
             //dont save yet
             sender.setTitle("Save", forState: .Normal)//button title
             isProfileEdit = true
-
+            isImagePressed = true
             //move cursor to end of phone field
             phoneFIeld.userInteractionEnabled = true
             phoneFIeld.becomeFirstResponder()
@@ -153,9 +156,11 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                 self.userref.child("\(self.curUser!.uid)/address").setValue(self.addressField.text)
                 
                 //image save to firebase
-                if self.isImageChanged {
-                    self.saveImageToFirebase()
+                if self.isImagePressed {
+                     self.saveImageToFirebase()
                 }
+               
+             
                 //signout and go to home page
                 try! FIRAuth.auth()?.signOut()
                 self.performSegueWithIdentifier("uservc", sender: nil)
@@ -274,6 +279,9 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
     ///////////tap gesture functions
     func profileTapped(){
         profilePic.userInteractionEnabled = true
+        phoneFIeld.userInteractionEnabled = true
+        addressField.userInteractionEnabled = true
+        isImagePressed = true
         //allow users to choose
         editButtonOutlet.setTitle("Save", forState: .Normal)
 
@@ -326,7 +334,9 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         
         if let img = info[UIImagePickerControllerOriginalImage] as? UIImage {
             profilePic.image = img //set image locally
+            newImage = img//save new image
             isImageChanged = true
+            isImagePressed = true
             profilePic.userInteractionEnabled = false//disable user intercation
         }
         imagePicker.dismissViewControllerAnimated(true, completion: nil)
@@ -346,7 +356,9 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
         if let img2 = profilePic.image {
             
             if let imageData = UIImageJPEGRepresentation(img2, 0.2){
-                
+            
+         //   if let imageData = UIImageJPEGRepresentation(newImage, 0.2){
+   
                 let imageUid = NSUUID().UUIDString
                 let metadata = FIRStorageMetadata()
                 metadata.contentType = "image/jpeg"
@@ -365,7 +377,7 @@ class UserVC: UIViewController , UITextFieldDelegate, ShowAlert, ShakeTextField,
                             
                             //change in database also
                             self.userref.child("\(self.curUser!.uid)/profilepic").setValue(url)
-                            print("now tableview will be reloaded")
+                            print("new profile pic - \(url)")
                         }
                         
                     }

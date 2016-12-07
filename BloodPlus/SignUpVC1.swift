@@ -126,7 +126,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 textField.text = ""
                 self.addAnimationToTextField(emailField)
 
-                textField.attributedPlaceholder = NSAttributedString(string:"abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                textField.attributedPlaceholder = NSAttributedString(string:"abc@xyz.com",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
         
@@ -135,7 +135,7 @@ class SignUpVC1 : UIViewController , UITextFieldDelegate , ShowAlert , ShakeText
                 textField.text = ""
                 self.addAnimationToTextField(passwordField)
                 
-                textField.attributedPlaceholder = NSAttributedString(string:"Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.redColor()])
+                textField.attributedPlaceholder = NSAttributedString(string:"Atleast 6 characters",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
             }
         }
         

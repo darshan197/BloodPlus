@@ -635,10 +635,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blood :AB-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukj-bf-16N">
-                                                    <rect key="frame" x="266" y="108" width="85" height="20"/>
+                                                    <rect key="frame" x="251" y="108" width="100" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="b5a-Bm-UAs"/>
-                                                        <constraint firstAttribute="width" constant="85" id="eZM-q0-96I"/>
+                                                        <constraint firstAttribute="width" constant="100" id="eZM-q0-96I"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -913,13 +913,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjD-fe-9BW" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
-                                <rect key="frame" x="40" y="205" width="295" height="50"/>
+                                <rect key="frame" x="40" y="105" width="295" height="50"/>
                                 <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="vVL-9R-jht"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
-                                <state key="normal" title="Update">
+                                <state key="normal" title="Update email">
                                     <color key="titleColor" red="1" green="0.30588235289999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -936,7 +936,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hUc-hn-rFm">
-                                <rect key="frame" x="10" y="100" width="355" height="40"/>
+                                <rect key="frame" x="10" y="175" width="355" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="pFB-cS-5w9"/>
                                 </constraints>
@@ -945,7 +945,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hXG-oj-7b0">
-                                <rect key="frame" x="10" y="150" width="355" height="40"/>
+                                <rect key="frame" x="10" y="225" width="355" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="hdT-5J-Js3"/>
                                 </constraints>
@@ -962,24 +962,41 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZz-uc-Te6" customClass="RoundButton" customModule="BloodPlus" customModuleProvider="target">
+                                <rect key="frame" x="40" y="280" width="295" height="50"/>
+                                <color key="backgroundColor" red="0.99989169840000003" green="1" blue="0.99988096950000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="mQw-DE-3HE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="17"/>
+                                <state key="normal" title="Update Password">
+                                    <color key="titleColor" red="1" green="0.30588235289999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="updatePass:" destination="OwH-2u-fgZ" eventType="touchUpInside" id="A8n-rq-RyG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.30588235289999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="LjD-fe-9BW" firstAttribute="top" secondItem="hXG-oj-7b0" secondAttribute="bottom" constant="15" id="3j2-Fc-q51"/>
                             <constraint firstAttribute="trailing" secondItem="LjD-fe-9BW" secondAttribute="trailing" constant="40" id="41m-IX-whc"/>
+                            <constraint firstItem="hXG-oj-7b0" firstAttribute="top" secondItem="hUc-hn-rFm" secondAttribute="bottom" constant="10" id="4cW-PG-GNk"/>
                             <constraint firstItem="qgr-Cw-bGH" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="10" id="5Kp-W9-kC7"/>
                             <constraint firstAttribute="trailing" secondItem="hUc-hn-rFm" secondAttribute="trailing" constant="10" id="69I-1o-Otq"/>
-                            <constraint firstItem="hXG-oj-7b0" firstAttribute="top" secondItem="hUc-hn-rFm" secondAttribute="bottom" constant="10" id="AIE-XD-qok"/>
                             <constraint firstAttribute="trailing" secondItem="hXG-oj-7b0" secondAttribute="trailing" constant="10" id="JqI-oq-HDM"/>
+                            <constraint firstItem="hUc-hn-rFm" firstAttribute="top" secondItem="LjD-fe-9BW" secondAttribute="bottom" constant="20" id="MRV-5T-hdl"/>
+                            <constraint firstItem="LjD-fe-9BW" firstAttribute="top" secondItem="ULT-ve-AcR" secondAttribute="bottom" constant="15" id="Qv1-Bm-OvK"/>
                             <constraint firstAttribute="trailing" secondItem="qgr-Cw-bGH" secondAttribute="trailing" constant="10" id="SHd-81-gjt"/>
                             <constraint firstItem="LjD-fe-9BW" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="40" id="Wlz-Vq-w9Y"/>
+                            <constraint firstItem="zZz-uc-Te6" firstAttribute="top" secondItem="hXG-oj-7b0" secondAttribute="bottom" constant="15" id="ZQU-ky-Abf"/>
+                            <constraint firstAttribute="trailing" secondItem="zZz-uc-Te6" secondAttribute="trailing" constant="40" id="cDB-iv-wgt"/>
                             <constraint firstItem="hUc-hn-rFm" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="10" id="cHI-bJ-caO"/>
-                            <constraint firstItem="hUc-hn-rFm" firstAttribute="top" secondItem="ULT-ve-AcR" secondAttribute="bottom" constant="10" id="cgj-BN-N3P"/>
                             <constraint firstItem="hXG-oj-7b0" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="10" id="dYi-xx-72Q"/>
                             <constraint firstItem="ULT-ve-AcR" firstAttribute="top" secondItem="PQo-Xz-oei" secondAttribute="bottom" constant="50" id="dwD-HT-ieE"/>
                             <constraint firstItem="ULT-ve-AcR" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="10" id="fub-P7-zEk"/>
                             <constraint firstAttribute="trailing" secondItem="ULT-ve-AcR" secondAttribute="trailing" constant="10" id="oc3-MF-jL5"/>
                             <constraint firstItem="qgr-Cw-bGH" firstAttribute="top" secondItem="PQo-Xz-oei" secondAttribute="bottom" constant="10" id="wJq-E3-3Up"/>
+                            <constraint firstItem="zZz-uc-Te6" firstAttribute="leading" secondItem="tv2-Z3-lh0" secondAttribute="leading" constant="40" id="yxA-Zy-BwB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Update email/password" id="dRy-yB-bWw"/>
@@ -1000,7 +1017,7 @@
         <scene sceneID="VSP-6Z-yr4">
             <objects>
                 <navigationController storyboardIdentifier="nav" id="JSz-z4-DC6" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gv1-Gi-CsS">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gv1-Gi-CsS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="1" green="0.30588235289999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -21,6 +21,9 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
     @IBOutlet weak var newConfirmPasswordField: UITextField!
     @IBOutlet weak var presentEmailLabel: UILabel!
     
+    var presentEmail:String!
+    var presentPassword:String!
+    
     var passwordConfirmed = false
     
     override func viewDidLoad() {
@@ -35,44 +38,27 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
         
         //current user email
         presentEmailLabel.text = "Current Email id: "+(curUser?.email)!
+        
+        //
+        
     }
     
     // update credentials
     @IBAction func updatePressed(sender: AnyObject) {
-        
-        if newEmailField.text!.isBlank || newPasswordField.text!.isBlank || newConfirmPasswordField.text!.isBlank {
+        print("update pressed")
+        if newEmailField.text!.isBlank  {
         
             if newEmailField.text!.isBlank {
                 addAnimationToTextField(newEmailField)
             }
-            if newPasswordField.text!.isBlank{
-                addAnimationToTextField(newPasswordField)
-            }
-            if newConfirmPasswordField.text!.isBlank {
-                addAnimationToTextField(newConfirmPasswordField)
-            }
-        
-        
+
         }
        
-        //check password matching
-        if newPasswordField.text!.isBlank == false && newConfirmPasswordField.text?.isBlank == false  {
-            if newPasswordField.text != newConfirmPasswordField.text {
-                passwordConfirmed = false
-                newConfirmPasswordField.text = ""
-                addAnimationToTextField(newConfirmPasswordField)
 
-                newConfirmPasswordField.attributedPlaceholder = NSAttributedString(string:"Password Mismatch",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
-            }else{
-                passwordConfirmed = true
-            }
-        }
         //check for empty fields
-        if newEmailField.text!.isBlank == false && newPasswordField == false
-            && newConfirmPasswordField.text!.isBlank == false {
+        if newEmailField.text!.isBlank == false  {
         
-            if passwordConfirmed {
-                
+            
                 //save now
                 let saveAlert = UIAlertController(title: "Save and exit?", message: "App needs to logout to save changes", preferredStyle: UIAlertControllerStyle.Alert)
                 
@@ -86,7 +72,7 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
                 saveAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
                 presentViewController(saveAlert, animated: true, completion: nil)
             
-            }
+            
             
         }
     }
@@ -150,27 +136,91 @@ class CredentialsVC:UIViewController , UITextFieldDelegate, ShowAlert, ShakeText
     
     // do firebase update
     func performUpdate(){
-    
-        //email and password
-        let credential = FIREmailPasswordAuthProvider.credentialWithEmail(self.newEmailField.text!, password: self.newPasswordField.text!)
+        print("perform update called")
         
-        //firebse reauthentication
-        self.curUser?.reauthenticateWithCredential(credential) { error in
-            if let error = error {
-                // An error happened.
-                print("error saving email :\(error.description)")
-                self.showAlert("Error saving email/password", message: "Please try again later")
-            } else {
-                // User re-authenticated.
-                print("email password change success")
-                //change email in database
+        //// email
+        self.curUser?.updateEmail(newEmailField.text!, completion: {(error) in
+            if error == nil {
+                print("email changed")
                 self.userref.child("\(self.curUser!.uid)/email").setValue(self.newEmailField?.text!)
-                self.showAlert("Update Successfull", message: "Please re-login with new email/password")
-                //signout and go to home
                 try! FIRAuth.auth()?.signOut()
                 self.performSegueWithIdentifier("credential", sender: nil)
+            }else {
+                self.showAlert("Email change error", message: "Its been a while since you logged in,please relogin to change email")
+            }
+        })
+        ////
+    }
+    
+    
+    //password action
+    @IBAction func updatePass(sender: AnyObject) {
+        
+        if  newPasswordField.text!.isBlank || newConfirmPasswordField.text!.isBlank {
+            
+            if newPasswordField.text!.isBlank{
+                addAnimationToTextField(newPasswordField)
+            }
+            if newConfirmPasswordField.text!.isBlank {
+                addAnimationToTextField(newConfirmPasswordField)
             }
         }
+        ///
+        //check password matching
+        if newPasswordField.text!.isBlank == false && newConfirmPasswordField.text?.isBlank == false  {
+            if newPasswordField.text != newConfirmPasswordField.text {
+                passwordConfirmed = false
+                newConfirmPasswordField.text = ""
+                addAnimationToTextField(newConfirmPasswordField)
+                
+                newConfirmPasswordField.attributedPlaceholder = NSAttributedString(string:"Password Mismatch",attributes:[NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+            }else{
+                passwordConfirmed = true
+            }
+        }
+        ///
+        //check for empty fields
+        if newPasswordField.text!.isBlank == false && newConfirmPasswordField.text!.isBlank == false {
+            
+            if passwordConfirmed {
+            //save now
+            let saveAlert = UIAlertController(title: "Save and exit?", message: "App needs to logout to save changes", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            saveAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action: UIAlertAction!) in
+                
+                self.updateFirebasePassword()//change password
+                //
+                print("save here")
+            }))
+            
+            saveAlert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+            presentViewController(saveAlert, animated: true, completion: nil)
+                
+          }
+       
+        }
         
+    }
+    
+    
+    
+    //perform password update
+    func updateFirebasePassword() {
+        ////passowrd
+        self.curUser?.updatePassword(newPasswordField.text!, completion: {(error) in
+        
+            if error == nil {
+                print("password changed")
+                try! FIRAuth.auth()?.signOut()
+                self.performSegueWithIdentifier("credential", sender: nil)
+            }else {
+                print("Passerror: "+error.debugDescription)
+                self.showAlert("Password change error", message: "Its been a while since you logged in,please relogin to change password")
+                
+            }
+            
+        })
+    
+        ////
     }
 }

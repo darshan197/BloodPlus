@@ -437,14 +437,21 @@ class SignUpVC2 : UIViewController,UIPickerViewDelegate,UIPickerViewDataSource ,
         //phone
         if textField == phoneField {
             let numSet = NSCharacterSet(charactersInString: "0123456789")
-            if (string.rangeOfCharacterFromSet(numSet) != nil) && textField.text!.characters.count < 10 {
+            if (string.rangeOfCharacterFromSet(numSet) != nil)   {
                 if isPopOverPresent {
                 //   dismissViewControllerAnimated(true, completion: nil)
                     isPopOverPresent = false
                 }
                 return true
-            }else {
+            }else if (string.rangeOfCharacterFromSet(numSet) == nil){
                 popupController.message = "Numbers only"
+                presentViewController(popupController, animated: true, completion: nil)
+                delayPopUpDismiss()
+                isPopOverPresent = true
+                return false
+            }
+            else if textField.text!.characters.count < 10{
+                popupController.message = "10 Numbers only"
                 presentViewController(popupController, animated: true, completion: nil)
                 delayPopUpDismiss()
                 isPopOverPresent = true
